@@ -1,6 +1,5 @@
 package tp3.view;
 
-import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
