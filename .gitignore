@@ -1,9 +1,7 @@
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
-system_execution.txt
-db_properties.txt
+**/nbproject/private/
+**/build/
+**/nbbuild/
+**/dist/
+**/nbdist/
+**/nbactions.xml
+**/nb-configuration.xml

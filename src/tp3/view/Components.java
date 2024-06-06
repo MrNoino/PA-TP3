@@ -11,30 +11,32 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Components {
+public final class Components {
+    
+    private Components(){}
 
     // Constantes usadas em toda a aplicação
     
-    final Color BACKGROUND_COLOR = new Color(255, 249, 240);
-    final Color TEXT_COLOR = new Color(62, 25, 0);
-    final Color ACCENT_COLOR = new Color(82, 132, 190);
-    final Color ON_ACCENT_COLOR = new Color(255, 252, 248);
-    final int HEADER_TEXT_SIZE = 24;
-    final int MEDIUM_TEXT_SIZE = 18;
-    final int SMALL_TEXT_SIZE = 14;
-    final int SMALL_PADDING = 8;
-    final int MEDIUM_PADDING = 12;
-    final int LARGE_PADDING = 16;
+    public static final Color BACKGROUND_COLOR = new Color(255, 249, 240);
+    public static final Color TEXT_COLOR = new Color(62, 25, 0);
+    public static final Color ACCENT_COLOR = new Color(82, 132, 190);
+    public static final Color ON_ACCENT_COLOR = new Color(255, 252, 248);
+    public static final int HEADER_TEXT_SIZE = 24;
+    public static final int MEDIUM_TEXT_SIZE = 18;
+    public static final int SMALL_TEXT_SIZE = 14;
+    public static final int SMALL_PADDING = 8;
+    public static final int MEDIUM_PADDING = 12;
+    public static final int LARGE_PADDING = 16;
 
-    public enum Alignment {
+    public static enum Alignment {
         START, TOP, CENTER, END, BOTTOM
     }
     
-    public enum Spacing{
+    public static enum Spacing{
         SMALL, MEDIUM, LARGE
     }
 
-    private int getAlignment(Alignment alignment) {
+    private static int getAlignment(Alignment alignment) {
         switch (alignment) {
             case START -> {
                 return (int) Component.LEFT_ALIGNMENT;
@@ -54,7 +56,7 @@ public class Components {
         }
     }
 
-    public JLabel getHeader(String text, Alignment alignment) {
+    public static JLabel getHeader(String text, Alignment alignment) {
         JLabel label = new JLabel(text, getAlignment(alignment));
         label.setFont(new Font("Arial", Font.PLAIN, HEADER_TEXT_SIZE));
         label.setForeground(ACCENT_COLOR);
@@ -62,19 +64,39 @@ public class Components {
         return label;
     }
 
-    public JLabel getLabel(String text) {
+    public static JLabel getLabel(String text) {
         JLabel label = new JLabel(text, getAlignment(Alignment.START));
         label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
         return label;
     }
+    
+    public static JLabel getLabel(String text, Font font) {
+        JLabel label = new JLabel(text, getAlignment(Alignment.START));
+        label.setFont(font);
+        return label;
+    }
+    
+    public static JLabel getLabel(String text, Color color) {
+        JLabel label = new JLabel(text, getAlignment(Alignment.START));
+        label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
+        label.setForeground(color);
+        return label;
+    }
+    
+    public static JLabel getLabel(String text, Font font, Color color) {
+        JLabel label = new JLabel(text, getAlignment(Alignment.START));
+        label.setFont(font);
+        label.setForeground(color);
+        return label;
+    }
 
-    public JLabel getLabel(String text, Alignment alignment) {
+    public static JLabel getLabel(String text, Alignment alignment) {
         JLabel label = new JLabel(text, getAlignment(alignment));
         label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
         return label;
     }
 
-    public JTextField getTextField(String tooltip) {
+    public static JTextField getTextField(String tooltip) {
         JTextField field = new JTextField();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
         field.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
@@ -82,7 +104,7 @@ public class Components {
         return field;
     }
 
-    public JPasswordField getPasswordField(String tooltip) {
+    public static JPasswordField getPasswordField(String tooltip) {
         JPasswordField field = new JPasswordField();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
         field.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
@@ -90,7 +112,7 @@ public class Components {
         return field;
     }
     
-    public JButton getPrimaryButton(String text){
+    public static JButton getPrimaryButton(String text){
         JButton button = new JButton(text);
         button.setBackground(ACCENT_COLOR);
         button.setForeground(ON_ACCENT_COLOR);
@@ -104,7 +126,7 @@ public class Components {
      * Get vertical spacing insets
      * @return Insets
      */
-    public Insets getVInsets(Spacing spacing){
+    public static Insets getVInsets(Spacing spacing){
         
         int size = 0;
         
@@ -123,7 +145,7 @@ public class Components {
         return new Insets(size, 0, 0, 0);
     }
     
-    public Insets getEmptyInsets(){
+    public static Insets getEmptyInsets(){
         return new Insets(0, 0, 0, 0);
     }
 }

@@ -3,7 +3,6 @@ package tp3.view;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,43 +22,43 @@ public class Login extends JFrame implements ActionListener {
 
     private Container container;
     private JButton loginButton;
+    private JFrame frame;
 
     public Login() {
-
+        this.frame = this;
         this.container = getContentPane();
         this.container.setLayout(new GridBagLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Editora");
         this.setMinimumSize(new Dimension(500, 500));
 
-        Components components = new Components();
+        this.container.setBackground(Components.BACKGROUND_COLOR);
 
-        this.container.setBackground(components.BACKGROUND_COLOR);
+        JLabel titleLabel = Components.getHeader("Iniciar Sessão", Components.Alignment.CENTER);
+        JLabel usernameLabel = Components.getLabel("Nome de Utilizador:");
+        JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
-        JLabel titleLabel = components.getHeader("Iniciar Sessão", Components.Alignment.CENTER);
-        JLabel usernameLabel = components.getLabel("Nome de Utilizador:");
-        JLabel passwordLabel = components.getLabel("Palavra Passe:");
+        JTextField usernameTextField = Components.getTextField("Insira o seu nome de utilizador");
+        JPasswordField passwordField = Components.getPasswordField("Insira a sua palavra passe");
 
-        JTextField usernameTextField = components.getTextField("Insira o seu nome de utilizador");
-        JPasswordField passwordField = components.getPasswordField("Insira a sua palavra passe");
-
-        loginButton = components.getPrimaryButton("Iniciar Sessão");
+        loginButton = Components.getPrimaryButton("Iniciar Sessão");
         loginButton.addActionListener(this);
 
-        JLabel dontHaveAccountLabel = new JLabel("Ainda não tem conta?"),
-                registerLabel = new JLabel("Registar");
-        registerLabel.setForeground(components.ACCENT_COLOR);
+        JLabel dontHaveAccountLabel = Components.getLabel("Ainda não tem conta?"),
+                registerLabel = Components.getLabel("Registar", Components.ACCENT_COLOR);
         registerLabel.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame frame = new SignupScreen();
-                frame.setSize(500, 500);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                JFrame signupFrame = new SignupScreen();
+                signupFrame.setSize(500, 500);
+                signupFrame.setLocationRelativeTo(null);
+                signupFrame.setVisible(true);
+                frame.dispose();
             }
         });
 
         JPanel registerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        registerPanel.setBackground(components.BACKGROUND_COLOR);
+        registerPanel.setBackground(Components.BACKGROUND_COLOR);
 
         registerPanel.add(dontHaveAccountLabel);
         registerPanel.add(registerLabel);
@@ -69,7 +67,7 @@ public class Login extends JFrame implements ActionListener {
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 0;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
-        gridBadConstraints.insets = components.getVInsets(Components.Spacing.LARGE);
+        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(titleLabel, gridBadConstraints);
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 1;
@@ -83,7 +81,7 @@ public class Login extends JFrame implements ActionListener {
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 3;
         gridBadConstraints.anchor = GridBagConstraints.WEST;
-        gridBadConstraints.insets = components.getVInsets(Components.Spacing.MEDIUM);
+        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.MEDIUM);
         this.container.add(passwordLabel, gridBadConstraints);
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 4;
@@ -93,7 +91,7 @@ public class Login extends JFrame implements ActionListener {
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 5;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
-        gridBadConstraints.insets = components.getVInsets(Components.Spacing.LARGE);
+        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(loginButton, gridBadConstraints);
         gridBadConstraints.gridx = 0;
         gridBadConstraints.gridy = 6;
