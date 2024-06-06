@@ -90,9 +90,9 @@ public class SignupScreen extends JFrame implements ActionListener {
         JTextField specializationField = Components.getTextField("Insira a especialização");
         JButton reviewerSignupButton = Components.getPrimaryButton("Registar");
         
-        JLabel alreadyHaveAccountLabel = Components.getLabel("Já tens conta?"),
-                loginLabel = Components.getLabel("Autenticar", Components.ACCENT_COLOR);
-        loginLabel.addMouseListener(new MouseAdapter() {
+        JLabel alreadyHaveAccountLabel1 = Components.getLabel("Já tens conta?"),
+                loginLabel1 = Components.getLabel("Autenticar", Components.ACCENT_COLOR);
+        loginLabel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JFrame signupFrame = new Login();
@@ -103,11 +103,29 @@ public class SignupScreen extends JFrame implements ActionListener {
             }
         });
         
-        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        loginPanel.setBackground(Components.BACKGROUND_COLOR);
-
-        loginPanel.add(alreadyHaveAccountLabel);
-        loginPanel.add(loginLabel);
+        JLabel alreadyHaveAccountLabel2 = Components.getLabel("Já tens conta?"),
+                loginLabel2 = Components.getLabel("Autenticar", Components.ACCENT_COLOR);
+        
+        loginLabel2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JFrame signupFrame = new Login();
+                signupFrame.setSize(500, 500);
+                signupFrame.setLocationRelativeTo(null);
+                signupFrame.setVisible(true);
+                frame.dispose();
+            }
+        });
+        
+        JPanel loginPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        loginPanel1.setBackground(Components.BACKGROUND_COLOR);
+        loginPanel1.add(alreadyHaveAccountLabel1);
+        loginPanel1.add(loginLabel1);
+        
+        JPanel loginPanel2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        loginPanel2.setBackground(Components.BACKGROUND_COLOR);
+        loginPanel2.add(alreadyHaveAccountLabel2);
+        loginPanel2.add(loginLabel2);
 
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.WEST;
@@ -190,16 +208,18 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.gridy = 15;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
-        authorPanel.add(loginPanel, constraints);
+        authorPanel.add(loginPanel1, constraints);
         constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = Components.getEmptyInsets();
         reviewerPanel.add(specializationField, constraints);
 
         constraints.gridy = 16;
         constraints.anchor = GridBagConstraints.CENTER;
+        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         reviewerPanel.add(reviewerSignupButton, constraints);
         
         constraints.gridy = 17;
-        reviewerPanel.add(loginPanel, constraints);
+        reviewerPanel.add(loginPanel2, constraints);
 
         tabbedPanel.add("Autor", authorPanel);
         tabbedPanel.add("Revisor", reviewerPanel);
