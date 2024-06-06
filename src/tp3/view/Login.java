@@ -47,7 +47,7 @@ public class Login extends JFrame implements ActionListener {
         loginButton = components.getPrimaryButton("Iniciar Sessão");
         loginButton.addActionListener(this);
 
-        JLabel dontHaveAccountLabel = new JLabel("Ainda não tens conta?"),
+        JLabel dontHaveAccountLabel = new JLabel("Ainda não tem conta?"),
                 registerLabel = new JLabel("Registar");
         registerLabel.setForeground(components.ACCENT_COLOR);
         registerLabel.addMouseListener(new MouseAdapter() {

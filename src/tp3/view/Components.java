@@ -122,4 +122,8 @@ public class Components {
         
         return new Insets(size, 0, 0, 0);
     }
+    
+    public Insets getEmptyInsets(){
+        return new Insets(0, 0, 0, 0);
+    }
 }
