@@ -113,13 +113,14 @@ public final class Components {
         return field;
     }
     
-    public static JButton getPrimaryButton(String text){
+    public static JButton getPrimaryButton(String text, String tooltip){
         JButton button = new JButton(text);
         button.setBackground(ACCENT_COLOR);
         button.setForeground(ON_ACCENT_COLOR);
         button.setFont(new Font("Arial", Font.BOLD, SMALL_TEXT_SIZE));
         button.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
         button.setFocusPainted(false);
+        button.setToolTipText(tooltip);
         return button;
     }
     

@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import tp3.controller.ManageUsers;
+import tp3.model.User;
 
 public class LoginScreen extends JFrame implements ActionListener {
 
@@ -45,7 +47,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.usernameTextField = Components.getTextField("Insira o seu nome de utilizador");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
 
-        loginButton = Components.getPrimaryButton("Iniciar Sessão");
+        loginButton = Components.getPrimaryButton("Iniciar Sessão", "Autenticar o utilizador");
         loginButton.addActionListener(this);
 
         JLabel dontHaveAccountLabel = Components.getLabel("Ainda não tem conta?"),
@@ -54,9 +56,6 @@ public class LoginScreen extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JFrame signupFrame = new SignupScreen();
-                signupFrame.setSize(500, 500);
-                signupFrame.setLocationRelativeTo(null);
-                signupFrame.setVisible(true);
                 frame.dispose();
             }
         });
@@ -96,16 +95,26 @@ public class LoginScreen extends JFrame implements ActionListener {
         gridBadConstraints.insets = new Insets(10, 0, 0, 0);
         this.container.add(registerPanel, gridBadConstraints);
 
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(loginButton)) {
-            if(this.usernameTextField.getText().isEmpty() || this.passwordField.getPassword().length == 0){
+        if (e.getSource().equals(this.loginButton)) {
+            String username = this.usernameTextField.getText(),
+                    password = new String(this.passwordField.getPassword());
+            if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this.container, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(this.container, "Login", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+            ManageUsers manageUsers = new ManageUsers();
+            User user = manageUsers.login(username, password);
+            if (user == null) {
+                JOptionPane.showMessageDialog(this.container, "Credenciais inválidas", "Aviso", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

@@ -27,7 +27,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
     public SignupScreen() {
         this.frame = this;
-        this.container = getContentPane();
+        this.container = getContentPane();        
         this.container.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Editora");
@@ -61,7 +61,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         JTextField authorPhoneField = Components.getTextField("Insira o numero de telefone");
         JLabel authorAddressLabel = Components.getLabel("Morada:");
         JTextField authorAddressField = Components.getTextField("Insira a morada");
-        JButton authorSignupButton = Components.getPrimaryButton("Registar");
+        JButton authorSignupButton = Components.getPrimaryButton("Registar", "Registar o Autor");
         JLabel literacyStyleLabel = Components.getLabel("Estilo Literário:");
         JComboBox literacyStylesComboBox = new JComboBox();
         literacyStylesComboBox.addItem("Drama");
@@ -91,7 +91,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         JTextField formationField = Components.getTextField("Insira a formação académica");
         JLabel specializationLabel = Components.getLabel("Especialização");
         JTextField specializationField = Components.getTextField("Insira a especialização");
-        JButton reviewerSignupButton = Components.getPrimaryButton("Registar");
+        JButton reviewerSignupButton = Components.getPrimaryButton("Registar", "Registar o Revisor");
         
         JLabel alreadyHaveAccountLabel1 = Components.getLabel("Já tens conta?"),
                 loginLabel1 = Components.getLabel("Autenticar", Components.ACCENT_COLOR);
@@ -99,9 +99,6 @@ public class SignupScreen extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JFrame signupFrame = new LoginScreen();
-                signupFrame.setSize(500, 500);
-                signupFrame.setLocationRelativeTo(null);
-                signupFrame.setVisible(true);
                 frame.dispose();
             }
         });
@@ -113,9 +110,6 @@ public class SignupScreen extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JFrame signupFrame = new LoginScreen();
-                signupFrame.setSize(500, 500);
-                signupFrame.setLocationRelativeTo(null);
-                signupFrame.setVisible(true);
                 frame.dispose();
             }
         });
@@ -235,6 +229,10 @@ public class SignupScreen extends JFrame implements ActionListener {
         tabbedPanel.add("Revisor", reviewerPanel);
 
         this.container.add(tabbedPanel, BorderLayout.CENTER);
+        
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override

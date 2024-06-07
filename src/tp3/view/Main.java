@@ -12,10 +12,7 @@ public class Main extends JFrame{
     private static User loggedUser;
     
     public static void main(String[] args) {   
-        JFrame frame = new LoginScreen();
-        frame.setSize(500,500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        JFrame frame = new EmailPropertiesScreen();
     }
     
     /**
