@@ -115,6 +115,22 @@ public class LoginScreen extends JFrame implements ActionListener {
                 return;
             }
             JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
+            Main.login(user);
+            JFrame userFrame;
+            switch (user.getRoleId()) {
+                case 1:
+                    userFrame = new ManagerScreen();
+                    break;
+                case 2:
+                    userFrame = new ReviewerScreen();
+                    break;
+                case 3:
+                    userFrame = new AuthorScreen();
+                    break;
+                default:
+                    break;  
+            }
+            this.dispose();
         }
     }
 

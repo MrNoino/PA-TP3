@@ -43,6 +43,9 @@ public class ManagerScreen extends JFrame implements ActionListener {
 
 
         this.container.add(tabbedPanel);
+        
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override

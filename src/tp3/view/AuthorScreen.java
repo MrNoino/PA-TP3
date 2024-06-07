@@ -38,6 +38,9 @@ public class AuthorScreen extends JFrame implements ActionListener {
         tabbedPanel.add("Perfil", profilePanel);
 
         this.container.add(tabbedPanel);
+        
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override
