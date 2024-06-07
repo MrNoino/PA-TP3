@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,19 +19,21 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Login extends JFrame implements ActionListener {
+public class LoginScreen extends JFrame implements ActionListener {
 
     private Container container;
     private JButton loginButton;
     private JFrame frame;
 
-    public Login() {
+    public LoginScreen() {
         this.frame = this;
         this.container = getContentPane();
         this.container.setLayout(new GridBagLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Editora");
         this.setMinimumSize(new Dimension(500, 500));
+        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        this.setIconImage(Components.getLogoIcon().getImage());
 
         this.container.setBackground(Components.BACKGROUND_COLOR);
 

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -31,13 +30,14 @@ public class SignupScreen extends JFrame implements ActionListener {
         this.container.setLayout(new FlowLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Registo");
-        this.setMinimumSize(new Dimension(500, 500));
+        this.setMinimumSize(new Dimension(800, 800));
+        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        this.setIconImage(Components.getLogoIcon().getImage());
 
         this.container.setBackground(Components.BACKGROUND_COLOR);
 
         JTabbedPane tabbedPanel = new JTabbedPane();
-        //tabbedPanel.setPreferredSize(this.getSize());
-        tabbedPanel.setPreferredSize(new Dimension(this.getWidth(),600));
+        tabbedPanel.setPreferredSize(new Dimension(500,600));
         
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -61,13 +61,13 @@ public class SignupScreen extends JFrame implements ActionListener {
         JButton authorSignupButton = Components.getPrimaryButton("Registar");
         JLabel literacyStyleLabel = Components.getLabel("Estilo Literário:");
         JComboBox literacyStylesComboBox = new JComboBox();
-        literacyStylesComboBox.setSize(500, literacyStylesComboBox.getHeight());
         literacyStylesComboBox.addItem("Drama");
         literacyStylesComboBox.addItem("Ação");
         literacyStylesComboBox.addItem("Ficção Cientifica");
         literacyStylesComboBox.addItem("Romance");
         literacyStylesComboBox.addItem("Comedia");
         literacyStylesComboBox.addItem("Artigo Cientifico");
+        literacyStylesComboBox.setSize(500, 50);
 
         // Reviewer Fields
         JPanel reviewerPanel = new JPanel(new GridBagLayout());
@@ -95,7 +95,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         loginLabel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame signupFrame = new Login();
+                JFrame signupFrame = new LoginScreen();
                 signupFrame.setSize(500, 500);
                 signupFrame.setLocationRelativeTo(null);
                 signupFrame.setVisible(true);
@@ -109,7 +109,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         loginLabel2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame signupFrame = new Login();
+                JFrame signupFrame = new LoginScreen();
                 signupFrame.setSize(500, 500);
                 signupFrame.setLocationRelativeTo(null);
                 signupFrame.setVisible(true);
@@ -194,7 +194,9 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 13;
         constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         authorPanel.add(literacyStylesComboBox, constraints);
+        constraints.fill = GridBagConstraints.NONE;
         reviewerPanel.add(formationField, constraints);
 
         constraints.gridy = 14;

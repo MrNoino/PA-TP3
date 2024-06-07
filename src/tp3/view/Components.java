@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -147,5 +148,9 @@ public final class Components {
     
     public static Insets getEmptyInsets(){
         return new Insets(0, 0, 0, 0);
+    }
+    
+    public static ImageIcon getLogoIcon(){
+        return new ImageIcon("src/tp3/assets/editora.jpeg");
     }
 }
