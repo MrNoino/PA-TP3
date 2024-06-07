@@ -10,17 +10,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class ManagerScreen extends JFrame implements ActionListener {
+public class ReviewerScreen extends JFrame implements ActionListener {
 
     private Container container;
     private JFrame frame;
 
-    public ManagerScreen() {
+    public ReviewerScreen() {
         this.frame = this;
         this.container = getContentPane();
         this.container.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Manager");
+        this.setTitle("Revisor");
         this.setMinimumSize(new Dimension(800, 800));
         setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setIconImage(Components.getLogoIcon().getImage());
@@ -29,18 +29,13 @@ public class ManagerScreen extends JFrame implements ActionListener {
         JTabbedPane tabbedPanel = new JTabbedPane();
         GridBagConstraints constraints = new GridBagConstraints();
 
-        JPanel usersPanel = new JPanel();
-        JPanel reviewsPanel = new JPanel();
-        JPanel licensesPanel = new JPanel();
-        JPanel logsPanel = new JPanel();
+        JPanel reviewRequestsPanel = new JPanel();
+        JPanel reviewBooksPanel = new JPanel();
         JPanel profilePanel = new JPanel();
 
-        tabbedPanel.add("Utilizadores", usersPanel);
-        tabbedPanel.add("Pedidos de Revisão", reviewsPanel);
-        tabbedPanel.add("Licenças", licensesPanel);
-        tabbedPanel.add("Auditoria", logsPanel);
+        tabbedPanel.add("Pedidos de Revisão", reviewRequestsPanel);
+        tabbedPanel.add("Rever Obra", reviewBooksPanel);
         tabbedPanel.add("Perfil", profilePanel);
-
 
         this.container.add(tabbedPanel);
     }
