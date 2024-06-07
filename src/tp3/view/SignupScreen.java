@@ -1,5 +1,6 @@
 package tp3.view;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,9 +28,9 @@ public class SignupScreen extends JFrame implements ActionListener {
     public SignupScreen() {
         this.frame = this;
         this.container = getContentPane();
-        this.container.setLayout(new FlowLayout());
+        this.container.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Registo");
+        this.setTitle("Editora");
         this.setMinimumSize(new Dimension(800, 800));
         setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setIconImage(Components.getLogoIcon().getImage());
@@ -37,8 +38,10 @@ public class SignupScreen extends JFrame implements ActionListener {
         this.container.setBackground(Components.BACKGROUND_COLOR);
 
         JTabbedPane tabbedPanel = new JTabbedPane();
-        tabbedPanel.setPreferredSize(new Dimension(500,600));
+        //tabbedPanel.setPreferredSize(new Dimension(500,600));
         
+        JLabel titleAuthorLabel = Components.getHeader("Registo de Autor", Components.Alignment.CENTER),
+                titleReviewerLabel = Components.getHeader("Registo de Revisor", Components.Alignment.CENTER);        
 
         GridBagConstraints constraints = new GridBagConstraints();
         
@@ -128,78 +131,83 @@ public class SignupScreen extends JFrame implements ActionListener {
         loginPanel2.add(loginLabel2);
 
         constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.CENTER;
+        authorPanel.add(titleAuthorLabel, constraints);
+        reviewerPanel.add(titleReviewerLabel, constraints);
+        
+        constraints.gridy = 1;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorNameLabel, constraints);
         reviewerPanel.add(reviewerNameLabel, constraints);
 
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorNameField, constraints);
         reviewerPanel.add(reviewerNameField, constraints);
 
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorUsernameLabel, constraints);
         reviewerPanel.add(reviewerUsernameLabel, constraints);
 
-        constraints.gridy = 3;
+        constraints.gridy = 4;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorUsernameField, constraints);
         reviewerPanel.add(reviewerUsernameField, constraints);
 
-        constraints.gridy = 4;
+        constraints.gridy = 5;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorPasswordLabel, constraints);
         reviewerPanel.add(reviewerPasswordLabel, constraints);
 
-        constraints.gridy = 5;
+        constraints.gridy = 6;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorPasswordField, constraints);
         reviewerPanel.add(reviewerPasswordField, constraints);
 
-        constraints.gridy = 6;
+        constraints.gridy = 7;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorNifLabel, constraints);
         reviewerPanel.add(reviewerNifLabel, constraints);
 
-        constraints.gridy = 7;
+        constraints.gridy = 8;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorNifField, constraints);
         reviewerPanel.add(reviewerNifField, constraints);
 
-        constraints.gridy = 8;
+        constraints.gridy = 9;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorPhoneLabel, constraints);
         reviewerPanel.add(reviewerPhoneLabel, constraints);
 
-        constraints.gridy = 9;
+        constraints.gridy = 10;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorPhoneField, constraints);
         reviewerPanel.add(reviewerPhoneField, constraints);
 
-        constraints.gridy = 10;
+        constraints.gridy = 11;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorAddressLabel, constraints);
         reviewerPanel.add(reviewerAddressLabel, constraints);
 
-        constraints.gridy = 11;
+        constraints.gridy = 12;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorAddressField, constraints);
         reviewerPanel.add(reviewerAddressField, constraints);
 
-        constraints.gridy = 12;
+        constraints.gridy = 13;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(literacyStyleLabel, constraints);
         reviewerPanel.add(formationLabel, constraints);
 
-        constraints.gridy = 13;
+        constraints.gridy = 14;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         authorPanel.add(literacyStylesComboBox, constraints);
         constraints.fill = GridBagConstraints.NONE;
         reviewerPanel.add(formationField, constraints);
 
-        constraints.gridy = 14;
+        constraints.gridy = 15;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         authorPanel.add(authorSignupButton, constraints);
@@ -207,7 +215,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.anchor = GridBagConstraints.WEST;
         reviewerPanel.add(specializationLabel, constraints);
 
-        constraints.gridy = 15;
+        constraints.gridy = 16;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         authorPanel.add(loginPanel1, constraints);
@@ -215,18 +223,18 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.insets = Components.getEmptyInsets();
         reviewerPanel.add(specializationField, constraints);
 
-        constraints.gridy = 16;
+        constraints.gridy = 17;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         reviewerPanel.add(reviewerSignupButton, constraints);
         
-        constraints.gridy = 17;
+        constraints.gridy = 18;
         reviewerPanel.add(loginPanel2, constraints);
 
         tabbedPanel.add("Autor", authorPanel);
         tabbedPanel.add("Revisor", reviewerPanel);
 
-        this.container.add(tabbedPanel);
+        this.container.add(tabbedPanel, BorderLayout.CENTER);
     }
 
     @Override
