@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import tp3.controller.ManageLiteraryStyles;
 
 public class SignupScreen extends JFrame implements ActionListener {
 
@@ -63,14 +64,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         JTextField authorAddressField = Components.getTextField("Insira a morada");
         JButton authorSignupButton = Components.getPrimaryButton("Registar", "Registar o Autor");
         JLabel literacyStyleLabel = Components.getLabel("Estilo Literário:");
-        JComboBox literacyStylesComboBox = new JComboBox();
-        literacyStylesComboBox.addItem("Drama");
-        literacyStylesComboBox.addItem("Ação");
-        literacyStylesComboBox.addItem("Ficção Cientifica");
-        literacyStylesComboBox.addItem("Romance");
-        literacyStylesComboBox.addItem("Comedia");
-        literacyStylesComboBox.addItem("Artigo Cientifico");
-        literacyStylesComboBox.setSize(500, 50);
+        JComboBox literacyStylesComboBox = Components.getComboBox(new ManageLiteraryStyles().toArray(), "Escolha o estilo literário");
 
         // Reviewer Fields
         JPanel reviewerPanel = new JPanel(new GridBagLayout());
@@ -203,7 +197,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 15;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         authorPanel.add(authorSignupButton, constraints);
         constraints.insets = Components.getEmptyInsets();
         constraints.anchor = GridBagConstraints.WEST;
@@ -211,7 +205,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 16;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         authorPanel.add(loginPanel1, constraints);
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = Components.getEmptyInsets();
@@ -219,7 +213,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 17;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         reviewerPanel.add(reviewerSignupButton, constraints);
         
         constraints.gridy = 18;

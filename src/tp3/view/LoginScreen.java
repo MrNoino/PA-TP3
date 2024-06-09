@@ -25,7 +25,7 @@ public class LoginScreen extends JFrame implements ActionListener {
     private Container container;
     private JButton loginButton;
     private JFrame frame;
-    private JTextField usernameTextField;
+    private JTextField usernameField;
     private JPasswordField passwordField;
 
     public LoginScreen() {
@@ -44,8 +44,10 @@ public class LoginScreen extends JFrame implements ActionListener {
         JLabel usernameLabel = Components.getLabel("Nome de Utilizador:");
         JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
-        this.usernameTextField = Components.getTextField("Insira o seu nome de utilizador");
+        this.usernameField = Components.getTextField("Insira o seu nome de utilizador");
+        this.usernameField.setText("nuno");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
+        this.passwordField.setText("pass");
 
         loginButton = Components.getPrimaryButton("Iniciar Sessão", "Autenticar o utilizador");
         loginButton.addActionListener(this);
@@ -69,7 +71,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         GridBagConstraints gridBadConstraints = new GridBagConstraints();
         gridBadConstraints.gridy = 0;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
-        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        gridBadConstraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(titleLabel, gridBadConstraints);
         gridBadConstraints.gridy = 1;
         gridBadConstraints.anchor = GridBagConstraints.WEST;
@@ -77,10 +79,10 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.container.add(usernameLabel, gridBadConstraints);
         gridBadConstraints.gridy = 2;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
-        this.container.add(this.usernameTextField, gridBadConstraints);
+        this.container.add(this.usernameField, gridBadConstraints);
         gridBadConstraints.gridy = 3;
         gridBadConstraints.anchor = GridBagConstraints.WEST;
-        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.MEDIUM);
+        gridBadConstraints.insets = Components.getTopInsets(Components.Spacing.MEDIUM);
         this.container.add(passwordLabel, gridBadConstraints);
         gridBadConstraints.gridy = 4;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
@@ -88,7 +90,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.container.add(this.passwordField, gridBadConstraints);
         gridBadConstraints.gridy = 5;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
-        gridBadConstraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        gridBadConstraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(loginButton, gridBadConstraints);
         gridBadConstraints.gridy = 6;
         gridBadConstraints.anchor = GridBagConstraints.CENTER;
@@ -97,12 +99,13 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        //this.loginButton.doClick();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.loginButton)) {
-            String username = this.usernameTextField.getText(),
+            String username = this.usernameField.getText(),
                     password = new String(this.passwordField.getPassword());
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this.container, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -114,7 +117,7 @@ public class LoginScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this.container, "Credenciais inválidas", "Aviso", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
             Main.login(user);
             JFrame userFrame;
             switch (user.getRoleId()) {

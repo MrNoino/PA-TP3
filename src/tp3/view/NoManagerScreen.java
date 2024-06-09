@@ -58,22 +58,18 @@ public class NoManagerScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(titleLabel, constraints);
 
         constraints.gridy = 1;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(nameLabel, constraints);
 
         constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getEmptyInsets();
         this.container.add(nameField, constraints);
 
         constraints.gridy = 3;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(usernameLabel, constraints);
 
         constraints.gridy = 4;
@@ -83,27 +79,23 @@ public class NoManagerScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 5;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(passwordLabel, constraints);
 
         constraints.gridy = 6;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getEmptyInsets();
         this.container.add(passwordField, constraints);
 
         constraints.gridy = 7;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.container.add(emailLabel, constraints);
 
         constraints.gridy = 8;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getEmptyInsets();
         this.container.add(emailField, constraints);
 
         constraints.gridy = 9;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(signupButton, constraints);
 
         this.setLocationRelativeTo(null);

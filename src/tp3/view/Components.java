@@ -8,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -56,6 +57,14 @@ public final class Components {
             }
         }
     }
+    
+    public static int getSpacing(Spacing spacing){
+        return switch (spacing) {
+            case SMALL -> SMALL_PADDING;
+            case MEDIUM -> MEDIUM_PADDING;
+            default -> LARGE_PADDING;
+        };
+    }
 
     public static JLabel getHeader(String text, Alignment alignment) {
         JLabel label = new JLabel(text, getAlignment(alignment));
@@ -98,9 +107,13 @@ public final class Components {
     }
 
     public static JTextField getTextField(String tooltip) {
+        return getTextField(new Dimension(300, MEDIUM_PADDING * 2), tooltip);
+    }
+    
+    public static JTextField getTextField(Dimension size, String tooltip) {
         JTextField field = new JTextField();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
-        field.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
+        field.setPreferredSize(size);
         field.setToolTipText(tooltip);
         return field;
     }
@@ -111,6 +124,20 @@ public final class Components {
         field.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
         field.setToolTipText(tooltip);
         return field;
+    }
+    
+    public static JComboBox getComboBox(String tooltip){
+        JComboBox comboBox = new JComboBox();
+        comboBox.setSize(500, 50);
+        comboBox.setToolTipText(tooltip);
+        return comboBox;
+    }
+    
+    public static JComboBox getComboBox(Object[] items, String tooltip){
+        JComboBox comboBox = new JComboBox(items);
+        comboBox.setSize(500, 50);
+        comboBox.setToolTipText(tooltip);
+        return comboBox;
     }
     
     public static JButton getPrimaryButton(String text, String tooltip){
@@ -124,27 +151,41 @@ public final class Components {
         return button;
     }
     
+    public static JButton getSecondaryButton(String text, String tooltip){
+        return getSecondaryButton(text, new Dimension(100, MEDIUM_PADDING * 2), tooltip);
+    }
+    
+    public static JButton getSecondaryButton(String text, Dimension size, String tooltip){
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.BOLD, SMALL_TEXT_SIZE));
+        button.setPreferredSize(size);
+        button.setFocusPainted(false);
+        button.setToolTipText(tooltip);
+        return button;
+    }
+    
+    
+    
+    /**
+     * Get top spacing insets
+     * @return Insets
+     */
+    public static Insets getTopInsets(Spacing spacing){
+        
+        int size = getSpacing(spacing);
+        
+        return new Insets(size, 0, 0, 0);
+    }
+    
     /**
      * Get vertical spacing insets
      * @return Insets
      */
     public static Insets getVInsets(Spacing spacing){
         
-        int size = 0;
+        int size = getSpacing(spacing);
         
-        switch(spacing){
-            case SMALL:
-                size = SMALL_PADDING;
-                break;
-            case MEDIUM:
-                size = MEDIUM_PADDING;
-                break;
-            default:
-                size = LARGE_PADDING;
-                break;
-        }
-        
-        return new Insets(size, 0, 0, 0);
+        return new Insets(size, 0, size, 0);
     }
     
     public static Insets getEmptyInsets(){

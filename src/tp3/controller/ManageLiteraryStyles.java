@@ -32,7 +32,7 @@ public class ManageLiteraryStyles {
         ResultSet resultSet = dbWrapper.query("SELECT * FROM get_literary_styles;");
         try {
             if(resultSet == null)
-                return null;
+                return this.literacyStyles;
             if (Main.getLoggedUser() != null) {
                 new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
                         new SimpleDateFormat("yyyy-mm-dd").format(new java.util.Date()),
@@ -49,5 +49,18 @@ public class ManageLiteraryStyles {
         }
         
         return this.literacyStyles;
+    }
+    
+    /**
+     * Gets the literary styles from the database
+     * @return A list of literacy styles
+     */
+    public LiteraryStyle[] toArray() {
+        this.getLiteraryStyles();
+        LiteraryStyle[] ls = new LiteraryStyle[this.literacyStyles.size()];
+        for(int i = 0; i < this.literacyStyles.size(); i++){
+            ls[i] = this.literacyStyles.get(i);
+        }
+        return ls;
     }
 }

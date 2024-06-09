@@ -56,12 +56,12 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(titleLabel, constraints);
 
         constraints.gridy = 1;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(emailLabel, constraints);
 
         constraints.gridy = 2;
@@ -71,7 +71,7 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 3;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(passwordLabel, constraints);
 
         constraints.gridy = 4;
@@ -81,7 +81,7 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 5;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
+        constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         this.container.add(this.saveButton, constraints);
 
         this.setLocationRelativeTo(null);
