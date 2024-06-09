@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,20 +22,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageLiteraryStyles;
+import tp3.controller.ManageUsers;
+import tp3.model.User;
 
 public class ManagerScreen extends JFrame implements ActionListener, ItemListener {
 
     private Container container;
     private JFrame frame;
-    private JTextField nameField, usernameField, emailField, nifField, phoneField, addressField, graduationField, specializationField;
+    private JTextField nameField, usernameField, emailField, nifField, phoneField, addressField, graduationField, specializationField, viewUsersSearchField;
     private JPasswordField passwordField;
-    private JComboBox literacyStylesComboBox;
-    private JButton addUserButton;
+    private JComboBox literacyStylesComboBox, viewUsersSearchCombobox;
+    private JButton addUserButton, viewUsersSearchButton;
     ButtonGroup userRoleGroup;
     private JRadioButton managerRadio, authorRadio, reviewerRadio;
     private JPanel userRolePanel, addUserPanel;
     private JTable viewUsersTable;
+    private String[] columnNames;
 
     public ManagerScreen() {
         this.frame = this;
@@ -73,30 +78,37 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
         this.reviewerRadio.addItemListener(this);
 
         this.userRoleGroup = new ButtonGroup();
-        userRoleGroup.add(managerRadio);
-        userRoleGroup.add(authorRadio);
-        userRoleGroup.add(reviewerRadio);
+        this.userRoleGroup.add(this.managerRadio);
+        this.userRoleGroup.add(this.authorRadio);
+        this.userRoleGroup.add(this.reviewerRadio);
 
         this.userRolePanel = new JPanel(new FlowLayout());
-        this.userRolePanel.add(managerRadio);
-        this.userRolePanel.add(authorRadio);
-        this.userRolePanel.add(reviewerRadio);
-        
+        this.userRolePanel.add(this.managerRadio);
+        this.userRolePanel.add(this.authorRadio);
+        this.userRolePanel.add(this.reviewerRadio);
+
         this.redesignAddUserPanel("Gestor");
-        
+
         JScrollPane addUserScrollPanel = new JScrollPane(this.addUserPanel);
         this.addUserPanel.setAutoscrolls(true);
-        
-        JTextField viewUsersSearchField = Components.getTextField(new Dimension(250, Components.getSpacing(Components.Spacing.MEDIUM) *2),"Insira a pesquisa");
-        JButton viewUsersSearchButton = Components.getSecondaryButton("Pesquisar", new Dimension(125, Components.getSpacing(Components.Spacing.MEDIUM) *2),"Pesquisar utilizadores");
+
+        this.viewUsersSearchField = Components.getTextField(new Dimension(250, Components.getSpacing(Components.Spacing.MEDIUM) * 2), "Insira a pesquisa");
+        this.viewUsersSearchCombobox = Components.getComboBox(new String[]{"Nome", "Nome de Utilizador", "Tipo de Utilizador"}, "Escolha o campo a pesquisar");
+        this.viewUsersSearchButton = Components.getSecondaryButton("Pesquisar", new Dimension(125, Components.getSpacing(Components.Spacing.MEDIUM) * 2), "Pesquisar utilizadores");
+        this.viewUsersSearchButton.addActionListener(this);
         JPanel viewUsersSearchPanel = new JPanel(new FlowLayout());
         viewUsersSearchPanel.add(viewUsersSearchField);
+        viewUsersSearchPanel.add(viewUsersSearchCombobox);
         viewUsersSearchPanel.add(viewUsersSearchButton);
 
-        String[] columnNames = new String[]{"ID", "Nome"};
-        this.viewUsersTable = new JTable(new Object[][]{}, columnNames);
+        columnNames = new String[]{"ID", "Nome", "Nome de Utilizador", "Email", "Ativo", "Eliminado", "ID do Tipo"};
+        ManageUsers manageUsers = new ManageUsers();
+        manageUsers.getUsers();
+        this.viewUsersTable = new JTable(manageUsers.toArray(), columnNames);
+        this.viewUsersTable.setAutoCreateRowSorter(true);
+        this.viewUsersTable.setDefaultEditor(Object.class, null);
         JScrollPane viewUsersTableScroll = new JScrollPane(this.viewUsersTable);
-        
+
         viewUsersPanel.add(viewUsersSearchPanel, BorderLayout.NORTH);
         viewUsersPanel.add(viewUsersTableScroll, BorderLayout.CENTER);
 
@@ -118,12 +130,31 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == this.viewUsersSearchButton){
+            String item = (String) this.viewUsersSearchCombobox.getSelectedItem();
+            ManageUsers manageUsers = new ManageUsers();
+            switch (item) {
+                case "Nome":
+                    manageUsers.getUsersByName(this.viewUsersSearchField.getText());
+                    break;
+                case "Nome de Utilizador":
+                    manageUsers.getUsersByUsername(this.viewUsersSearchField.getText());
+                    break;
 
+                case "Tipo de Utilizador":
+                    manageUsers.getUsersByRole(this.viewUsersSearchField.getText());
+                    break;
+                default:
+                    return;   
+            }
+            DefaultTableModel tableModel = (DefaultTableModel) new DefaultTableModel(manageUsers.toArray(), this.columnNames);
+            this.viewUsersTable.setModel(tableModel);
+        }
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == 1) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
             if (e.getSource() == this.managerRadio) {
                 this.redesignAddUserPanel(this.managerRadio.getText());
             } else if (e.getSource() == this.authorRadio) {
@@ -183,11 +214,11 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
         this.addUserPanel.add(this.userRolePanel, constraints);
 
         int gridy = 10;
-        if(!userRole.equals("Gestor")){
+        if (!userRole.equals("Gestor")) {
             this.nifField = Components.getTextField("Insira o NIF");
             this.phoneField = Components.getTextField("Insira o Telefone");
             this.addressField = Components.getTextField("Insira a morada");
-            
+
             constraints.gridy = gridy += 1;
             constraints.anchor = GridBagConstraints.WEST;
             this.addUserPanel.add(Components.getLabel("NIF:"), constraints);
@@ -211,11 +242,11 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
             constraints.gridy = gridy += 1;
             constraints.anchor = GridBagConstraints.CENTER;
             this.addUserPanel.add(this.addressField, constraints);
-                
-            if(userRole.equals("Autor")){
-                
+
+            if (userRole.equals("Autor")) {
+
                 this.literacyStylesComboBox = Components.getComboBox(new ManageLiteraryStyles().toArray(), "Escolha o estilo literário");
-                
+
                 constraints.gridy = gridy += 1;
                 constraints.anchor = GridBagConstraints.WEST;
                 this.addUserPanel.add(Components.getLabel("Estilo Literário:"), constraints);
@@ -225,10 +256,10 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
                 constraints.fill = GridBagConstraints.HORIZONTAL;
                 this.addUserPanel.add(this.literacyStylesComboBox, constraints);
 
-            }else if(userRole.equals("Revisor")){
+            } else if (userRole.equals("Revisor")) {
                 this.graduationField = Components.getTextField("Insira a graduação");
                 this.specializationField = Components.getTextField("Insira a especialização");
-                
+
                 constraints.gridy = gridy += 1;
                 constraints.anchor = GridBagConstraints.WEST;
                 this.addUserPanel.add(Components.getLabel("Graduação:"), constraints);
@@ -236,7 +267,7 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
                 constraints.gridy = gridy += 1;
                 constraints.anchor = GridBagConstraints.CENTER;
                 this.addUserPanel.add(this.graduationField, constraints);
-                
+
                 constraints.gridy = gridy += 1;
                 constraints.anchor = GridBagConstraints.WEST;
                 this.addUserPanel.add(Components.getLabel("Especialização:"), constraints);
@@ -244,11 +275,11 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
                 constraints.gridy = gridy += 1;
                 constraints.anchor = GridBagConstraints.CENTER;
                 this.addUserPanel.add(this.specializationField, constraints);
-                
+
             }
         }
-        
-        constraints.gridy = gridy+1;
+
+        constraints.gridy = gridy + 1;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getVInsets(Components.Spacing.LARGE);
         this.addUserPanel.add(this.addUserButton, constraints);

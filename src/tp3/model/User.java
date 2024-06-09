@@ -202,5 +202,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    /**
+     * Get User as an Array
+     *
+     * @return an array that represents an User
+     */
+    public Object[] toArray() {
+        return new Object[]{this.id, this.name, this.username, this.email, (this.active) ? "Sim" : "Não", (this.deleted ) ? "Sim" : "Não", this.roleId};
+    }
 
 }

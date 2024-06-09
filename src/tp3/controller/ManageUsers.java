@@ -182,16 +182,14 @@ public class ManageUsers {
     }
 
     /**
-     * Get users from database by defining sorting order of the name and page
+     * Get users from database
      *
-     * @param sortOrder sorting order of the name
-     * @param page page to be retrieve
      * @return a list of users
      */
-    public ArrayList<User> getUsers(String sortOrder, int page) {
+    public ArrayList<User> getUsers() {
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
-        ResultSet resultSet = dbWrapper.query("CALL get_users_paginated(?, ?);", new Object[]{sortOrder, page});
+        ResultSet resultSet = dbWrapper.query("SELECT * FROM get_users;");
         try {
             if (resultSet == null) {
                 return null;
@@ -216,7 +214,6 @@ public class ManageUsers {
             System.out.println("\nErro ao obter os utilizadores\n");
         }
         return null;
-
     }
 
     /**
@@ -341,5 +338,19 @@ public class ManageUsers {
                     "Eliminou Utilizador (ID: " + id + ")"));
         }
         return updated;
+    }
+    
+    /**
+     * Deletes a user from the database
+     * @param id The user id
+     * @return Confirms if the user was deleted
+     */
+    public Object[][] toArray() {
+        Object[][] u = new Object[this.users.size()][7];
+        
+        for(int i = 0; i < this.users.size(); i++)
+            u[i] = this.users.get(i).toArray();
+        
+        return u;
     }
 }
