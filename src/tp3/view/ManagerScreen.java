@@ -10,11 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -23,9 +25,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import tp3.controller.ManageAuthors;
 import tp3.controller.ManageLiteraryStyles;
+import tp3.controller.ManageManagers;
+import tp3.controller.ManageReviewers;
 import tp3.controller.ManageUsers;
-import tp3.model.User;
+import tp3.model.Author;
+import tp3.model.LiteraryStyle;
+import tp3.model.Manager;
+import tp3.model.Reviewer;
 
 public class ManagerScreen extends JFrame implements ActionListener, ItemListener {
 
@@ -130,7 +138,7 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.viewUsersSearchButton){
+        if (e.getSource() == this.viewUsersSearchButton) {
             String item = (String) this.viewUsersSearchCombobox.getSelectedItem();
             ManageUsers manageUsers = new ManageUsers();
             switch (item) {
@@ -145,10 +153,75 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
                     manageUsers.getUsersByRole(this.viewUsersSearchField.getText());
                     break;
                 default:
-                    return;   
+                    return;
             }
             DefaultTableModel tableModel = (DefaultTableModel) new DefaultTableModel(manageUsers.toArray(), this.columnNames);
             this.viewUsersTable.setModel(tableModel);
+        } else if (e.getSource() == this.addUserButton) {
+            if (this.nameField.getText().isEmpty() || this.usernameField.getText().isEmpty() || this.passwordField.getPassword().length == 0 || this.emailField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            boolean inserted = false;
+            if (this.managerRadio.isSelected()) {
+                inserted = new ManageManagers().insertManager(new Manager(-1,
+                        this.nameField.getText(),
+                        this.usernameField.getText(),
+                        new String(this.passwordField.getPassword()),
+                        this.emailField.getText(),
+                        true,
+                        false,
+                        1));
+            } else {
+
+                if (this.nifField.getText().isEmpty() || this.phoneField.getText().isEmpty() || this.addressField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                    return;
+                }
+
+                if (this.authorRadio.isSelected()) {
+                    inserted = new ManageAuthors().insertAuthor(new Author(-1,
+                            this.nameField.getText(),
+                            this.usernameField.getText(),
+                            new String(this.passwordField.getPassword()),
+                            this.emailField.getText(),
+                            true,
+                            false,
+                            3,
+                            this.nifField.getText(),
+                            this.phoneField.getText(),
+                            this.addressField.getText(),
+                            new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+                            1));
+                } else {
+                    if (this.graduationField.getText().isEmpty() || this.specializationField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                        return;
+                    }
+                    inserted = new ManageReviewers().insertReviewer(new Reviewer(-1,
+                            this.nameField.getText(),
+                            this.usernameField.getText(),
+                            new String(this.passwordField.getPassword()),
+                            this.emailField.getText(),
+                            true,
+                            false,
+                            2,
+                            this.nifField.getText(),
+                            this.phoneField.getText(),
+                            this.addressField.getText(),
+                            this.graduationField.getText(),
+                            this.specializationField.getText()));
+                }
+            }
+            if (inserted) {
+                JOptionPane.showMessageDialog(this.frame, "Inserido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE, null);
+                this.nameField.setText("");this.usernameField.setText("");this.passwordField.setText("");this.emailField.setText("");this.nifField.setText("");
+                this.phoneField.setText("");this.addressField.setText("");this.graduationField.setText("");this.specializationField.setText("");
+                if(this.literacyStylesComboBox != null)
+                    this.literacyStylesComboBox.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this.frame, "Não inserido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            }
         }
     }
 
@@ -167,6 +240,7 @@ public class ManagerScreen extends JFrame implements ActionListener, ItemListene
 
     private void redesignAddUserPanel(String userRole) {
         this.addUserButton = Components.getPrimaryButton("Inserir", "Inserir o " + userRole);
+        this.addUserButton.addActionListener(this);
         GridBagConstraints constraints = new GridBagConstraints();
         this.addUserPanel.removeAll();
         constraints.gridy = 0;
