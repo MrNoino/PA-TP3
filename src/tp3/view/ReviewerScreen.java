@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import tp3.controller.ManageReviews;
 
 public class ReviewerScreen extends JFrame implements ActionListener {
 
@@ -41,6 +43,10 @@ public class ReviewerScreen extends JFrame implements ActionListener {
         
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        
+        ManageReviews manageReviews = new ManageReviews();
+        //ArrayList<Review> reviews = manageReviews.get
+        
     }
 
     @Override

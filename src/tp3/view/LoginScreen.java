@@ -131,10 +131,9 @@ public class LoginScreen extends JFrame implements ActionListener {
                     userFrame = new AuthorScreen();
                     break;
                 default:
-                    break;  
+                    break;
             }
             this.dispose();
         }
     }
-
 }
