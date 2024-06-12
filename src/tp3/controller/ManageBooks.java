@@ -340,4 +340,13 @@ public class ManageBooks {
         }
         return updated;
     }
+    
+    public Object[] toArray(){
+        Book[] ls = new Book[this.books.size()];
+        for(int i = 0; i < this.books.size(); i++){
+            ls[i] = this.books.get(i);
+        }
+        return ls;
+    }
+    
 }
