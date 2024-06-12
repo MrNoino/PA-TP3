@@ -2,7 +2,7 @@ USE `PA_TP` ;
 
 DROP VIEW IF EXISTS `PA_TP`.`get_users` ;
 CREATE VIEW get_users AS
-SELECT id, name, username, active, deleted, role_id as "roleId"
+SELECT id, name, username, email, active, deleted, role_id
 FROM users;
 
 DROP VIEW IF EXISTS `PA_TP`.`get_managers` ;
