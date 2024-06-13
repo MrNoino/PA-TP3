@@ -92,7 +92,7 @@ DELIMITER $$
 CREATE PROCEDURE `update_license_quantity`(IN a_id INT, IN a_quantity INT)
 BEGIN
 	UPDATE licenses
-    SET quantity = IF((quantity + a_quantity) >= 0, (quantity + a_quantity), quantity)
+    SET quantity = a_quantity
     WHERE id = a_id;
 END$$
 DELIMITER ;

@@ -54,6 +54,35 @@ public class ManageLicenses {
         }
         return null;
     }
+    
+    /**
+     * Gets a license from the database
+     * @param id id to search
+     * @return A license
+     */
+    public License getLicense(int id) {
+        DbWrapper dbWrapper = new DbWrapper();
+        dbWrapper.connect();
+        ResultSet resultSet = dbWrapper.query("CALL get_license(?);", new Object[]{id});
+        try {
+            if (resultSet == null || !resultSet.next()) {
+                return null;
+            }
+            if (Main.getLoggedUser() != null) {
+                new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
+                        new SimpleDateFormat("yyyy-mm-dd").format(new java.util.Date()),
+                        "Pesquisou Licença (ID: " + id + ")"));
+            }
+            return new License(resultSet.getInt("id"),
+                        resultSet.getString("designation"),
+                        resultSet.getString("expire_date"),
+                        resultSet.getInt("quantity"));
+
+        } catch (SQLException e) {
+            System.out.println("\nErro ao obter a licença");
+        }
+        return null;
+    }
 
     /**
      * Insert a license in the database
@@ -90,5 +119,18 @@ public class ManageLicenses {
                     "Autalizou Licença (ID: " + licenseId + ")"));
         }
         return updated;
+    }
+    
+    /**
+     * Converts the arraylist of licenses into an array of objects
+     * @return the array of licenses
+     */
+    public Object[][] toArray() {
+        Object[][] l = new Object[this.licenses.size()][4];
+        
+        for(int i = 0; i < this.licenses.size(); i++)
+            l[i] = this.licenses.get(i).toArray();
+        
+        return l;
     }
 }

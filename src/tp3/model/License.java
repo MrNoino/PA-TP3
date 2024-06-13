@@ -86,5 +86,13 @@ public class License {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    /**
+     * License as an array
+     * @return an array of objects
+     */
+    public Object[] toArray() {
+        return new Object[]{this.id, this.designation, this.expireDate, this.quantity};
+    }
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 public final class Components {
@@ -114,6 +115,18 @@ public final class Components {
     
     public static JTextField getTextField(Dimension size, String tooltip) {
         JTextField field = new JTextField();
+        field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
+        field.setPreferredSize(size);
+        field.setToolTipText(tooltip);
+        return field;
+    }
+    
+    public static JSpinner getSpinner(String tooltip) {
+        return getSpinner(new Dimension(300, MEDIUM_PADDING * 2), tooltip);
+    }
+    
+    public static JSpinner getSpinner(Dimension size, String tooltip) {
+        JSpinner field = new JSpinner();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
         field.setPreferredSize(size);
         field.setToolTipText(tooltip);

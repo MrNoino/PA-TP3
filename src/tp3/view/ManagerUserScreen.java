@@ -107,19 +107,18 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.viewUsersTable.setDefaultEditor(Object.class, null);
         this.viewUsersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel selectionModel = this.viewUsersTable.getSelectionModel();
+        selectionModel.addListSelectionListener(this);
         if (this.viewUsersTable.getRowCount() > 0) {
             selectionModel.setSelectionInterval(0, 0);
-            valueChanged(null);
         }
-        selectionModel.addListSelectionListener(this);
         JScrollPane viewUsersTableScroll = new JScrollPane(this.viewUsersTable);
 
         viewUsersPanel.add(viewUsersSearchPanel, BorderLayout.NORTH);
         viewUsersPanel.add(viewUsersTableScroll, BorderLayout.CENTER);
 
-        usersTabbedPanel.add("Visualizar", viewUsersPanel);
-        usersTabbedPanel.add("Inserir", addUserScrollPanel);
-        usersTabbedPanel.add("Atualizar", updateUserPanel);
+        this.usersTabbedPanel.add("Visualizar", viewUsersPanel);
+        this.usersTabbedPanel.add("Inserir", addUserScrollPanel);
+        this.usersTabbedPanel.add("Atualizar", updateUserPanel);
     }
 
     @Override
@@ -141,8 +140,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                 default:
                     return;
             }
-            Object[][] users = manageUsers.toArray();
-            this.viewUserTableModel.setDataVector(users, this.columnNames);
+            this.viewUserTableModel.setDataVector(manageUsers.toArray(), this.columnNames);
             if (this.viewUsersTable.getRowCount() > 0) {
                 this.viewUsersTable.getSelectionModel().setSelectionInterval(0, 0);
             }
@@ -637,7 +635,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if ((e == null || !e.getValueIsAdjusting()) && (this.viewUsersTable.getSelectedRowCount() > 0)) {
-            redesignUpdateUserPanel();
+            this.redesignUpdateUserPanel();
         }
     }
 }
