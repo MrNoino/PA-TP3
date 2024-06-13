@@ -26,6 +26,7 @@ import tp3.controller.ManageLiteraryStyles;
 import tp3.controller.ManageReviewers;
 import tp3.controller.ManageUsers;
 import tp3.model.Author;
+import tp3.model.EmailWrapper;
 import tp3.model.Reviewer;
 
 public class SignupScreen extends JFrame implements ActionListener {
@@ -300,7 +301,7 @@ public class SignupScreen extends JFrame implements ActionListener {
             String password = new String(authorPasswordField.getPassword());
             String nif = authorNifField.getText();
             String phone = authorPhoneField.getText();
-            String address = authorPhoneField.getText();
+            String address = authorAddressField.getText();
             int styleId = new ManageLiteraryStyles().toArray()[literacyStylesComboBox.getSelectedIndex()].getId();
             ManageUsers manageUsers = new ManageUsers();
 
@@ -326,6 +327,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
             if (manageUsers.existsEmail(email)) {
                 JOptionPane.showMessageDialog(container, "Email já em uso");
+                return;
             }
 
             if (manageUsers.existsNIF(nif)) {
@@ -348,6 +350,8 @@ public class SignupScreen extends JFrame implements ActionListener {
                     styleId))) {
 
                 JOptionPane.showMessageDialog(container, "Registado com sucesso");
+                
+                new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
 
                 JFrame screen = new LoginScreen();
                 this.frame.dispose();
@@ -364,7 +368,7 @@ public class SignupScreen extends JFrame implements ActionListener {
             String password = new String(reviewerPasswordField.getPassword());
             String nif = reviewerNifField.getText();
             String phone = reviewerPhoneField.getText();
-            String address = reviewerPhoneField.getText();
+            String address = reviewerAddressField.getText();
             String formation = formationField.getText();
             String specialization = specializationField.getText();
             ManageUsers manageUsers = new ManageUsers();
@@ -391,10 +395,12 @@ public class SignupScreen extends JFrame implements ActionListener {
 
             if (manageUsers.existsEmail(email)) {
                 JOptionPane.showMessageDialog(container, "Email já em uso");
+                return;
             }
 
             if (manageUsers.existsNIF(nif)) {
                 JOptionPane.showMessageDialog(container, "NIF já em uso");
+                return;
             }
 
             ManageReviewers manageReviewers = new ManageReviewers();
@@ -413,6 +419,8 @@ public class SignupScreen extends JFrame implements ActionListener {
                     specialization))) {
 
                 JOptionPane.showMessageDialog(container, "Registado com sucesso");
+                
+                new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
 
                 JFrame screen = new LoginScreen();
                 this.frame.dispose();
