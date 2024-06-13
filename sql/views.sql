@@ -68,3 +68,8 @@ DROP VIEW IF EXISTS `PA_TP`.`get_licenses` ;
 CREATE VIEW get_licenses AS
 SELECT *
 FROM licenses;
+
+DROP VIEW IF EXISTS `PA_TP`.`get_logs` ;
+CREATE VIEW get_logs AS
+SELECT *
+FROM logs;

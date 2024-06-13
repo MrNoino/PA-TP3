@@ -263,6 +263,7 @@ public class DbWrapper {
             rowCount = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("\nErro ao manipular a base de dados\n");
+            System.out.println(e);
             rowCount = 0;
         }finally{
             if(preparedStatement != null)

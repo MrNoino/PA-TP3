@@ -99,4 +99,13 @@ public class Log {
     public void setAction(String action) {
         this.action = action;
     }
+    
+    /**
+     * Get Log as an array
+     *
+     * @return an array that represents an Log
+     */
+    public Object[] toArray() {
+        return new Object[]{this.id, this.userId, this.datetime, this.action};
+    }
 }

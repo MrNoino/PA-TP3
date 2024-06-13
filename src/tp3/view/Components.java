@@ -23,6 +23,8 @@ public final class Components {
     public static final Color TEXT_COLOR = new Color(62, 25, 0);
     public static final Color ACCENT_COLOR = new Color(82, 132, 190);
     public static final Color ON_ACCENT_COLOR = new Color(255, 252, 248);
+    public static final Color WARNING_COLOR = new Color(218, 165, 32);
+    public static final Color DANGER_COLOR = new Color(139, 0, 0);
     public static final int HEADER_TEXT_SIZE = 24;
     public static final int MEDIUM_TEXT_SIZE = 18;
     public static final int SMALL_TEXT_SIZE = 14;
@@ -140,10 +142,10 @@ public final class Components {
         return comboBox;
     }
     
-    public static JButton getPrimaryButton(String text, String tooltip){
+    public static JButton getPrimaryButton(String text, String tooltip, Color bgColor, Color fgColor){
         JButton button = new JButton(text);
-        button.setBackground(ACCENT_COLOR);
-        button.setForeground(ON_ACCENT_COLOR);
+        button.setBackground(bgColor);
+        button.setForeground(fgColor);
         button.setFont(new Font("Arial", Font.BOLD, SMALL_TEXT_SIZE));
         button.setPreferredSize(new Dimension(300, MEDIUM_PADDING * 2));
         button.setFocusPainted(false);
@@ -151,14 +153,24 @@ public final class Components {
         return button;
     }
     
+    public static JButton getPrimaryButton(String text, String tooltip){
+        return getPrimaryButton(text, tooltip, ACCENT_COLOR, ON_ACCENT_COLOR);
+    }
+    
     public static JButton getSecondaryButton(String text, String tooltip){
         return getSecondaryButton(text, new Dimension(100, MEDIUM_PADDING * 2), tooltip);
     }
     
     public static JButton getSecondaryButton(String text, Dimension size, String tooltip){
+        return getSecondaryButton(text, size, tooltip, null, null);
+    }
+    
+    public static JButton getSecondaryButton(String text, Dimension size, String tooltip, Color bgColor, Color fgColor){
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, SMALL_TEXT_SIZE));
         button.setPreferredSize(size);
+        button.setBackground(bgColor);
+        button.setForeground(fgColor);
         button.setFocusPainted(false);
         button.setToolTipText(tooltip);
         return button;

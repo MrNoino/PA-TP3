@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -33,11 +32,13 @@ public class ReviewerScreen extends JFrame implements ActionListener {
 
         JPanel reviewRequestsPanel = new JPanel();
         JPanel reviewBooksPanel = new JPanel();
-        JPanel profilePanel = new JPanel();
+        JPanel profilePanel = new JPanel(new BorderLayout());
 
         tabbedPanel.add("Pedidos de Revisão", reviewRequestsPanel);
         tabbedPanel.add("Rever Obra", reviewBooksPanel);
         tabbedPanel.add("Perfil", profilePanel);
+        
+        new Profile(this, profilePanel);
 
         this.container.add(tabbedPanel);
         

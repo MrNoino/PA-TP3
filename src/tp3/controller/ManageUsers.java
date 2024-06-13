@@ -341,9 +341,8 @@ public class ManageUsers {
     }
     
     /**
-     * Deletes a user from the database
-     * @param id The user id
-     * @return Confirms if the user was deleted
+     * Converts the arraylist of users into an array of objects
+     * @return the array of users
      */
     public Object[][] toArray() {
         Object[][] u = new Object[this.users.size()][7];

@@ -41,7 +41,7 @@ public class AuthorScreen extends JFrame implements ActionListener {
         JTabbedPane tabbedPanel = new JTabbedPane();
 
         JPanel booksPanel = new JPanel();
-        JPanel profilePanel = new JPanel();
+        JPanel profilePanel = new JPanel(new BorderLayout());
 
         // =================== Reviews ========================= //
         JTabbedPane reviewsPanel = new JTabbedPane();
@@ -76,6 +76,8 @@ public class AuthorScreen extends JFrame implements ActionListener {
         tabbedPanel.add("Obras", booksPanel);
         tabbedPanel.add("Revisões", reviewsPanel);
         tabbedPanel.add("Perfil", profilePanel);
+        
+        new Profile(this, profilePanel);
 
         this.container.add(tabbedPanel);
 

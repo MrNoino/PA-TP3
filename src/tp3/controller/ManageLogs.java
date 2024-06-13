@@ -21,14 +21,13 @@ public class ManageLogs {
 
     /**
      * Gets the logs from the database
-     * @param page The list page
      * @return A list of logs
      */
-    public ArrayList<Log> getLogs(int page) {
+    public ArrayList<Log> getLogs() {
 
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
-        ResultSet resultSet = dbWrapper.query("CALL get_logs_paginated(?)", new Object[]{page});
+        ResultSet resultSet = dbWrapper.query("SELECT * FROM get_logs;");
 
         try {
             if (resultSet == null) {
@@ -36,7 +35,8 @@ public class ManageLogs {
             }
 
             while (resultSet.next()) {
-                this.logs.add(new Log(resultSet.getInt("user_id"),
+                this.logs.add(new Log(resultSet.getLong("id"),
+                        resultSet.getInt("user_id"),
                         resultSet.getString("datetime"),
                         resultSet.getString("action")));
             }
@@ -65,7 +65,8 @@ public class ManageLogs {
             }
 
             while (resultSet.next()) {
-                this.logs.add(new Log(resultSet.getInt("user_id"),
+                this.logs.add(new Log(resultSet.getLong("id"),
+                        resultSet.getInt("user_id"),
                         resultSet.getString("datetime"),
                         resultSet.getString("action")));
             }
@@ -89,6 +90,20 @@ public class ManageLogs {
         dbWrapper.connect();
 
         return dbWrapper.manipulate("CALL insert_log(?,?);", new Object[]{log.getUserId(), log.getAction()}) > 0;
+    }
+    
+    /**
+     * Converts the arraylist of logs into an array of objects
+     *
+     * @return the array of logs
+     */
+    public Object[][] toArray() {
+        Object[][] l = new Object[this.logs.size()][4];
+        
+        for(int i = 0; i < this.logs.size(); i++)
+            l[i] = this.logs.get(i).toArray();
+        
+        return l;
     }
     
 }
