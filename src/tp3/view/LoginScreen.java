@@ -45,9 +45,9 @@ public class LoginScreen extends JFrame implements ActionListener {
         JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
         this.usernameField = Components.getTextField("Insira o seu nome de utilizador");
-        this.usernameField.setText("joana");
+        this.usernameField.setText("nuno");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
-        this.passwordField.setText("pass123");
+        this.passwordField.setText("pass");
 
         loginButton = Components.getPrimaryButton("Iniciar Sessão", "Autenticar o utilizador");
         loginButton.addActionListener(this);
@@ -99,7 +99,6 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        //this.loginButton.doClick();
     }
 
     @Override

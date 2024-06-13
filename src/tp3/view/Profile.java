@@ -254,7 +254,7 @@ public class Profile extends JFrame implements ActionListener {
                         return;
                     }
                     updated = new ManageReviewers().updateReviewer(new Reviewer(
-                            Main.getLoggedUser().getRoleId(),
+                            Main.getLoggedUser().getId(),
                             this.nameField.getText(),
                             this.usernameField.getText(),
                             new String(this.passwordField.getPassword()),
@@ -269,7 +269,7 @@ public class Profile extends JFrame implements ActionListener {
                             this.specializationField.getText()));
                 } else {
                     updated = new ManageAuthors().updateAuthor(new Author(
-                            Main.getLoggedUser().getRoleId(),
+                            Main.getLoggedUser().getId(),
                             this.nameField.getText(),
                             this.usernameField.getText(),
                             new String(this.passwordField.getPassword()),
@@ -285,7 +285,7 @@ public class Profile extends JFrame implements ActionListener {
                 }
             } else {
                 updated = new ManageManagers().updateManager(new Manager(
-                        Main.getLoggedUser().getRoleId(),
+                        Main.getLoggedUser().getId(),
                         this.nameField.getText(),
                         this.usernameField.getText(),
                         new String(this.passwordField.getPassword()),

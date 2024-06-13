@@ -3,7 +3,8 @@ package tp3.model;
 /**
  * A class that represents an Author
  */
-public class Author extends User{
+public class Author extends User {
+
     private String nif;
     private String phone;
     private String address;
@@ -12,6 +13,7 @@ public class Author extends User{
 
     /**
      * Class constructor that assigns the attributes
+     *
      * @param aId id of the author
      * @param aName name of the author
      * @param aUsername username of the author
@@ -34,9 +36,10 @@ public class Author extends User{
         this.activityBeginDate = aActivityBeginDate;
         this.literaryStyleId = aLiteraryStyleId;
     }
-    
+
     /**
      * Class constructor that assigns the attributes except password
+     *
      * @param aId id of the author
      * @param aName name of the author
      * @param aUsername username of the author
@@ -56,6 +59,7 @@ public class Author extends User{
 
     /**
      * Gets the NIF
+     *
      * @return The NIF
      */
     public String getNif() {
@@ -64,6 +68,7 @@ public class Author extends User{
 
     /**
      * Sets the the author NIF
+     *
      * @param nif the nif of the author
      */
     public void setNif(String nif) {
@@ -72,6 +77,7 @@ public class Author extends User{
 
     /**
      * Gets the author phone number
+     *
      * @return The phone number
      */
     public String getPhone() {
@@ -80,6 +86,7 @@ public class Author extends User{
 
     /**
      * Sets the phone number
+     *
      * @param phone The phone number
      */
     public void setPhone(String phone) {
@@ -88,6 +95,7 @@ public class Author extends User{
 
     /**
      * Gets the address
+     *
      * @return The address
      */
     public String getAddress() {
@@ -96,6 +104,7 @@ public class Author extends User{
 
     /**
      * Sets the address
+     *
      * @param address The address
      */
     public void setAddress(String address) {
@@ -104,6 +113,7 @@ public class Author extends User{
 
     /**
      * Gets the activity begin date
+     *
      * @return The activity begin date
      */
     public String getActivityBeginDate() {
@@ -112,6 +122,7 @@ public class Author extends User{
 
     /**
      * Sets the activity begin date
+     *
      * @param activityBeginDate The activity begin date
      */
     public void setActivityBeginDate(String activityBeginDate) {
@@ -120,6 +131,7 @@ public class Author extends User{
 
     /**
      * Gets the literacy style id
+     *
      * @return The literacy style id
      */
     public int getLiteraryStyleId() {
@@ -128,9 +140,28 @@ public class Author extends User{
 
     /**
      * Sets the literacy style id
+     *
      * @param literaryStyleId The literacy style id
      */
     public void setLiteraryStyleId(int literaryStyleId) {
         this.literaryStyleId = literaryStyleId;
+    }
+
+    /**
+     * Author as a String
+     */
+    public String toString() {
+        return this.getId()+ " | "
+                + this.getName() + " | "
+                + this.getUsername() + " | "
+                + this.getPassword()+ " | "
+                + this.getEmail()+ " | "
+                + this.isActive()+ " | "
+                + this.isDeleted()+ " | "
+                + this.getRoleId()+ " | "
+                + this.nif+ " | "
+                + this.phone + " | "
+                + this.address + " | "
+                + this.literaryStyleId;
     }
 }
