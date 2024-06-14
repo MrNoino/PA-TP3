@@ -413,3 +413,13 @@ BEGIN
     WHERE reviews.status LIKE CONCAT('%', search, '%');
 END$$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `PA_TP`.`get_license`;
+DELIMITER $$
+CREATE PROCEDURE `get_license`(IN a_id INT)
+BEGIN
+	SELECT *
+	FROM licenses
+    WHERE id = a_id;
+END$$
+DELIMITER ;
