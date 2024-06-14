@@ -23,8 +23,8 @@ public final class Components {
     public static final Color TEXT_COLOR = new Color(62, 25, 0);
     public static final Color ACCENT_COLOR = new Color(82, 132, 190);
     public static final Color ON_ACCENT_COLOR = new Color(255, 252, 248);
-    public static final Color WARNING_COLOR = new Color(218, 165, 32);
-    public static final Color DANGER_COLOR = new Color(139, 0, 0);
+    public static final Color WARNING_COLOR = new Color(168, 123, 10);
+    public static final Color DANGER_COLOR = new Color(180, 58, 42);
     public static final int HEADER_TEXT_SIZE = 24;
     public static final int MEDIUM_TEXT_SIZE = 18;
     public static final int SMALL_TEXT_SIZE = 14;

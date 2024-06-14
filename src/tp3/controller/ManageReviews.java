@@ -210,6 +210,47 @@ public class ManageReviews {
         }
         return null;
     }
+    
+    public ArrayList<Review> getReviewerReviews(Long reviewerId){
+        DbWrapper dbWrapper = new DbWrapper();
+        dbWrapper.connect();
+        ResultSet resultSet = dbWrapper.query("CALL get_reviewer_reviews(?)", new Object[]{reviewerId});
+        
+        System.out.println(resultSet);
+
+        try {
+            if (resultSet == null) {
+                return null;
+            }
+            if (Main.getLoggedUser() != null) {
+                new ManageLogs().insertLog(new Log(reviewerId,
+                        new SimpleDateFormat("yyyy-mm-dd").format(new java.util.Date()),
+                        "Pesquisou Revisões Em Seu Nome: " + reviewerId));
+            }
+
+            while (resultSet.next()) {
+                this.reviews.add(new Review(-1,
+                        -1,
+                        resultSet.getString("serial_number"),
+                        resultSet.getString("submission_date"),
+                        null,
+                        -1,
+                        null,
+                        -1,
+                        new Book(-1, resultSet.getString("title"), null, -1, -1, null, null, null, null, -1, null, resultSet.getLong("author_id")),
+                        -1,
+                        -1,
+                        -1,
+                        resultSet.getString("status")));
+            }
+            return this.reviews;
+        } catch (SQLException e) {
+            System.out.println("\nErro ao obter as revisões\n");
+        } finally {
+            dbWrapper.disconnect();
+        }
+        return null;
+    }
 
     /**
      * Inserts a review in the database

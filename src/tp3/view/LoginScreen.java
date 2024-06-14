@@ -45,7 +45,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
         this.usernameField = Components.getTextField("Insira o seu nome de utilizador");
-        this.usernameField.setText("nuno");
+        this.usernameField.setText("revisor3");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
         this.passwordField.setText("pass");
 
