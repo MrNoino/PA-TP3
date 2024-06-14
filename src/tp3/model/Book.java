@@ -253,4 +253,23 @@ public class Book {
     public void setAuthorId(long authorId) {
         this.authorId = authorId;
     }
+    
+    /**
+     * Gets a book as an array
+     * @return an array of objects
+     */
+    public Object[] toArray(){
+        return new Object[]{this.id,
+        this.title,
+        this.subtitle,
+        this.pages,
+        this.words,
+        this.isbn,
+        this.edition,
+        this.submissionDate,
+        this.approvalDate,
+        this.literaryStyleId,
+        this.publicationType,
+        this.authorId};
+    }
 }

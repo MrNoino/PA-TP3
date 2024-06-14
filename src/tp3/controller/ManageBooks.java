@@ -66,26 +66,13 @@ public class ManageBooks {
     /**
      * Gets the books from the database
      * @param authorId The author id
-     * @param orderField The order field ["title", "submission_date"]
-     * @param sortOrder The order for the sorting ["ASC", "DESC"]
-     * @param page The listing page
      * @return A list of books
      */
-    public ArrayList<Book> getBooks(long authorId, String orderField, String sortOrder, int page) {
-
-        String sql = "CALL ";
-        if (orderField.equals("title")) {
-            sql += "get_books_ordered_title_paginated";
-        } else if (orderField.equals("submission_date")) {
-            sql += "get_books_ordered_submission_date_paginated";
-        } else {
-            return null;
-        }
-        sql += "(?, ?, ?);";
+    public ArrayList<Book> getBooks(long authorId) {
 
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
-        ResultSet resultSet = dbWrapper.query(sql, new Object[]{authorId, sortOrder, page});
+        ResultSet resultSet = dbWrapper.query("CALL get_books(?);", new Object[]{authorId});
         try {
             if (resultSet == null) {
                 return null;
@@ -341,12 +328,18 @@ public class ManageBooks {
         return updated;
     }
     
-    public Object[] toArray(){
-        Book[] ls = new Book[this.books.size()];
-        for(int i = 0; i < this.books.size(); i++){
-            ls[i] = this.books.get(i);
-        }
-        return ls;
+    /**
+     * Gets books as an array
+     * @return array of objects
+     */
+    public Object[][] toArray(){
+        Object[][] b = new Object[this.books.size()][12];
+        
+        for(int i = 0; i < this.books.size(); i++)
+            b[i] = this.books.get(i).toArray();
+        
+        return b;
     }
+    
     
 }

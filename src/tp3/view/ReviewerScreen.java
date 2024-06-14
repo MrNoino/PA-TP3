@@ -38,7 +38,7 @@ public class ReviewerScreen extends JFrame implements ActionListener {
         tabbedPanel.add("Rever Obra", reviewBooksPanel);
         tabbedPanel.add("Perfil", profilePanel);
         
-        new Profile(this, profilePanel);
+        new ProfileScreen(this, profilePanel);
 
         this.container.add(tabbedPanel);
         

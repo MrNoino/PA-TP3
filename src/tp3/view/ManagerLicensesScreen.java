@@ -7,10 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,14 +20,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerDateModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageLicenses;
 import tp3.model.License;
 
-public class ManagerLicenses extends JFrame implements ActionListener, ListSelectionListener{
+public class ManagerLicensesScreen extends JFrame implements ActionListener, ListSelectionListener{
 
     private JFrame frame;
     private JTabbedPane licensesTabbedPanel;
@@ -40,7 +37,7 @@ public class ManagerLicenses extends JFrame implements ActionListener, ListSelec
     private JButton refreshButton, addButton, updateButton;
     private JSpinner quantitySpinner;
 
-    public ManagerLicenses(JFrame frame, JTabbedPane licensesTabbedPanel) {
+    public ManagerLicensesScreen(JFrame frame, JTabbedPane licensesTabbedPanel) {
         this.frame = frame;
         this.licensesTabbedPanel = licensesTabbedPanel;
 
@@ -53,6 +50,7 @@ public class ManagerLicenses extends JFrame implements ActionListener, ListSelec
         manageLicenses.getLicenses();
         this.tableModel = new DefaultTableModel(manageLicenses.toArray(), columnNames);
         this.table = new JTable(this.tableModel);
+        this.table.setAutoCreateRowSorter(true);
         this.quantitySpinner = Components.getSpinner("Quantidade de licenças");
         this.table.setDefaultEditor(Object.class, null);
         this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -168,9 +166,8 @@ public class ManagerLicenses extends JFrame implements ActionListener, ListSelec
             String date = this.expireDateField.getText().replace("/", "-");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             dateFormat.setLenient(false);
-            Date d;
             try {
-                d = dateFormat.parse(date);
+                dateFormat.parse(date);
             } catch (ParseException exception) {
                 JOptionPane.showMessageDialog(this.frame, "Data de expiração inválida", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
@@ -208,7 +205,7 @@ public class ManagerLicenses extends JFrame implements ActionListener, ListSelec
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if ((e == null || !e.getValueIsAdjusting()) && (this.table.getSelectedRowCount() > 0)) {
+        if (!e.getValueIsAdjusting() && this.table.getSelectedRowCount() > 0) {
             ManageLicenses manageLicenses = new ManageLicenses();
             License license = manageLicenses.getLicense((int)this.table.getValueAt(this.table.getSelectedRow(), 0));
             if(license != null){

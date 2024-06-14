@@ -45,7 +45,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
         this.usernameField = Components.getTextField("Insira o seu nome de utilizador");
-        this.usernameField.setText("nuno");
+        this.usernameField.setText("joana");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
         this.passwordField.setText("pass");
 
@@ -114,6 +114,10 @@ public class LoginScreen extends JFrame implements ActionListener {
             User user = manageUsers.login(username, password);
             if (user == null) {
                 JOptionPane.showMessageDialog(this.container, "Credenciais inválidas", "Aviso", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(!user.isActive()){
+                JOptionPane.showMessageDialog(this.container, "Utilizador não ativo", "Aviso", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             //JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);

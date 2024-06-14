@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageLogs;
 
-public class ManagerAudit extends JFrame implements  ActionListener{
+public class ManagerAuditScreen extends JFrame implements  ActionListener{
     private JFrame frame;
     private JPanel auditPanel;
     private JTextField searchField;
@@ -23,7 +23,7 @@ public class ManagerAudit extends JFrame implements  ActionListener{
     private String[] columnNames;
     private DefaultTableModel tableModel;
     
-    public ManagerAudit(JFrame frame, JPanel auditPanel){
+    public ManagerAuditScreen(JFrame frame, JPanel auditPanel){
         this.frame = frame;
         this.auditPanel = auditPanel;
         

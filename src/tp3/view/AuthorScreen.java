@@ -34,11 +34,6 @@ public class AuthorScreen extends JFrame implements ActionListener {
 
     // ============ UI COMPONENTS ============== //
     JTabbedPane mainPanel;
-    // ================ Books Panel
-    JTabbedPane booksPanel;
-    // ======= List
-    // ======= Insert
-    // ======= Update
     // ================ Reviews Panel
     JTabbedPane reviewsPanel;
     // ======= List
@@ -54,8 +49,6 @@ public class AuthorScreen extends JFrame implements ActionListener {
     private JLabel bookLabel;
     private JComboBox booksComboBox;
     private JButton requestReviewButton;
-    // ================ Profile Panel
-    private JTabbedPane profilePanel;
 
     public AuthorScreen() {
         this.frame = this;
@@ -69,29 +62,23 @@ public class AuthorScreen extends JFrame implements ActionListener {
         this.container.setBackground(Components.BACKGROUND_COLOR);
 
         authorId = Main.getLoggedUser().getId();
-
-        JPanel booksPanel = new JPanel();
-        JPanel profilePanel = new JPanel(new BorderLayout());
         
-        setupBooksPanel();
         setupReviewsPanel();
-        setupProfilePanel();
+        
+        JTabbedPane booksTabbedPanel = new JTabbedPane();
+        JPanel profilePanel = new JPanel(new BorderLayout());
+        new AuthorBooksScreen(frame, booksTabbedPanel);
+        new ProfileScreen(this, profilePanel);
 
         mainPanel = new JTabbedPane();
-        mainPanel.add("Obras", booksPanel);
+        mainPanel.add("Obras", booksTabbedPanel);
         mainPanel.add("Revisões", reviewsPanel);
         mainPanel.add("Perfil", profilePanel);
 
         this.container.add(mainPanel);
 
-        new Profile(this, profilePanel);
-
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-    }
-
-    private void setupBooksPanel() {
-        booksPanel = new JTabbedPane();
     }
 
     private void setupReviewsPanel() {
@@ -148,12 +135,6 @@ public class AuthorScreen extends JFrame implements ActionListener {
         reviewsPanel = new JTabbedPane();
         reviewsPanel.add("Visualizar", listReviewsPanel);
         reviewsPanel.add("Inserir", requestReviewPanel);
-    }
-
-        
-        
-    private void setupProfilePanel() {
-        profilePanel = new JTabbedPane();
     }
 
     @Override

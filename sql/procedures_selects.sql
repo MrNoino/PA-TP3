@@ -198,8 +198,8 @@ BEGIN
 	SELECT books.id, books.title as "title", books.subtitle as "subtitle", books.pages as "pages", books.words as "words", books.isbn as "isbn", books.edition as "edition", books.submission_date as "submission_date", books.approval_date as "approval_date", books.literary_style_id as "literary_style_id", books.publication_type as "publication_type", books.author_id  as "author_id"
 	FROM books
     INNER JOIN authors
-    ON authors.id = books.author_id
-    WHERE authors.id = a_author_id and books.submission_date = a_submission_date;
+    ON authors.user_id = books.author_id
+    WHERE authors.user_id = a_author_id and books.submission_date = a_submission_date;
 END $$
 DELIMITER ;
 
@@ -308,6 +308,29 @@ BEGIN
 		CASE WHEN sort_order = 'ASC' THEN books.title END ASC,
 		CASE WHEN sort_order = 'DESC' THEN books.title END DESC
 	LIMIT page_start, page_end;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `PA_TP`.`get_books` ;
+DELIMITER $$
+CREATE PROCEDURE get_books(IN a_author_id BIGINT) 
+BEGIN
+	SELECT books.id as "id", 
+	books.title as "title", 
+	books.subtitle as "subtitle", 
+	books.pages as "pages", 
+	books.words as "words", 
+	books.isbn as "isbn", 
+	books.edition as "edition",
+	books.submission_date as "submission_date", 
+	books.approval_date as "approval_date", 
+	books.literary_style_id as "literary_style_id", 
+	books.publication_type as "publication_type", 
+	books.author_id as "author_id"
+	FROM books
+	INNER JOIN authors
+	ON authors.user_id = books.author_id
+	WHERE authors.user_id = a_author_id;
 END $$
 DELIMITER ;
 
