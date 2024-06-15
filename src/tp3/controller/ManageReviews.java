@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import tp3.model.Book;
 import tp3.model.DbWrapper;
 import tp3.model.Log;
@@ -27,7 +28,7 @@ public class ManageReviews {
     }
 
     /**
-     * Gets the reviewsof the author from the database
+     * Gets the reviews of the author from the database
      *
      * @param authorId the author id
      * @param sortType the field and sort order
@@ -54,6 +55,7 @@ public class ManageReviews {
                         -1,
                         resultSet.getString("serial_number"),
                         resultSet.getString("submission_date"),
+                        null,
                         null,
                         -1,
                         null,
@@ -101,6 +103,7 @@ public class ManageReviews {
                         resultSet.getString("serial_number"),
                         resultSet.getString("submission_date"),
                         null,
+                        null,
                         -1,
                         null,
                         -1,
@@ -146,6 +149,7 @@ public class ManageReviews {
                         -1,
                         resultSet.getString("serial_number"),
                         resultSet.getString("submission_date"),
+                        null,
                         null,
                         -1,
                         null,
@@ -193,6 +197,7 @@ public class ManageReviews {
                         resultSet.getString("serial_number"),
                         resultSet.getString("submission_date"),
                         null,
+                        null,
                         -1,
                         null,
                         -1,
@@ -210,13 +215,11 @@ public class ManageReviews {
         }
         return null;
     }
-    
-    public ArrayList<Review> getReviewerReviews(Long reviewerId){
+
+    public ArrayList<Review> getReviewerReviews(Long reviewerId) {
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
-        ResultSet resultSet = dbWrapper.query("CALL get_reviewer_reviews(?)", new Object[]{reviewerId});
-        
-        System.out.println(resultSet);
+        ResultSet resultSet = dbWrapper.query("CALL get_reviewer_reviews(?);", new Object[]{reviewerId});
 
         try {
             if (resultSet == null) {
@@ -229,18 +232,19 @@ public class ManageReviews {
             }
 
             while (resultSet.next()) {
-                this.reviews.add(new Review(-1,
-                        -1,
+                this.reviews.add(new Review(resultSet.getLong("id"),
+                        resultSet.getInt("random_code"),
                         resultSet.getString("serial_number"),
                         resultSet.getString("submission_date"),
-                        null,
-                        -1,
-                        null,
-                        -1,
-                        new Book(-1, resultSet.getString("title"), null, -1, -1, null, null, null, null, -1, null, resultSet.getLong("author_id")),
-                        -1,
-                        -1,
-                        -1,
+                        resultSet.getString("approval_date"),
+                        resultSet.getString("completion_date"),
+                        resultSet.getInt("elapsed_time"),
+                        resultSet.getString("observations"),
+                        resultSet.getFloat("cost"),
+                        new Book(resultSet.getLong("book_id"), null, null, -1, -1, null, null, null, null, -1, null, resultSet.getLong("author_id")),
+                        resultSet.getLong("author_id"),
+                        resultSet.getLong("manager_id"),
+                        resultSet.getLong("reviewer_id"),
                         resultSet.getString("status")));
             }
             return this.reviews;
@@ -297,12 +301,37 @@ public class ManageReviews {
         return inserted;
     }
 
+    public boolean updateReview(Long id, String observations, float cost, String status) {
+        DbWrapper dbWrapper = new DbWrapper();
+        boolean updated = dbWrapper.manipulate("CALL update_review(?, ?, ?, ?)", new Object[]{id, observations, cost, status}) > 0;
+
+        if (updated && Main.getLoggedUser() != null) {
+            new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
+                    new SimpleDateFormat("yyyy-mm-dd").format(new Date()),
+                    "Atualizou a revisão (ID: " + id + ")"));
+        }
+
+        return updated;
+    }
+    
+
     public Object[][] toAuthorReviewArray() {
         Object[][] u = new Object[this.reviews.size()][4];
 
         for (int i = 0; i < this.reviews.size(); i++) {
             Review review = this.reviews.get(i);
             u[i] = new Object[]{review.getSubmissionDate(), review.getSerialNumber(), review.getBook().getTitle(), review.getStatus()};
+        }
+
+        return u;
+    }
+
+    public Object[][] toReviewerReviewsArray() {
+        Object[][] u = new Object[this.reviews.size()][13];
+
+        for (int i = 0; i < this.reviews.size(); i++) {
+            Review review = this.reviews.get(i);
+            u[i] = review.toReviewerReviewsArray();
         }
 
         return u;

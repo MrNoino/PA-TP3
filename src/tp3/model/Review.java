@@ -4,10 +4,12 @@ package tp3.model;
  * A class that represents a Review
  */
 public class Review {
+
     private long id;
     private int randomCode;
     private String serialNumber;
     private String submissionDate;
+    private String approvalDate;
     private String completionDate;
     private int elapsedTime;
     private String observations;
@@ -20,10 +22,12 @@ public class Review {
 
     /**
      * Class constructor that assigns the attributes
+     *
      * @param aId id of the review
      * @param aRandomCode random code
      * @param aSerialNumber serial number of the review
-     * @param aSubmissionDate submission date of hte review
+     * @param aSubmissionDate submission date of the review
+     * @param aApprovalDate approval date of the review
      * @param aCompletionDate completion date of the review
      * @param aElapsedTime elapsed time to complete the review
      * @param aObservations observations
@@ -34,11 +38,12 @@ public class Review {
      * @param aReviewerId the reviewer id associated to the review
      * @param aStatus status of the review
      */
-    public Review(long aId, int aRandomCode, String aSerialNumber, String aSubmissionDate, String aCompletionDate, int aElapsedTime, String aObservations, float aCost, Book aBook, long aAuthorId, long aManagerId, long aReviewerId, String aStatus) {
+    public Review(long aId, int aRandomCode, String aSerialNumber, String aSubmissionDate, String aApprovalDate, String aCompletionDate, int aElapsedTime, String aObservations, float aCost, Book aBook, long aAuthorId, long aManagerId, long aReviewerId, String aStatus) {
         this.id = aId;
         this.randomCode = aRandomCode;
         this.serialNumber = aSerialNumber;
         this.submissionDate = aSubmissionDate;
+        this.approvalDate = aApprovalDate;
         this.completionDate = aCompletionDate;
         this.elapsedTime = aElapsedTime;
         this.observations = aObservations;
@@ -52,6 +57,7 @@ public class Review {
 
     /**
      * Get the review id
+     *
      * @return the id of the review
      */
     public long getId() {
@@ -60,6 +66,7 @@ public class Review {
 
     /**
      * Sets the review id
+     *
      * @param id id to be assign
      */
     public void setId(long id) {
@@ -68,6 +75,7 @@ public class Review {
 
     /**
      * Get the random code
+     *
      * @return the random code of the review
      */
     public int getRandomCode() {
@@ -76,14 +84,16 @@ public class Review {
 
     /**
      * Sets the random code
+     *
      * @param randomCode random code to be assigned
      */
     public void setRandomCode(int randomCode) {
         this.randomCode = randomCode;
     }
-    
+
     /**
      * Get the serial number of the review
+     *
      * @return the serial number of the review
      */
     public String getSerialNumber() {
@@ -92,6 +102,7 @@ public class Review {
 
     /**
      * Sets the serial number
+     *
      * @param serialNumber serial number to be assigned
      */
     public void setSerialNumber(String serialNumber) {
@@ -100,6 +111,7 @@ public class Review {
 
     /**
      * Get the submission date of the review
+     *
      * @return the submission date of the review
      */
     public String getSubmissionDate() {
@@ -108,6 +120,7 @@ public class Review {
 
     /**
      * Sets the submission date
+     *
      * @param submissionDate submission date to be assigned
      */
     public void setSubmissionDate(String submissionDate) {
@@ -115,7 +128,26 @@ public class Review {
     }
 
     /**
+     * Gets the approval date
+     *
+     * @return the approval date
+     */
+    public String getApprovalDate() {
+        return approvalDate;
+    }
+
+    /**
+     * Sets the approval date
+     *
+     * @param approvalDate approval date to be assigned
+     */
+    public void setApprovalDate(String approvalDate) {
+        this.approvalDate = approvalDate;
+    }
+
+    /**
      * Get the completion date of the review
+     *
      * @return the completion date of the review
      */
     public String getCompletionDate() {
@@ -124,6 +156,7 @@ public class Review {
 
     /**
      * Sets the completion date
+     *
      * @param completionDate completion date to be assigned
      */
     public void setCompletionDate(String completionDate) {
@@ -132,6 +165,7 @@ public class Review {
 
     /**
      * Get the elapsed time of the review
+     *
      * @return the elapsed time of the review
      */
     public int getElapsedTime() {
@@ -140,6 +174,7 @@ public class Review {
 
     /**
      * Sets the elapsed time
+     *
      * @param elapsedTime elapsed time to be assigned
      */
     public void setElapsedTime(int elapsedTime) {
@@ -148,6 +183,7 @@ public class Review {
 
     /**
      * Get the observations of the review
+     *
      * @return the observations of the review
      */
     public String getObservations() {
@@ -156,6 +192,7 @@ public class Review {
 
     /**
      * Sets the observations
+     *
      * @param observations observations to be assigned
      */
     public void setObservations(String observations) {
@@ -164,6 +201,7 @@ public class Review {
 
     /**
      * Get the cost of the review
+     *
      * @return the cost of the review
      */
     public float getCost() {
@@ -172,6 +210,7 @@ public class Review {
 
     /**
      * Sets the cost
+     *
      * @param cost cost to be assigned
      */
     public void setCost(float cost) {
@@ -180,6 +219,7 @@ public class Review {
 
     /**
      * Get the book of the review
+     *
      * @return the book of the review
      */
     public Book getBook() {
@@ -188,6 +228,7 @@ public class Review {
 
     /**
      * Sets the books
+     *
      * @param book book to be assigned
      */
     public void setBook(Book book) {
@@ -196,6 +237,7 @@ public class Review {
 
     /**
      * Get the author id of the review
+     *
      * @return the author id of the review
      */
     public long getAuthorId() {
@@ -204,6 +246,7 @@ public class Review {
 
     /**
      * Sets the author id
+     *
      * @param authorId author id to be assigned
      */
     public void setAuthorId(int authorId) {
@@ -212,6 +255,7 @@ public class Review {
 
     /**
      * Get the manager id of the review
+     *
      * @return the manager id of the review
      */
     public long getManagerId() {
@@ -220,6 +264,7 @@ public class Review {
 
     /**
      * Sets the manager id
+     *
      * @param managerId manager id to be assigned
      */
     public void setManagerId(long managerId) {
@@ -228,6 +273,7 @@ public class Review {
 
     /**
      * Get the reviewer id of the review
+     *
      * @return the reviewer id of the review
      */
     public long getReviewerId() {
@@ -236,6 +282,7 @@ public class Review {
 
     /**
      * Sets the reviewer id
+     *
      * @param reviewerId reviewer id to be assigned
      */
     public void setReviewerId(long reviewerId) {
@@ -244,6 +291,7 @@ public class Review {
 
     /**
      * Get the status of the review
+     *
      * @return the status of the review
      */
     public String getStatus() {
@@ -252,9 +300,28 @@ public class Review {
 
     /**
      * Sets the status
+     *
      * @param status status to be assigned
      */
     public void setStatus(String status) {
         this.status = status;
-    } 
+    }
+
+    public Object[] toReviewerReviewsArray() {
+        return new Object[]{
+            this.id,
+            this.randomCode,
+            this.serialNumber,
+            this.submissionDate,
+            this.approvalDate,
+            this.completionDate,
+            this.elapsedTime,
+            this.observations,
+            this.cost,
+            this.book.getId(),
+            this.authorId,
+            this.managerId,
+            this.status
+        };
+    }
 }

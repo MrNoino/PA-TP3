@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public final class Components {
@@ -121,6 +122,15 @@ public final class Components {
         return field;
     }
     
+    public static JTextArea getTextArea(String tooltip){
+        JTextArea component = new JTextArea();
+        component.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
+        component.setToolTipText(tooltip);
+        component.setPreferredSize(new Dimension(300, 200));
+        component.setLineWrap(true);
+        return component;
+    }
+    
     public static JSpinner getSpinner(String tooltip) {
         return getSpinner(new Dimension(300, MEDIUM_PADDING * 2), tooltip);
     }
@@ -188,8 +198,6 @@ public final class Components {
         button.setToolTipText(tooltip);
         return button;
     }
-    
-    
     
     /**
      * Get top spacing insets
