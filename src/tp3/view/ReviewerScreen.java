@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -90,8 +89,8 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         mainPanel.setBackground(Components.BACKGROUND_COLOR);
         GridBagConstraints constraints = new GridBagConstraints();
 
-        setupReviewsTab();
         setupReviewBookTab();
+        setupReviewsTab();
         setupProfileTab();
 
         mainPanel.add("Pedidos de Revisão", reviewsPanel);
@@ -173,41 +172,13 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
 
     private void setupProfileTab() {
         profilePanel = new JPanel(new BorderLayout());
-        new Profile(this, profilePanel);
+        new ProfileScreen(this, profilePanel);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(searchButton)) {
-            ArrayList<Review> filteredReviews = new ArrayList();
-            String search = reviewsSearchField.getText().toLowerCase();
-
-            reviews.forEach(review -> {
-
-                String observations;
-                if (review.getObservations() == null) {
-                    observations = "";
-                } else {
-                    observations = review.getObservations();
-                }
-
-                if (Integer.toString(review.getRandomCode()).contains(search)
-                        || observations.toLowerCase().contains(search)
-                        || review.getStatus().toLowerCase().contains(search)) {
-
-                    filteredReviews.add(review);
-                }
-            });
-
-            tableReviews = filteredReviews;
-
-            Object[][] newTableObjects = new Object[filteredReviews.size()][13];
-
-            for (int i = 0; i < filteredReviews.size(); i++) {
-                newTableObjects[i] = filteredReviews.get(i).toReviewerReviewsArray();
-            }
-
-            reviewsTableModel.setDataVector(newTableObjects, reviewsTableFields);
+            search();
         }
 
         if (e.getSource().equals(reviewSaveButton)) {
@@ -229,19 +200,49 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
                     throw new AssertionError();
             }
 
-            ManageReviews manageReviews = new ManageReviews();
-            boolean success = manageReviews.updateReview(getSelectedReview().getId(), reviewObservationsField.getText(), Float.parseFloat(reviewCostField.getText()), status);
+            boolean success = new ManageReviews().updateReview(getSelectedReview().getId(), reviewObservationsField.getText(), Float.parseFloat(reviewCostField.getText()), status);
 
-            if (!success) {
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Atualizado com sucesso");
+            } else {
                 JOptionPane.showMessageDialog(this, "Erro ao atualizar revisão");
             }
 
-            reviewsTableModel = new DefaultTableModel();
-            manageReviews.getReviewerReviews(Main.getLoggedUser().getId());
-            reviewsTableModel.setDataVector(manageReviews.toReviewerReviewsArray(), reviewsTableFields);
-
-            mainPanel.setSelectedIndex(0);
+            reviews = new ManageReviews().getReviewerReviews(Main.getLoggedUser().getId());
+            search();
         }
+    }
+
+    private void search() {
+        ArrayList<Review> filteredReviews = new ArrayList();
+        String searchText = reviewsSearchField.getText().toLowerCase();
+
+        reviews.forEach(review -> {
+
+            String observations;
+            if (review.getObservations() == null) {
+                observations = "";
+            } else {
+                observations = review.getObservations();
+            }
+
+            if (Integer.toString(review.getRandomCode()).contains(searchText)
+                    || observations.toLowerCase().contains(searchText)
+                    || review.getStatus().toLowerCase().contains(searchText)) {
+
+                filteredReviews.add(review);
+            }
+        });
+
+        tableReviews = filteredReviews;
+
+        Object[][] newTableObjects = new Object[filteredReviews.size()][13];
+
+        for (int i = 0; i < filteredReviews.size(); i++) {
+            newTableObjects[i] = filteredReviews.get(i).toReviewerReviewsArray();
+        }
+
+        reviewsTableModel.setDataVector(newTableObjects, reviewsTableFields);
     }
 
     private Review getSelectedReview() {
@@ -252,7 +253,7 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (reviewHeader != null) {
+        if (!e.getValueIsAdjusting() && this.reviewsTable.getSelectedRowCount() > 0) {
 
             Review review = getSelectedReview();
 

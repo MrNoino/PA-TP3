@@ -96,3 +96,52 @@ BEGIN
     WHERE id = a_id;
 END$$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `PA_TP`.`update_user`;
+DELIMITER $$
+CREATE PROCEDURE `update_user`(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT)
+BEGIN
+	UPDATE users 
+    SET 
+    name = a_name,
+    username = a_username,
+    password = IFNULL(MD5(a_password), password), 
+    email = a_email,
+    role_id = a_role_id
+    WHERE id = a_id;
+END$$
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS `PA_TP`.`update_review`;
+DELIMITER $$
+CREATE PROCEDURE `update_review`(IN a_review_id bigint, IN a_observations varchar(512), IN a_cost float, IN a_status varchar(128))
+BEGIN
+
+	declare approvalDate date;
+    declare completionDate date;
+
+	select approval_date, completion_date 
+    into approvalDate, completionDate
+    from reviews 
+    where id = a_review_id;    
+    
+    if approvalDate is NULL and a_status like "aceite" then
+		update reviews
+        set approval_date = CURDATE()
+        where id = a_review_id;
+    end if;
+    
+    if completionDate is NULL and a_status like "finalizada" then
+		update reviews
+        set completion_date = CURDATE()
+        where id = a_review_id;
+    end if;
+    
+    
+    
+	update reviews
+    set observations = a_observations, cost = a_cost, status = a_status
+    where id = a_review_id;
+END$$
+DELIMITER ;
