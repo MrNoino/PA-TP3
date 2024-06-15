@@ -324,4 +324,23 @@ public class Review {
             this.status
         };
     }
+    
+     public Object[] toArray() {
+        return new Object[]{
+            this.id,
+            this.randomCode,
+            this.serialNumber,
+            this.submissionDate,
+            this.approvalDate,
+            this.completionDate,
+            this.elapsedTime,
+            this.observations,
+            this.cost,
+            this.book.getId(),
+            this.authorId,
+            this.managerId,
+            this.reviewerId,
+            this.status
+        };
+    }
 }

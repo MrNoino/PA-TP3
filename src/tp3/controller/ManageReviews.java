@@ -75,6 +75,46 @@ public class ManageReviews {
         return null;
     }
 
+    public ArrayList<Review> getReviews() {
+        DbWrapper dbWrapper = new DbWrapper();
+        dbWrapper.connect();
+        ResultSet resultSet = dbWrapper.query("SELECT * FROM get_reviews");
+
+        try {
+            if (resultSet == null) {
+                return null;
+            }
+            if (Main.getLoggedUser() != null) {
+                new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
+                        new SimpleDateFormat("yyyy-mm-dd").format(new java.util.Date()),
+                        "Listou Revisões"));
+            }
+
+            while (resultSet.next()) {
+                this.reviews.add(new Review(resultSet.getLong("id"),
+                        resultSet.getInt("random_code"),
+                        resultSet.getString("serial_number"),
+                        resultSet.getString("submission_date"),
+                        resultSet.getString("approval_date"),
+                        resultSet.getString("completion_date"),
+                        resultSet.getInt("elapsed_time"),
+                        resultSet.getString("observations"),
+                        resultSet.getFloat("cost"),
+                        new Book(resultSet.getLong("book_id"), null, null, -1, -1, null, null, null, null, -1, null, resultSet.getLong("author_id")),
+                        resultSet.getLong("author_id"),
+                        resultSet.getLong("manager_id"),
+                        resultSet.getLong("reviewer_id"),
+                        resultSet.getString("status")));
+            }
+            return this.reviews;
+        } catch (SQLException e) {
+            System.out.println("\nErro ao obter as revisões\n");
+        } finally {
+            dbWrapper.disconnect();
+        }
+        return null;
+    }
+
     /**
      * Gets reviews of the author by submission date from the database
      *
@@ -244,7 +284,7 @@ public class ManageReviews {
                         new Book(resultSet.getLong("book_id"), null, null, -1, -1, null, null, null, null, -1, null, resultSet.getLong("author_id")),
                         resultSet.getLong("author_id"),
                         resultSet.getLong("manager_id"),
-                        resultSet.getLong("reviewer_id"),
+                        -1,
                         resultSet.getString("status")));
             }
             return this.reviews;
@@ -313,7 +353,6 @@ public class ManageReviews {
 
         return updated;
     }
-    
 
     public Object[][] toAuthorReviewArray() {
         Object[][] u = new Object[this.reviews.size()][4];
@@ -332,6 +371,17 @@ public class ManageReviews {
         for (int i = 0; i < this.reviews.size(); i++) {
             Review review = this.reviews.get(i);
             u[i] = review.toReviewerReviewsArray();
+        }
+
+        return u;
+    }
+
+    public Object[][] toArray() {
+        Object[][] u = new Object[this.reviews.size()][14];
+
+        for (int i = 0; i < this.reviews.size(); i++) {
+            Review review = this.reviews.get(i);
+            u[i] = review.toArray();
         }
 
         return u;

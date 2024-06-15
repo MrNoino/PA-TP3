@@ -73,3 +73,8 @@ DROP VIEW IF EXISTS `PA_TP`.`get_logs` ;
 CREATE VIEW get_logs AS
 SELECT *
 FROM logs;
+
+DROP VIEW IF EXISTS `PA_TP`.`get_reviews` ;
+CREATE VIEW `get_reviews` AS
+SELECT * 
+FROM reviews;
