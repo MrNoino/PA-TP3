@@ -36,9 +36,10 @@ public class ManagerScreen extends JFrame {
         mainTabbedPanel.add("Perfil", profilePanel);
         
         new ManagerUserScreen(this, usersTabbedPanel);
-        new ManagerLicenses(this, licensesTabbedPanel);
-        new ManagerAudit(this, auditPanel);
-        new Profile(this, profilePanel);
+        new ManagerReviews(this, reviewsTabbedPanel);
+        new ManagerLicensesScreen(this, licensesTabbedPanel);
+        new ManagerAuditScreen(this, auditPanel);
+        new ProfileScreen(this, profilePanel);
         
 
         this.container.add(mainTabbedPanel);

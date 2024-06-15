@@ -26,7 +26,7 @@ import tp3.model.LiteraryStyle;
 import tp3.model.Manager;
 import tp3.model.Reviewer;
 
-public class Profile extends JFrame implements ActionListener {
+public class ProfileScreen extends JFrame implements ActionListener {
 
     private JFrame frame;
     private JPanel profilePanel;
@@ -35,7 +35,7 @@ public class Profile extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JComboBox literaryStylesComboBox;
 
-    public Profile(JFrame frame, JPanel profilePanel) {
+    public ProfileScreen(JFrame frame, JPanel profilePanel) {
         this.frame = frame;
         this.profilePanel = profilePanel;
 

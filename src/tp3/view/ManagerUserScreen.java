@@ -634,7 +634,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if ((e == null || !e.getValueIsAdjusting()) && (this.viewUsersTable.getSelectedRowCount() > 0)) {
+        if (!e.getValueIsAdjusting() && this.viewUsersTable.getSelectedRowCount() > 0) {
             this.redesignUpdateUserPanel();
         }
     }
