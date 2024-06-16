@@ -446,3 +446,13 @@ BEGIN
     WHERE id = a_id;
 END$$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `PA_TP`.`get_reviewer_reviews`;
+DELIMITER $$
+CREATE PROCEDURE `get_reviewer_reviews`(IN a_reviewer_id bigint)
+BEGIN
+	SELECT * 
+    FROM reviews
+    WHERE reviewer_id = a_reviewer_id;
+END$$
+DELIMITER ;

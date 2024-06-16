@@ -216,6 +216,7 @@ public class DbWrapper {
             return statement.executeQuery(sqlQuery);
         } catch (SQLException e) {
             System.out.println("\nErro ao fazer a consulta à base de dados\n");
+            System.out.println(e);
             return null;
         }
     }

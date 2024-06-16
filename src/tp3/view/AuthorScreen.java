@@ -88,7 +88,7 @@ public class AuthorScreen extends JFrame implements ActionListener {
         // ====================== List Reviews =========================== //
         searchPanel = new JPanel(new FlowLayout());
         listReviewsSearchField = Components.getTextField("Insira a pesquisa");
-        searchButton = Components.getSecondaryButton("Pesquisar", "Pesquisar Revisões");
+        searchButton = Components.getSecondaryButton("Pesquisar", new Dimension(125, Components.getSpacing(Components.Spacing.MEDIUM) * 2),"Pesquisar Revisões");
         searchButton.addActionListener(this);
 
         ManageReviews manageReviews = new ManageReviews();
@@ -98,7 +98,7 @@ public class AuthorScreen extends JFrame implements ActionListener {
         reviewsTable.setAutoCreateRowSorter(true);
         reviewsTable.setDefaultEditor(Object.class, null);
 
-        listReviewsPanel.add(reviewsTable);
+        listReviewsPanel.add(new JScrollPane(reviewsTable));
 
         JScrollPane reviewsTableScroll = new JScrollPane(reviewsTable);
         listReviewsPanel.add(reviewsTableScroll, BorderLayout.CENTER);
