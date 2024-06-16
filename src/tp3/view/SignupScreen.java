@@ -306,32 +306,38 @@ public class SignupScreen extends JFrame implements ActionListener {
             ManageUsers manageUsers = new ManageUsers();
 
             if (name.isEmpty() || username.isEmpty() || password.isEmpty() || nif.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-                JOptionPane.showMessageDialog(container, "Prencha todos os campos !!");
+                JOptionPane.showMessageDialog(container, "Prencha todos os campos", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            
+            if (manageUsers.existsUsername(username)) {
+                JOptionPane.showMessageDialog(container, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!email.matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
-                JOptionPane.showMessageDialog(container, "Email inválido");
+                JOptionPane.showMessageDialog(container, "Email inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            
+            if (manageUsers.existsEmail(email)) {
+                JOptionPane.showMessageDialog(container, "Email já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!phone.matches("[239]\\d{8}")) {
-                JOptionPane.showMessageDialog(container, "Número de telefone inválido");
+                JOptionPane.showMessageDialog(container, "Número de telefone inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!nif.matches("\\d{9}")) {
-                JOptionPane.showMessageDialog(container, "NIF inválido");
-                return;
-            }
-
-            if (manageUsers.existsEmail(email)) {
-                JOptionPane.showMessageDialog(container, "Email já em uso");
+                JOptionPane.showMessageDialog(container, "NIF inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (manageUsers.existsNIF(nif)) {
-                JOptionPane.showMessageDialog(container, "NIF já em uso");
+                JOptionPane.showMessageDialog(container, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
             }
 
             ManageAuthors manageAuthors = new ManageAuthors();
@@ -353,11 +359,11 @@ public class SignupScreen extends JFrame implements ActionListener {
                 
                 new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
 
-                JFrame screen = new LoginScreen();
+                new LoginScreen();
                 this.frame.dispose();
 
             } else {
-                JOptionPane.showMessageDialog(container, "Erro ao registar");
+                JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
             }
         }
 
@@ -374,32 +380,37 @@ public class SignupScreen extends JFrame implements ActionListener {
             ManageUsers manageUsers = new ManageUsers();
 
             if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || nif.isEmpty() || phone.isEmpty() || address.isEmpty() || formation.isEmpty() || specialization.isEmpty()) {
-                JOptionPane.showMessageDialog(container, "Prencha todos os campos !!");
+                JOptionPane.showMessageDialog(container, "Prencha todos os campos", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            
+            if (manageUsers.existsUsername(username)) {
+                JOptionPane.showMessageDialog(container, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!email.matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
-                JOptionPane.showMessageDialog(container, "Email inválido");
+                JOptionPane.showMessageDialog(container, "Email inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            
+            if (manageUsers.existsEmail(email)) {
+                JOptionPane.showMessageDialog(container, "Email já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!phone.matches("[239]\\d{8}")) {
-                JOptionPane.showMessageDialog(container, "Número de telefone inválido");
+                JOptionPane.showMessageDialog(container, "Número de telefone inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (!nif.matches("\\d{9}")) {
-                JOptionPane.showMessageDialog(container, "NIF inválido");
-                return;
-            }
-
-            if (manageUsers.existsEmail(email)) {
-                JOptionPane.showMessageDialog(container, "Email já em uso");
+                JOptionPane.showMessageDialog(container, "NIF inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
             if (manageUsers.existsNIF(nif)) {
-                JOptionPane.showMessageDialog(container, "NIF já em uso");
+                JOptionPane.showMessageDialog(container, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
@@ -422,12 +433,11 @@ public class SignupScreen extends JFrame implements ActionListener {
                 
                 new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
 
-                JFrame screen = new LoginScreen();
+                new LoginScreen();
                 this.frame.dispose();
 
             } else {
-
-                JOptionPane.showMessageDialog(container, "Erro ao registar");
+                JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
             }
         }
     }

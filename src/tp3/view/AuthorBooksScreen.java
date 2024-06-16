@@ -328,6 +328,15 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
                 JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
+            ManageBooks manageBooks = new ManageBooks();
+            if(manageBooks.existsTitle(this.addTitleField.getText())){
+                JOptionPane.showMessageDialog(this.frame, "Título já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            if(manageBooks.existsIsbn(this.addISBNField.getText())){
+                JOptionPane.showMessageDialog(this.frame, "ISBN já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
             int pages, words;
             try {
                 pages = (int) this.addPagesSpinner.getValue();
@@ -341,13 +350,12 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
                 JOptionPane.showMessageDialog(this.frame, "O nº de palavras tem de ser número inteiro", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            ManageBooks manageBooks = new ManageBooks();
             boolean inserted = manageBooks.insertBook(new Book(
                     -1,
                     this.addTitleField.getText(),
                     (this.addSubtitleField.getText().isEmpty() ? null : this.addSubtitleField.getText()),
-                    (int) this.addPagesSpinner.getValue(),
-                    (int) this.addWordsSpinner.getValue(),
+                    pages,
+                    words,
                     this.addISBNField.getText(),
                     (this.addEditionField.getText().isEmpty() ? null : this.addEditionField.getText()),
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
@@ -366,6 +374,16 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
                 JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
+            ManageBooks manageBooks = new ManageBooks();
+            Book book = manageBooks.getBookById(Main.getLoggedUser().getId(), (long) this.table.getValueAt(this.table.getSelectedRow(), 0));
+            if(!book.getTitle().equals(this.updateTitleField.getText()) && manageBooks.existsTitle(this.updateTitleField.getText())){
+                JOptionPane.showMessageDialog(this.frame, "Título já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            if(!book.getIsbn().equals(this.updateISBNField.getText()) && manageBooks.existsIsbn(this.updateISBNField.getText())){
+                JOptionPane.showMessageDialog(this.frame, "ISBN já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
             int pages, words;
             try {
                 pages = (int) this.updatePagesSpinner.getValue();
@@ -379,13 +397,12 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
                 JOptionPane.showMessageDialog(this.frame, "O nº de palavras tem de ser número inteiro", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            ManageBooks manageBooks = new ManageBooks();
             boolean updated = manageBooks.updateBook(new Book(
                     (long) this.table.getValueAt(this.table.getSelectedRow(), 0),
                     this.updateTitleField.getText(),
                     (this.updateSubtitleField.getText().isEmpty() ? null : this.updateSubtitleField.getText()),
-                    (int) this.updatePagesSpinner.getValue(),
-                    (int) this.updateWordsSpinner.getValue(),
+                    pages,
+                    words,
                     this.updateISBNField.getText(),
                     (this.updateEditionField.getText().isEmpty() ? null : this.updateEditionField.getText()),
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()),

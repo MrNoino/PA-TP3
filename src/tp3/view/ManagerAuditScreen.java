@@ -39,6 +39,7 @@ public class ManagerAuditScreen extends JFrame implements  ActionListener{
         manageLogs.getLogs();
         this.tableModel = new DefaultTableModel(manageLogs.toArray(), this.columnNames);
         JTable logTable = new JTable(this.tableModel);
+        logTable.setAutoCreateRowSorter(true);
         
         JScrollPane tableScroll = new JScrollPane(logTable);
         

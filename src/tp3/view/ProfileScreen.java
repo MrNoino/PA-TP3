@@ -21,6 +21,7 @@ import tp3.controller.ManageAuthors;
 import tp3.controller.ManageLiteraryStyles;
 import tp3.controller.ManageManagers;
 import tp3.controller.ManageReviewers;
+import tp3.controller.ManageUsers;
 import tp3.model.Author;
 import tp3.model.LiteraryStyle;
 import tp3.model.Manager;
@@ -242,15 +243,41 @@ public class ProfileScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
+            ManageUsers manageUsers = new ManageUsers();
+            if (!this.usernameField.getText().equals(Main.getLoggedUser().getUsername()) && manageUsers.existsUsername(this.usernameField.getText())) {
+                JOptionPane.showMessageDialog(this.frame, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            if (!this.emailField.getText().matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
+                JOptionPane.showMessageDialog(this.frame, "Email de formato inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
+            if (!this.emailField.getText().equals(Main.getLoggedUser().getEmail()) && manageUsers.existsEmail(this.emailField.getText())) {
+                JOptionPane.showMessageDialog(this.frame, "Email já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                return;
+            }
             boolean updated;
             if (Main.getLoggedUser().getRoleId() != 1) {
                 if (this.nifField.getText().isEmpty() || this.phoneField.getText().isEmpty() || this.addressField.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                     return;
                 }
+                if (!this.nifField.getText().matches("\\d{9}")) {
+                    JOptionPane.showMessageDialog(this.frame, "NIF de formato inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                    return;
+                }
+                if (!this.phoneField.getText().matches("[239]\\d{8}")) {
+                    JOptionPane.showMessageDialog(this.frame, "Telefone de formato inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                    return;
+                }
                 if (Main.getLoggedUser().getRoleId() == 2) {
                     if (this.graduationField.getText().isEmpty() || this.specializationField.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                        return;
+                    }
+                    Reviewer reviewer = new ManageReviewers().getReviewer(Main.getLoggedUser().getId());
+                    if (!this.nifField.getText().equals(reviewer.getNif()) && manageUsers.existsNIF(this.nifField.getText())) {
+                        JOptionPane.showMessageDialog(this.frame, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                         return;
                     }
                     updated = new ManageReviewers().updateReviewer(new Reviewer(
@@ -268,6 +295,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
                             this.graduationField.getText(),
                             this.specializationField.getText()));
                 } else {
+                    Author author = new ManageAuthors().getAuthor(Main.getLoggedUser().getId());
+                    if (!this.nifField.getText().equals(author.getNif()) && manageUsers.existsNIF(this.nifField.getText())) {
+                        JOptionPane.showMessageDialog(this.frame, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                        return;
+                    }
                     updated = new ManageAuthors().updateAuthor(new Author(
                             Main.getLoggedUser().getId(),
                             this.nameField.getText(),
