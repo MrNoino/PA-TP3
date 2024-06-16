@@ -87,7 +87,19 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.redesignAddUserPanel("Gestor");
 
         JScrollPane addUserScrollPanel = new JScrollPane(this.addPanel);
-        this.addPanel.setAutoscrolls(true);
+        
+        this.updateNameField = Components.getTextField("Atualize o nome");
+        this.updateUsernameField = Components.getTextField("Atualize o nome de utilizador");
+        this.updatePasswordField = Components.getPasswordField("Atualize a palavra passe");
+        this.updateEmailField = Components.getTextField("Atualize o email");
+        this.updateButton = Components.getPrimaryButton("Atualizar", "Atualizar o Utilizador");
+        this.updateButton.addActionListener(this);
+        this.updateStatusButton = Components.getPrimaryButton("Ativar/Desativar Conta", "Ativar/Desativar conta de utilizador", Components.WARNING_COLOR, Components.ON_ACCENT_COLOR);
+        this.updateStatusButton.addActionListener(this);
+        this.updateDeletedButton = Components.getPrimaryButton("Eliminar Conta", "Eliminar conta de utilizador", Components.DANGER_COLOR, Components.ON_ACCENT_COLOR);
+        this.updateDeletedButton.addActionListener(this);
+        
+        JScrollPane updateUserScrollPanel = new JScrollPane(this.updatePanel);
 
         this.searchField = Components.getTextField(new Dimension(250, Components.getSpacing(Components.Spacing.MEDIUM) * 2), "Insira a pesquisa");
         this.searchCombobox = Components.getComboBox(new String[]{"Nome", "Nome de Utilizador", "Tipo de Utilizador"}, "Escolha o campo a pesquisar");
@@ -118,7 +130,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
 
         this.usersTabbedPanel.add("Visualizar", viewUsersPanel);
         this.usersTabbedPanel.add("Inserir", addUserScrollPanel);
-        this.usersTabbedPanel.add("Atualizar", updatePanel);
+        this.usersTabbedPanel.add("Atualizar", updateUserScrollPanel);
     }
 
     @Override
@@ -511,19 +523,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                 userRole = "Autor";
                 break;
         }
-
         this.updatePanel.removeAll();
-
-        this.updateNameField = Components.getTextField("Atualize o nome");
-        this.updateUsernameField = Components.getTextField("Atualize o nome de utilizador");
-        this.updatePasswordField = Components.getPasswordField("Atualize a palavra passe");
-        this.updateEmailField = Components.getTextField("Atualize o email");
-        this.updateButton = Components.getPrimaryButton("Atualizar", "Atualizar o Utilizador");
-        this.updateButton.addActionListener(this);
-        this.updateStatusButton = Components.getPrimaryButton("Ativar/Desativar Conta", "Ativar/Desativar conta de utilizador", Components.WARNING_COLOR, Components.ON_ACCENT_COLOR);
-        this.updateStatusButton.addActionListener(this);
-        this.updateDeletedButton = Components.getPrimaryButton("Eliminar Conta", "Eliminar conta de utilizador", Components.DANGER_COLOR, Components.ON_ACCENT_COLOR);
-        this.updateDeletedButton.addActionListener(this);
 
         GridBagConstraints constraints = new GridBagConstraints();
         this.updatePanel.removeAll();

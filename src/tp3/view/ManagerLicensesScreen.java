@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -179,6 +178,7 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
                     quantity));
             if(inserted){
                 JOptionPane.showMessageDialog(this.frame, "Inserido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE, null);
+                this.cleanAddForm();
             }else{
                 JOptionPane.showMessageDialog(this.frame, "Não inserido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
             }
@@ -212,6 +212,12 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
                 this.quantitySpinner.setValue(license.getQuantity());
             }
         }
+    }
+    
+    private void cleanAddForm(){
+        this.designationField.setText("");
+        this.expireDateField.setText("");
+        this.quantityField.setText("");
     }
 
 }

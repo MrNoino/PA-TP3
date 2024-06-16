@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import tp3.controller.ManageAuthors;
@@ -78,14 +79,13 @@ public class SignupScreen extends JFrame implements ActionListener {
         this.container.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Editora");
-        this.setMinimumSize(new Dimension(800, 800));
+        this.setMinimumSize(new Dimension(500, 500));
         setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setIconImage(Components.getLogoIcon().getImage());
 
         this.container.setBackground(Components.BACKGROUND_COLOR);
 
         JTabbedPane tabbedPanel = new JTabbedPane();
-        //tabbedPanel.setPreferredSize(new Dimension(500,600));
 
         JLabel titleAuthorLabel = Components.getHeader("Registo de Autor", Components.Alignment.CENTER),
                 titleReviewerLabel = Components.getHeader("Registo de Revisor", Components.Alignment.CENTER);
@@ -114,6 +114,8 @@ public class SignupScreen extends JFrame implements ActionListener {
         literacyStyleLabel = Components.getLabel("Estilo Literário:");
         literacyStylesComboBox = Components.getComboBox(new ManageLiteraryStyles().toArray(), "Escolha o estilo literário");
         authorSignupButton.addActionListener(this);
+        
+        JScrollPane authorScrollPane = new JScrollPane(authorPanel);
 
         // Reviewer Fields
         JPanel reviewerPanel = new JPanel(new GridBagLayout());
@@ -139,6 +141,8 @@ public class SignupScreen extends JFrame implements ActionListener {
         specializationField = Components.getTextField("Insira a especialização");
         reviewerSignupButton = Components.getPrimaryButton("Registar", "Registar o Revisor");
         reviewerSignupButton.addActionListener(this);
+        
+        JScrollPane reviewerScrollPane = new JScrollPane(reviewerPanel);
 
         JLabel alreadyHaveAccountLabel1 = Components.getLabel("Já tens conta?"),
                 loginLabel1 = Components.getLabel("Autenticar", Components.ACCENT_COLOR);
@@ -282,8 +286,8 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.gridy = 20;
         reviewerPanel.add(loginPanel2, constraints);
 
-        tabbedPanel.add("Autor", authorPanel);
-        tabbedPanel.add("Revisor", reviewerPanel);
+        tabbedPanel.add("Autor", authorScrollPane);
+        tabbedPanel.add("Revisor", reviewerScrollPane);
 
         this.container.add(tabbedPanel, BorderLayout.CENTER);
 

@@ -45,9 +45,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         JLabel passwordLabel = Components.getLabel("Palavra Passe:");
 
         this.usernameField = Components.getTextField("Insira o seu nome de utilizador");
-        this.usernameField.setText("afonso");
         this.passwordField = Components.getPasswordField("Insira a sua palavra passe");
-        this.passwordField.setText("1414");
 
         loginButton = Components.getPrimaryButton("Iniciar Sessão", "Autenticar o utilizador");
         loginButton.addActionListener(this);
@@ -120,18 +118,17 @@ public class LoginScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this.container, "Utilizador não ativo", "Aviso", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            //JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.container, "Bem vindo " + user.getUsername(), "Autenticado", JOptionPane.INFORMATION_MESSAGE);
             Main.login(user);
-            JFrame userFrame;
             switch (user.getRoleId()) {
                 case 1:
-                    userFrame = new ManagerScreen();
+                    new ManagerScreen();
                     break;
                 case 2:
-                    userFrame = new ReviewerScreen();
+                    new ReviewerScreen();
                     break;
                 case 3:
-                    userFrame = new AuthorScreen();
+                    new AuthorScreen();
                     break;
                 default:
                     break;
