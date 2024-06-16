@@ -29,6 +29,9 @@ import tp3.controller.ManageLiteraryStyles;
 import tp3.model.Book;
 import tp3.model.LiteraryStyle;
 
+/**
+ * A class that represents an author books screen 
+ */
 public class AuthorBooksScreen extends JFrame implements ActionListener, ListSelectionListener {
 
     private JFrame frame;
@@ -43,6 +46,11 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
     private String[] columnNames;
     private JPanel updatePanel;
 
+    /**
+     * Class constructor 
+     * @param frame the frame used in the parent screen
+     * @param booksTabbedPane the tabbed pane used in the parent screen
+     */
     public AuthorBooksScreen(JFrame frame, JTabbedPane booksTabbedPane) {
         this.frame = frame;
         this.booksTabbedPane = booksTabbedPane;
@@ -294,6 +302,10 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
         this.booksTabbedPane.add("Atualizar", updateScrollPane);
     }
 
+    /**
+     * Handles the click events
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.searchButton) {
@@ -419,6 +431,10 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
         }
     }
 
+    /**
+     * Handles the selection change on the table
+     * @param e the selection event
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && this.table.getSelectedRowCount() > 0) {
@@ -426,6 +442,9 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
         }
     }
     
+    /**
+     * Clears all the fields in the add book form
+     */
     private void cleanAddForm(){
         this.addTitleField.setText("");
         this.addSubtitleField.setText("");
@@ -438,6 +457,9 @@ public class AuthorBooksScreen extends JFrame implements ActionListener, ListSel
             this.addLiteraryStyleComboBox.setSelectedIndex(0);
     }
     
+    /**
+     * Sets the proper book information in the edit panel
+     */
     private void redesignUpdateBookPanel(){
         Book book = new ManageBooks().getBookById(Main.getLoggedUser().getId(), (long) this.table.getValueAt(this.table.getSelectedRow(), 0));
         if(book != null){

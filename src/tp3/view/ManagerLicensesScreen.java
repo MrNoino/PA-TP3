@@ -25,6 +25,9 @@ import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageLicenses;
 import tp3.model.License;
 
+/**
+ * A class that represents a manager licenses screen
+ */
 public class ManagerLicensesScreen extends JFrame implements ActionListener, ListSelectionListener{
 
     private JFrame frame;
@@ -36,6 +39,11 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
     private JButton refreshButton, addButton, updateButton;
     private JSpinner quantitySpinner;
 
+    /**
+     * A constructor class that builds the UI
+     * @param frame the main frame from the parent screen
+     * @param licensesTabbedPanel the license tabbed panel from the parent screen
+     */
     public ManagerLicensesScreen(JFrame frame, JTabbedPane licensesTabbedPanel) {
         this.frame = frame;
         this.licensesTabbedPanel = licensesTabbedPanel;
@@ -141,6 +149,11 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
         this.licensesTabbedPanel.add("Atualizar", updatePanel);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.refreshButton){
@@ -203,6 +216,11 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
         }
     }
 
+    /**
+     * Handles the table selection listener
+     *
+     * @param e the event
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && this.table.getSelectedRowCount() > 0) {
@@ -214,6 +232,9 @@ public class ManagerLicensesScreen extends JFrame implements ActionListener, Lis
         }
     }
     
+    /**
+     * Clears the form data in the add license screen
+     */
     private void cleanAddForm(){
         this.designationField.setText("");
         this.expireDateField.setText("");

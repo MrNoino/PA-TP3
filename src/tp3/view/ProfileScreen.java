@@ -27,6 +27,9 @@ import tp3.model.LiteraryStyle;
 import tp3.model.Manager;
 import tp3.model.Reviewer;
 
+/**
+ * A class that represents a profile screen
+ */
 public class ProfileScreen extends JFrame implements ActionListener {
 
     private JFrame frame;
@@ -36,6 +39,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JComboBox literaryStylesComboBox;
 
+    /**
+     * A constructor class that builds the UI
+     * @param frame the main frame from the parent screen
+     * @param profilePanel the profile panel from the parent screen
+     */
     public ProfileScreen(JFrame frame, JPanel profilePanel) {
         this.frame = frame;
         this.profilePanel = profilePanel;
@@ -232,6 +240,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
         this.profilePanel.add(logoutPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.logoutButton) {

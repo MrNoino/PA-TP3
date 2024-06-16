@@ -75,6 +75,10 @@ public class ManageReviews {
         return null;
     }
 
+    /**
+     * Gets a list of reviews in the database
+     * @return a list of reviews 
+     */
     public ArrayList<Review> getReviews() {
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
@@ -256,6 +260,11 @@ public class ManageReviews {
         return null;
     }
 
+    /**
+     * Gets a list of reviews provided the reviewer id
+     * @param reviewerId the reviewer id
+     * @return list of reviews
+     */
     public ArrayList<Review> getReviewerReviews(Long reviewerId) {
         DbWrapper dbWrapper = new DbWrapper();
         dbWrapper.connect();
@@ -341,6 +350,14 @@ public class ManageReviews {
         return inserted;
     }
 
+    /**
+     * Updates the review in the database
+     * @param id the review id
+     * @param observations the observations
+     * @param cost the cost
+     * @param status the status
+     * @return update was successful
+     */
     public boolean updateReview(Long id, String observations, float cost, String status) {
         DbWrapper dbWrapper = new DbWrapper();
         boolean updated = dbWrapper.manipulate("CALL update_review(?, ?, ?, ?)", new Object[]{id, observations, cost, status}) > 0;
@@ -354,6 +371,10 @@ public class ManageReviews {
         return updated;
     }
 
+    /**
+     * Gets the reviews as an author review array to be used in a table
+     * @return an array of reviews
+     */
     public Object[][] toAuthorReviewArray() {
         Object[][] u = new Object[this.reviews.size()][4];
 
@@ -365,6 +386,10 @@ public class ManageReviews {
         return u;
     }
 
+    /**
+     * Gets the reviews as a reviewer review array to be used in a table
+     * @return an array of reviews
+     */
     public Object[][] toReviewerReviewsArray() {
         Object[][] u = new Object[this.reviews.size()][13];
 
@@ -376,6 +401,10 @@ public class ManageReviews {
         return u;
     }
 
+    /**
+     * Gets the reviews as an array
+     * @return an array of reviews
+     */
     public Object[][] toArray() {
         Object[][] u = new Object[this.reviews.size()][14];
 

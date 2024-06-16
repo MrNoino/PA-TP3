@@ -2,6 +2,9 @@ package tp3.view;
 
 import tp3.model.EmailWrapper;
 
+/**
+ * A class to test the email sending capabilities
+ */
 public class EmailTest {
     public static void main(String[] args) {
         EmailWrapper emailWrapper = new EmailWrapper();

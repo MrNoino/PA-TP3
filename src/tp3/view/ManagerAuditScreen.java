@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageLogs;
 
+/**
+ * A class that represents a manager audit screen
+ */
 public class ManagerAuditScreen extends JFrame implements  ActionListener{
     private JFrame frame;
     private JPanel auditPanel;
@@ -23,6 +26,11 @@ public class ManagerAuditScreen extends JFrame implements  ActionListener{
     private String[] columnNames;
     private DefaultTableModel tableModel;
     
+    /**
+     * Class constructor that builds the UI
+     * @param frame the main frame from the parent screen
+     * @param auditPanel the audit panel from the parent screen
+     */
     public ManagerAuditScreen(JFrame frame, JPanel auditPanel){
         this.frame = frame;
         this.auditPanel = auditPanel;
@@ -47,6 +55,11 @@ public class ManagerAuditScreen extends JFrame implements  ActionListener{
         this.auditPanel.add(tableScroll, BorderLayout.CENTER);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.searchButton){

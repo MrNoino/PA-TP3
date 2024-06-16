@@ -15,6 +15,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * A class that contains components and other UI related content
+ */
 public final class Components {
     
     private Components(){}
@@ -34,14 +37,25 @@ public final class Components {
     public static final int MEDIUM_PADDING = 12;
     public static final int LARGE_PADDING = 16;
 
+    /**
+     * The alignment types
+     */
     public static enum Alignment {
         START, TOP, CENTER, END, BOTTOM
     }
     
+    /**
+     * The spacing types
+     */
     public static enum Spacing{
         SMALL, MEDIUM, LARGE
     }
 
+    /**
+     * Gets the equivalent java swing alignment
+     * @param alignment the component alignment
+     * @return the java swing alignment
+     */
     private static int getAlignment(Alignment alignment) {
         switch (alignment) {
             case START -> {
@@ -61,7 +75,12 @@ public final class Components {
             }
         }
     }
-    
+
+    /**
+     * Gets the spacing size
+     * @param spacing the spacing
+     * @return a spacing size
+     */
     public static int getSpacing(Spacing spacing){
         return switch (spacing) {
             case SMALL -> SMALL_PADDING;
@@ -70,6 +89,12 @@ public final class Components {
         };
     }
 
+    /**
+     * Gets a label with a header size
+     * @param text the label text
+     * @param alignment the alignment
+     * @return a header
+     */
     public static JLabel getHeader(String text, Alignment alignment) {
         JLabel label = new JLabel(text, getAlignment(alignment));
         label.setFont(new Font("Arial", Font.PLAIN, HEADER_TEXT_SIZE));
@@ -78,18 +103,35 @@ public final class Components {
         return label;
     }
 
+    /**
+     * Gets a label
+     * @param text the label text
+     * @return a label
+     */
     public static JLabel getLabel(String text) {
         JLabel label = new JLabel(text, getAlignment(Alignment.START));
         label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
         return label;
     }
     
+    /**
+     * Gets a label
+     * @param text the label text
+     * @param font the font to be used
+     * @return a label
+     */
     public static JLabel getLabel(String text, Font font) {
         JLabel label = new JLabel(text, getAlignment(Alignment.START));
         label.setFont(font);
         return label;
     }
     
+    /**
+     * Gets a label
+     * @param text the label text
+     * @param color the label color
+     * @return a label
+     */
     public static JLabel getLabel(String text, Color color) {
         JLabel label = new JLabel(text, getAlignment(Alignment.START));
         label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
@@ -97,6 +139,13 @@ public final class Components {
         return label;
     }
     
+    /**
+     * Gets a label
+     * @param text the label text
+     * @param font the label font
+     * @param color the label color
+     * @return a label
+     */
     public static JLabel getLabel(String text, Font font, Color color) {
         JLabel label = new JLabel(text, getAlignment(Alignment.START));
         label.setFont(font);
@@ -104,16 +153,33 @@ public final class Components {
         return label;
     }
 
+    /**
+     * Gets a label
+     * @param text the label text
+     * @param alignment the label alignment
+     * @return a label
+     */
     public static JLabel getLabel(String text, Alignment alignment) {
         JLabel label = new JLabel(text, getAlignment(alignment));
         label.setFont(new Font("Arial", Font.PLAIN, MEDIUM_TEXT_SIZE));
         return label;
     }
 
+    /**
+     * Gets a textfield
+     * @param tooltip the textfield tooltip
+     * @return a textfield
+     */
     public static JTextField getTextField(String tooltip) {
         return getTextField(new Dimension(300, MEDIUM_PADDING * 2), tooltip);
     }
     
+    /**
+     * Gets a textfield
+     * @param size the textfield dimensions
+     * @param tooltip the textfield tooltip
+     * @return 
+     */
     public static JTextField getTextField(Dimension size, String tooltip) {
         JTextField field = new JTextField();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
@@ -122,6 +188,11 @@ public final class Components {
         return field;
     }
     
+    /**
+     * Gets a text area
+     * @param tooltip the text area tooltip
+     * @return 
+     */
     public static JTextArea getTextArea(String tooltip){
         JTextArea component = new JTextArea();
         component.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
@@ -131,10 +202,21 @@ public final class Components {
         return component;
     }
     
+    /**
+     * Gets a spinner
+     * @param tooltip the spinner tooltip
+     * @return a spinner
+     */
     public static JSpinner getSpinner(String tooltip) {
         return getSpinner(new Dimension(300, MEDIUM_PADDING * 2), tooltip);
     }
     
+    /**
+     * Gets a spinner
+     * @param size the spinner dimensions
+     * @param tooltip the spinner tooltip
+     * @return a spinner
+     */
     public static JSpinner getSpinner(Dimension size, String tooltip) {
         JSpinner field = new JSpinner();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
@@ -143,6 +225,11 @@ public final class Components {
         return field;
     }
 
+    /**
+     * Gets a password field
+     * @param tooltip the password field tooltip
+     * @return a password field
+     */
     public static JPasswordField getPasswordField(String tooltip) {
         JPasswordField field = new JPasswordField();
         field.setFont(new Font("Arial", Font.PLAIN, SMALL_TEXT_SIZE));
@@ -151,6 +238,11 @@ public final class Components {
         return field;
     }
     
+    /**
+     * Gets a combobox
+     * @param tooltip the combobox tooltip
+     * @return a combobox
+     */
     public static JComboBox getComboBox(String tooltip){
         JComboBox comboBox = new JComboBox();
         comboBox.setSize(500, 50);
@@ -158,6 +250,12 @@ public final class Components {
         return comboBox;
     }
     
+    /**
+     * Gets a combobox
+     * @param items the combobox items
+     * @param tooltip the combobox tooltip
+     * @return a combobox
+     */
     public static JComboBox getComboBox(Object[] items, String tooltip){
         JComboBox comboBox = new JComboBox(items);
         comboBox.setSize(500, 50);
@@ -165,6 +263,14 @@ public final class Components {
         return comboBox;
     }
     
+    /**
+     * Gets a primary button
+     * @param text the button text
+     * @param tooltip the button tolltip
+     * @param bgColor the button background color
+     * @param fgColor the button foreground color
+     * @return a primary button
+     */
     public static JButton getPrimaryButton(String text, String tooltip, Color bgColor, Color fgColor){
         JButton button = new JButton(text);
         button.setBackground(bgColor);
@@ -176,18 +282,46 @@ public final class Components {
         return button;
     }
     
+    /**
+     * Gets a primary button
+     * @param text the button text
+     * @param tooltip the button toolip
+     * @return a primary button
+     */
     public static JButton getPrimaryButton(String text, String tooltip){
         return getPrimaryButton(text, tooltip, ACCENT_COLOR, ON_ACCENT_COLOR);
     }
     
+    /**
+     * Gets a secondary button
+     * @param text the button text
+     * @param tooltip the button tooltip
+     * @return a secondary button
+     */
     public static JButton getSecondaryButton(String text, String tooltip){
         return getSecondaryButton(text, new Dimension(100, MEDIUM_PADDING * 2), tooltip);
     }
     
+    /**
+     * Gets a secondary button
+     * @param text the button text
+     * @param size the button dimensions
+     * @param tooltip the button tooltip
+     * @return a secondary button
+     */
     public static JButton getSecondaryButton(String text, Dimension size, String tooltip){
         return getSecondaryButton(text, size, tooltip, null, null);
     }
     
+    /**
+     * Gets a secondary button
+     * @param text the button text
+     * @param size the button size
+     * @param tooltip the button tooltip
+     * @param bgColor the button background color
+     * @param fgColor the button foreground color
+     * @return a secondary button
+     */
     public static JButton getSecondaryButton(String text, Dimension size, String tooltip, Color bgColor, Color fgColor){
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, SMALL_TEXT_SIZE));
@@ -221,10 +355,18 @@ public final class Components {
         return new Insets(size, 0, size, 0);
     }
     
+    /**
+     * Gets a insets with 0 spacing on every side
+     * @return Insets
+     */
     public static Insets getEmptyInsets(){
         return new Insets(0, 0, 0, 0);
     }
     
+    /**
+     * Gets the app logo
+     * @return the app logo
+     */
     public static ImageIcon getLogoIcon(){
         return new ImageIcon("src/tp3/assets/editora.jpeg");
     }

@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import tp3.controller.ManageUsers;
 import tp3.model.User;
 
+/**
+ * A class that represents a login screen
+ */
 public class LoginScreen extends JFrame implements ActionListener {
 
     private Container container;
@@ -28,6 +31,9 @@ public class LoginScreen extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
+    /**
+     * Class constructor that builds the UI
+     */
     public LoginScreen() {
         this.frame = this;
         this.container = getContentPane();
@@ -99,6 +105,11 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.loginButton)) {
@@ -114,7 +125,7 @@ public class LoginScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this.container, "Credenciais inválidas", "Aviso", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if(!user.isActive()){
+            if (!user.isActive()) {
                 JOptionPane.showMessageDialog(this.container, "Utilizador não ativo", "Aviso", JOptionPane.ERROR_MESSAGE);
                 return;
             }

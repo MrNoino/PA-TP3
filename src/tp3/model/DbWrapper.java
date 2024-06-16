@@ -20,7 +20,7 @@ public class DbWrapper {
     private String password;
 
     /**
-     * Class construtor that assigns the attributes from the parameters
+     * Class constructor that assigns the attributes from the parameters
      * @param host host of the database
      * @param port port of the database
      * @param database database name
@@ -41,7 +41,7 @@ public class DbWrapper {
     }
     
     /**
-     * Class construtor that assigns the attributes from file
+     * Class constructor that assigns the attributes from file
      * @param fileName name of the file
      */
     public DbWrapper(String fileName) {
@@ -55,7 +55,7 @@ public class DbWrapper {
     }
     
     /**
-     * Class construtor that assigns the attributes from a default file
+     * Class constructor that assigns the attributes from a default file
      */
     public DbWrapper() {
         try {

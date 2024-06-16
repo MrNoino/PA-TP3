@@ -7,10 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+/**
+ * A class that represents a manager screen
+ */
 public class ManagerScreen extends JFrame {
 
     private Container container;
 
+    /**
+     * Constructor class that builds the UI
+     */
     public ManagerScreen() {
         this.container = getContentPane();
         this.container.setLayout(new BorderLayout());

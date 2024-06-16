@@ -25,6 +25,9 @@ import tp3.controller.ManageReviews;
 import tp3.model.Book;
 import tp3.model.Review;
 
+/**
+ * A class that represents an author screen
+ */
 public class AuthorScreen extends JFrame implements ActionListener {
 
     private Container container;
@@ -50,6 +53,9 @@ public class AuthorScreen extends JFrame implements ActionListener {
     private JComboBox booksComboBox;
     private JButton requestReviewButton;
 
+    /**
+     * Class constructor
+     */
     public AuthorScreen() {
         this.frame = this;
         this.container = getContentPane();
@@ -81,6 +87,9 @@ public class AuthorScreen extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Shows the setup reviews panel
+     */
     private void setupReviewsPanel() {
         listReviewsPanel = new JPanel(new BorderLayout());
         requestReviewPanel = new JPanel(new GridBagLayout());
@@ -137,6 +146,10 @@ public class AuthorScreen extends JFrame implements ActionListener {
         reviewsPanel.add("Inserir", requestReviewPanel);
     }
 
+    /**
+    * Handles the click events
+    * @param e the event
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(searchButton)) {

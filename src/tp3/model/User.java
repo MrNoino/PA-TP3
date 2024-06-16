@@ -15,7 +15,7 @@ public class User {
     private int roleId;
 
     /**
-     * Class constutor that assigns the attributes
+     * Class constructor that assigns the attributes
      *
      * @param aId id of the user
      * @param aName name of the user
@@ -38,7 +38,7 @@ public class User {
     }
 
     /**
-     * Class constutor that assigns the attributes except password
+     * Class constructor that assigns the attributes except password
      *
      * @param aId id of the user
      * @param aName name of the user
