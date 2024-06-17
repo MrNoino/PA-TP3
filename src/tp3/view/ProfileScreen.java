@@ -400,6 +400,9 @@ public class ProfileScreen extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Gets an image from user by File Chooser
+     */
     private void getImageFromUser() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Selecionar foto de perfil");

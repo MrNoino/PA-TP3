@@ -1,7 +1,5 @@
 package tp3.model;
 
-import com.mysql.cj.jdbc.Blob;
-
 /**
  * A class that represents an User
  */
@@ -234,5 +232,4 @@ public class User {
     public Object[] toArray() {
         return new Object[]{this.id, this.name, this.username, this.email, (this.active) ? "Sim" : "Não", (this.deleted ) ? "Sim" : "Não", this.roleId};
     }
-
 }

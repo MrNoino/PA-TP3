@@ -509,6 +509,10 @@ public class SignupScreen extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Gets an image from user by File Chooser
+     * @param userType - the type of user getting the image
+     */
     private void getImageFromUser(String userType) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Selecionar foto de perfil");

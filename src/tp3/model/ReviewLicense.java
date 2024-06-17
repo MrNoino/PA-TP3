@@ -48,6 +48,4 @@ public class ReviewLicense {
     public void setReviewId(long reviewId) {
         this.reviewId = reviewId;
     }
-    
-    
 }

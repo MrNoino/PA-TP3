@@ -1,7 +1,5 @@
 package tp3.model;
 
-import com.mysql.cj.jdbc.Blob;
-
 /**
  * A class that represents an Author
  */

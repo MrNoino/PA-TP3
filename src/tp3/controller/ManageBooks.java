@@ -340,6 +340,4 @@ public class ManageBooks {
         
         return b;
     }
-    
-    
 }
