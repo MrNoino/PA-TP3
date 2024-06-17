@@ -296,7 +296,9 @@ public class ProfileScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.logoutButton) {
+            String name = Main.getLoggedUser().getUsername();
             Main.logout();
+            JOptionPane.showMessageDialog(this.frame, "Adeus " + name, "Informação", JOptionPane.INFORMATION_MESSAGE, null);
             new LoginScreen();
             this.frame.dispose();
         } else if (e.getSource() == this.updateButton) {
