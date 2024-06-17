@@ -1,5 +1,7 @@
 package tp3.model;
 
+import com.mysql.cj.jdbc.Blob;
+
 /**
  * A class that represents an Author
  */
@@ -28,8 +30,8 @@ public class Author extends User {
      * @param aActivityBeginDate date of the begin activity of the author
      * @param aLiteraryStyleId literacy style id of the author
      */
-    public Author(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, String aNif, String aPhone, String aAddress, String aActivityBeginDate, int aLiteraryStyleId) {
-        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId);
+    public Author(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage, String aNif, String aPhone, String aAddress, String aActivityBeginDate, int aLiteraryStyleId) {
+        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId, aProfileImage);
         this.nif = aNif;
         this.phone = aPhone;
         this.address = aAddress;
@@ -53,8 +55,8 @@ public class Author extends User {
      * @param aActivityBeginDate date of the begin activity of the author
      * @param aLiteraryStyleId literacy style id of the author
      */
-    public Author(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, String aNif, String aPhone, String aAddress, String aActivityBeginDate, int aLiteraryStyleId) {
-        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId, aNif, aPhone, aAddress, aActivityBeginDate, aLiteraryStyleId);
+    public Author(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage, String aNif, String aPhone, String aAddress, String aActivityBeginDate, int aLiteraryStyleId) {
+        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId, aProfileImage, aNif, aPhone, aAddress, aActivityBeginDate, aLiteraryStyleId);
     }
 
     /**

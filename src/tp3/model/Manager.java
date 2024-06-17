@@ -16,8 +16,8 @@ public class Manager extends User{
      * @param aDeleted if manager was deleted
      * @param aRoleId role id of the manager
      */
-    public Manager(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId) {
-        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId);
+    public Manager(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage) {
+        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId, aProfileImage);
     }
     
     /**
@@ -30,8 +30,8 @@ public class Manager extends User{
      * @param aDeleted if manager was deleted
      * @param aRoleId role id of the manager
      */
-    public Manager(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId) {
-        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId);
+    public Manager(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage) {
+        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId, aProfileImage);
     }    
     
 }

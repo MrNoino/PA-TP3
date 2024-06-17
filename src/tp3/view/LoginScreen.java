@@ -55,7 +55,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         registerLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame signupFrame = new SignupScreen();
+                new SignupScreen();
                 frame.dispose();
             }
         });

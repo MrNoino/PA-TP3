@@ -1,5 +1,7 @@
 package tp3.model;
 
+import com.mysql.cj.jdbc.Blob;
+
 /**
  * A class that represents an User
  */
@@ -13,6 +15,7 @@ public class User {
     private boolean active;
     private boolean deleted;
     private int roleId;
+    private byte[] profileImage;
 
     /**
      * Class constutor that assigns the attributes
@@ -25,8 +28,9 @@ public class User {
      * @param aActive if user is active
      * @param aDeleted if user was deleted
      * @param aRoleId role id of the user
+     * @param aProfileImage profile image of the user
      */
-    public User(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId) {
+    public User(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage) {
         this.id = aId;
         this.name = aName;
         this.username = aUsername;
@@ -35,6 +39,7 @@ public class User {
         this.active = aActive;
         this.deleted = aDeleted;
         this.roleId = aRoleId;
+        this.profileImage = aProfileImage;
     }
 
     /**
@@ -47,8 +52,9 @@ public class User {
      * @param aActive if user is active
      * @param aDeleted if user was deleted
      * @param aRoleId role id of the user
+     * @param aProfileImage profile image of the user
      */
-    public User(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId) {
+    public User(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage) {
         this.id = aId;
         this.name = aName;
         this.username = aUsername;
@@ -57,6 +63,7 @@ public class User {
         this.active = aActive;
         this.deleted = aDeleted;
         this.roleId = aRoleId;
+        this.profileImage = aProfileImage;
     }
 
     /**
@@ -201,6 +208,22 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Gets the profile image
+     * @return the profile image
+     */
+    public byte [] getProfileImage() {
+        return profileImage;
+    }
+
+    /**
+     * Assigns the profile image
+     * @param profileImage image to be assign
+     */
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
     }
     
     /**

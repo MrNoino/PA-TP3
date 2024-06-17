@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `PA_TP`.`Users` (
   `active` TINYINT NOT NULL DEFAULT 0,
   `deleted` TINYINT NOT NULL DEFAULT 0,
   `role_id` INT NOT NULL,
+  `profile_image` LONGBLOB,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   INDEX `fk_Users_Role1_idx` (`role_id` ASC) VISIBLE,

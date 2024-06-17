@@ -1,22 +1,34 @@
 package tp3.view;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import tp3.controller.ManageAuthors;
 import tp3.controller.ManageLiteraryStyles;
 import tp3.controller.ManageManagers;
@@ -30,14 +42,19 @@ import tp3.model.Reviewer;
 public class ProfileScreen extends JFrame implements ActionListener {
 
     private JFrame frame;
+    private Container container;
     private JPanel profilePanel;
     private JButton logoutButton, updateButton;
     private JTextField nameField, usernameField, emailField, nifField, phoneField, addressField, graduationField, specializationField;
     private JPasswordField passwordField;
     private JComboBox literaryStylesComboBox;
+    private JButton profileImageButton;
+    private byte [] profileImage = null;
 
     public ProfileScreen(JFrame frame, JPanel profilePanel) {
         this.frame = frame;
+        this.container = getContentPane();
+        this.container.setBackground(Components.BACKGROUND_COLOR);
         this.profilePanel = profilePanel;
 
         this.logoutButton = Components.getSecondaryButton("Terminar Sessão",
@@ -47,8 +64,13 @@ public class ProfileScreen extends JFrame implements ActionListener {
                 Components.ON_ACCENT_COLOR);
         logoutButton.addActionListener(this);
         JPanel logoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        logoutPanel.setBackground(Components.BACKGROUND_COLOR);
         logoutPanel.add(logoutButton, BorderLayout.SOUTH);
 
+        this.profileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
+        this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        this.profileImageButton.setBorder(BorderFactory.createEmptyBorder());
+        this.profileImageButton.addActionListener(this);
         this.nameField = Components.getTextField("Atualize o seu nome");
         this.usernameField = Components.getTextField("Atualize o seu nome de utilizador");
         this.passwordField = Components.getPasswordField("Atualize o seu nome");
@@ -57,6 +79,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
         this.updateButton.addActionListener(this);
 
         JPanel profileInfoPanel = new JPanel(new GridBagLayout());
+        profileInfoPanel.setBackground(Components.BACKGROUND_COLOR);
         GridBagConstraints constraints = new GridBagConstraints();
         int gridy = 0;
 
@@ -64,6 +87,16 @@ public class ProfileScreen extends JFrame implements ActionListener {
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         profileInfoPanel.add(Components.getHeader("Atualizar Perfil", Components.Alignment.CENTER), constraints);
+
+        constraints.gridy = gridy += 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = Components.getTopInsets(Components.Spacing.MEDIUM);
+        profileInfoPanel.add(Components.getLabel("Foto de Perfil:"), constraints);
+
+        constraints.gridy = gridy += 1;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.insets = Components.getEmptyInsets();
+        profileInfoPanel.add(this.profileImageButton, constraints);
 
         constraints.gridy = gridy += 1;
         constraints.anchor = GridBagConstraints.WEST;
@@ -166,6 +199,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
                 Reviewer reviewer = new ManageReviewers().getReviewer(Main.getLoggedUser().getId());
 
                 if (reviewer != null) {
+                    if (reviewer.getProfileImage() != null) {
+                        Image image = new ImageIcon(reviewer.getProfileImage()).getImage();
+                        this.profileImageButton.setIcon(new ImageIcon(image.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+                        this.profileImage = reviewer.getProfileImage();
+                    }
                     this.nameField.setText(reviewer.getName());
                     this.usernameField.setText(reviewer.getUsername());
                     this.passwordField.setText(reviewer.getPassword());
@@ -194,6 +232,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
                 Author author = new ManageAuthors().getAuthor(Main.getLoggedUser().getId());
 
                 if (author != null) {
+                    if (author.getProfileImage() != null) {
+                        Image image = new ImageIcon(author.getProfileImage()).getImage();
+                        this.profileImageButton.setIcon(new ImageIcon(image.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+                        this.profileImage = author.getProfileImage();
+                    }
                     this.nameField.setText(author.getName());
                     this.usernameField.setText(author.getUsername());
                     this.passwordField.setText(author.getPassword());
@@ -214,6 +257,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
             Manager manager = new ManageManagers().getManager(Main.getLoggedUser().getId());
 
             if (manager != null) {
+                if (manager.getProfileImage() != null) {
+                    Image image = new ImageIcon(manager.getProfileImage()).getImage();
+                    this.profileImageButton.setIcon(new ImageIcon(image.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+                    this.profileImage = manager.getProfileImage();
+                }
                 this.nameField.setText(manager.getName());
                 this.usernameField.setText(manager.getUsername());
                 this.passwordField.setText(manager.getPassword());
@@ -248,7 +296,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this.frame, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            if (!this.emailField.getText().matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
+            if (!this.emailField.getText().matches("[\\w._-]{3,}@[\\w_.]{3,}.\\w{2,5}")) {
                 JOptionPane.showMessageDialog(this.frame, "Email de formato inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
@@ -289,6 +337,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
                             Main.getLoggedUser().isActive(),
                             Main.getLoggedUser().isDeleted(),
                             Main.getLoggedUser().getRoleId(),
+                            this.profileImage,
                             this.nifField.getText(),
                             this.phoneField.getText(),
                             this.addressField.getText(),
@@ -309,6 +358,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
                             Main.getLoggedUser().isActive(),
                             Main.getLoggedUser().isDeleted(),
                             Main.getLoggedUser().getRoleId(),
+                            this.profileImage,
                             this.nifField.getText(),
                             this.phoneField.getText(),
                             this.addressField.getText(),
@@ -324,13 +374,39 @@ public class ProfileScreen extends JFrame implements ActionListener {
                         this.emailField.getText(),
                         Main.getLoggedUser().isActive(),
                         Main.getLoggedUser().isDeleted(),
-                        Main.getLoggedUser().getRoleId()));
+                        Main.getLoggedUser().getRoleId(),
+                        this.profileImage));
             }
-            if(updated){
-                JOptionPane.showMessageDialog(this.frame, "Atualizado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE, null);  
-            }else{
-                JOptionPane.showMessageDialog(this.frame, "Não atualizado", "Aviso", JOptionPane.ERROR_MESSAGE, null); 
+            if (updated) {
+                JOptionPane.showMessageDialog(this.frame, "Atualizado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE, null);
+            } else {
+                JOptionPane.showMessageDialog(this.frame, "Não atualizado", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            } 
+        }else if (e.getSource() == this.profileImageButton) {
+            this.getImageFromUser();
+        }
+    }
+
+    private void getImageFromUser() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecionar foto de perfil");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        fileChooser.setFileFilter(imageFilter);
+        int fileChooserResult = fileChooser.showOpenDialog(this);
+        if (fileChooserResult == JFileChooser.APPROVE_OPTION) {
+            File profileImageFile = fileChooser.getSelectedFile();
+            this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(profileImageFile.getAbsolutePath()).getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+            try {
+                this.profileImage = Files.readAllBytes(profileImageFile.toPath());
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this.frame, "Erro a obter a foto de perfil", "Aviso", JOptionPane.ERROR_MESSAGE, null);
             }
+        } else if (fileChooserResult == JFileChooser.CANCEL_OPTION) {
+            this.profileImage = null;
+            this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+            this.profileImage = null;
         }
     }
 }

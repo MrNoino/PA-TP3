@@ -45,7 +45,8 @@ public class ManageUsers {
                     resultSet.getString("email"),
                     resultSet.getBoolean("active"),
                     resultSet.getBoolean("deleted"),
-                    resultSet.getInt("role_id"));
+                    resultSet.getInt("role_id"),
+                    resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
             System.out.println("\nErro ao iniciar sessão\n");
@@ -155,7 +156,14 @@ public class ManageUsers {
                         new SimpleDateFormat("yyyy-mm-dd").format(new Date()),
                         "Pesquisou Utilizador (ID: " + id + ")"));
             }
-            return new User(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getString("username"), resultSet.getString("email"), resultSet.getBoolean("active"), resultSet.getBoolean("deleted"), resultSet.getInt("role_id"));
+            return new User(resultSet.getLong("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("username"),
+                    resultSet.getString("email"),
+                    resultSet.getBoolean("active"),
+                    resultSet.getBoolean("deleted"),
+                    resultSet.getInt("role_id"),
+                    resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
             System.out.println("\nErro ao obter o utilizador\n");
@@ -206,7 +214,8 @@ public class ManageUsers {
                         resultSet.getString("email"),
                         resultSet.getBoolean("active"),
                         resultSet.getBoolean("deleted"),
-                        resultSet.getInt("role_id")));
+                        resultSet.getInt("role_id"),
+                        resultSet.getBytes("profile_image")));
             }
             return this.users;
 
@@ -242,7 +251,8 @@ public class ManageUsers {
                         resultSet.getString("email"),
                         resultSet.getBoolean("active"),
                         resultSet.getBoolean("deleted"),
-                        resultSet.getInt("role_id")));
+                        resultSet.getInt("role_id"),
+                        resultSet.getBytes("profile_image")));
             }
             return this.users;
 
@@ -278,7 +288,8 @@ public class ManageUsers {
                         resultSet.getString("email"),
                         resultSet.getBoolean("active"),
                         resultSet.getBoolean("deleted"),
-                        resultSet.getInt("role_id")));
+                        resultSet.getInt("role_id"),
+                        resultSet.getBytes("profile_image")));
             }
             return this.users;
 
@@ -314,7 +325,8 @@ public class ManageUsers {
                         resultSet.getString("email"),
                         resultSet.getBoolean("active"),
                         resultSet.getBoolean("deleted"),
-                        resultSet.getInt("role_id")));
+                        resultSet.getInt("role_id"),
+                        resultSet.getBytes("profile_image")));
             }
             return this.users;
 
@@ -326,6 +338,7 @@ public class ManageUsers {
 
     /**
      * Deletes a user from the database
+     *
      * @param id The user id
      * @return Confirms if the user was deleted
      */
@@ -339,17 +352,19 @@ public class ManageUsers {
         }
         return updated;
     }
-    
+
     /**
      * Converts the arraylist of users into an array of objects
+     *
      * @return the array of users
      */
     public Object[][] toArray() {
         Object[][] u = new Object[this.users.size()][7];
-        
-        for(int i = 0; i < this.users.size(); i++)
+
+        for (int i = 0; i < this.users.size(); i++) {
             u[i] = this.users.get(i).toArray();
-        
+        }
+
         return u;
     }
 }

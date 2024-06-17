@@ -87,7 +87,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.redesignAddUserPanel("Gestor");
 
         JScrollPane addUserScrollPanel = new JScrollPane(this.addPanel);
-        
+
         this.updateNameField = Components.getTextField("Atualize o nome");
         this.updateUsernameField = Components.getTextField("Atualize o nome de utilizador");
         this.updatePasswordField = Components.getPasswordField("Atualize a palavra passe");
@@ -98,7 +98,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.updateStatusButton.addActionListener(this);
         this.updateDeletedButton = Components.getPrimaryButton("Eliminar Conta", "Eliminar conta de utilizador", Components.DANGER_COLOR, Components.ON_ACCENT_COLOR);
         this.updateDeletedButton.addActionListener(this);
-        
+
         JScrollPane updateUserScrollPanel = new JScrollPane(this.updatePanel);
 
         this.searchField = Components.getTextField(new Dimension(250, Components.getSpacing(Components.Spacing.MEDIUM) * 2), "Insira a pesquisa");
@@ -182,7 +182,8 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                         this.addEmailField.getText(),
                         true,
                         false,
-                        1));
+                        1,
+                        null));
             } else {
                 if (this.addNifField.getText().isEmpty() || this.addPhoneField.getText().isEmpty() || this.addAddressField.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
@@ -209,6 +210,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                             true,
                             false,
                             3,
+                            null,
                             this.addNifField.getText(),
                             this.addPhoneField.getText(),
                             this.addAddressField.getText(),
@@ -227,6 +229,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                             true,
                             false,
                             2,
+                            null,
                             this.addNifField.getText(),
                             this.addPhoneField.getText(),
                             this.addAddressField.getText(),
@@ -274,7 +277,8 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                         this.updateEmailField.getText(),
                         true,
                         false,
-                        roleId));
+                        roleId,
+                        user.getProfileImage()));
             } else {
                 if (this.updateNifField.getText().isEmpty() || this.updatePhoneField.getText().isEmpty() || this.updateAddressField.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
@@ -307,6 +311,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                             true,
                             false,
                             roleId,
+                            user.getProfileImage(),
                             this.updateNifField.getText(),
                             this.updatePhoneField.getText(),
                             this.updateAddressField.getText(),
@@ -327,6 +332,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                             true,
                             false,
                             roleId,
+                            user.getProfileImage(),
                             this.updateNifField.getText(),
                             this.updatePhoneField.getText(),
                             this.updateAddressField.getText(),
@@ -688,23 +694,29 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
             this.redesignUpdateUserPanel();
         }
     }
-    
-    private void clearAddForm(){
+
+    private void clearAddForm() {
         this.addNameField.setText("");
         this.addUsernameField.setText("");
         this.addPasswordField.setText("");
         this.addEmailField.setText("");
-        if(this.addNifField != null)
+        if (this.addNifField != null) {
             this.addNifField.setText("");
-        if(this.addPhoneField != null)
+        }
+        if (this.addPhoneField != null) {
             this.addPhoneField.setText("");
-        if(this.addAddressField != null)
+        }
+        if (this.addAddressField != null) {
             this.addAddressField.setText("");
-        if(this.addGraduationField != null)
+        }
+        if (this.addGraduationField != null) {
             this.addGraduationField.setText("");
-        if(this.addSpecializationField != null)
+        }
+        if (this.addSpecializationField != null) {
             this.addSpecializationField.setText("");
-        if (this.addLiteracyStylesComboBox != null)
+        }
+        if (this.addLiteracyStylesComboBox != null) {
             this.addLiteracyStylesComboBox.setSelectedIndex(0);
+        }
     }
 }

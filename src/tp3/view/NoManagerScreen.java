@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -124,9 +123,10 @@ public class NoManagerScreen extends JFrame implements ActionListener {
                     email,
                     true,
                     false,
-                    1));
-            
-            if(!inserted){
+                    1,
+                    null));
+
+            if (!inserted) {
                 JOptionPane.showMessageDialog(this.frame, "Não inserido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }

@@ -47,6 +47,7 @@ public class ManageAuthors {
                     resultSet.getBoolean("active"), 
                     resultSet.getBoolean("deleted"), 
                     resultSet.getInt("role_id"),
+                    resultSet.getBytes("profile_image"),
                     resultSet.getString("nif"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
@@ -67,11 +68,12 @@ public class ManageAuthors {
      */
     public boolean insertAuthor(Author author) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean inserted = dbWrapper.manipulate("CALL insert_author(?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{author.getName(),
+        boolean inserted = dbWrapper.manipulate("CALL insert_author(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{author.getName(),
             author.getUsername(),
             author.getPassword(),
             author.getEmail(),
             author.getRoleId(),
+            author.getProfileImage(),
             author.getNif(),
             author.getPhone(),
             author.getAddress(),

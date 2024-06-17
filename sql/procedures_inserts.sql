@@ -2,19 +2,19 @@ USE `PA_TP` ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`insert_user` ;
 DELIMITER $$
-CREATE PROCEDURE insert_user(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_active TINYINT, IN a_role_id INT)
+CREATE PROCEDURE insert_user(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_active TINYINT, IN a_role_id INT, IN a_profile_image LONGBLOB)
 BEGIN
-	INSERT INTO users (name, username, password, email, active, role_id)
+	INSERT INTO users (name, username, password, email, active, role_id, profile_image)
     VALUES
-    (a_name, a_username, MD5(a_password), a_email, a_active, a_role_id);
+    (a_name, a_username, MD5(a_password), a_email, a_active, a_role_id, a_profile_image);
 END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`insert_manager` ;
 DELIMITER $$
-CREATE PROCEDURE insert_manager(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT)
+CREATE PROCEDURE insert_manager(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB)
 BEGIN
-    CALL insert_user(a_name, a_username, a_password, a_email, 1, a_role_id);
+    CALL insert_user(a_name, a_username, a_password, a_email, 1, a_role_id, a_profile_image);
     
     INSERT INTO managers (user_id)
     VALUES
@@ -24,9 +24,9 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`insert_reviewer` ;
 DELIMITER $$
-CREATE PROCEDURE insert_reviewer(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN a_graduation VARCHAR(128), IN  a_specialization VARCHAR(128))
+CREATE PROCEDURE insert_reviewer(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN a_graduation VARCHAR(128), IN  a_specialization VARCHAR(128))
 BEGIN
-    CALL insert_user(a_name, a_username, a_password, a_email, 0, a_role_id);
+    CALL insert_user(a_name, a_username, a_password, a_email, 0, a_role_id, a_profile_image);
     
     INSERT INTO reviewers (user_id, nif, phone, address, graduation, specialization)
     VALUES
@@ -36,9 +36,9 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`insert_author` ;
 DELIMITER $$
-CREATE PROCEDURE insert_author(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN  a_literary_style_id INT)
+CREATE PROCEDURE insert_author(IN a_name VARCHAR(128), IN a_username VARCHAR(128), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN  a_literary_style_id INT)
 BEGIN
-	CALL insert_user(a_name, a_username, a_password, a_email, 0, a_role_id);
+	CALL insert_user(a_name, a_username, a_password, a_email, 0, a_role_id, a_profile_image);
     
     INSERT INTO authors (user_id, nif, phone, address, literary_style_id)
     VALUES

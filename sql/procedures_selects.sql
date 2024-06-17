@@ -4,7 +4,7 @@ DROP PROCEDURE IF EXISTS `PA_TP`.`get_user_by_id` ;
 DELIMITER $$
 CREATE PROCEDURE get_user_by_id(IN a_id BIGINT) 
 BEGIN
-    SELECT id, name, username, email, active, deleted, role_id
+    SELECT id, name, username, email, active, deleted, role_id, profile_image
 	FROM users
     WHERE id = a_id;
 END $$
@@ -20,7 +20,8 @@ BEGIN
             users.email as "email",
             users.active as "active", 
             users.deleted as "deleted", 
-            users.role_id as "role_id"
+            users.role_id as "role_id",
+            users.profile_image as "profile_image"
 	FROM users
     INNER JOIN managers
     ON managers.user_id = users.id
@@ -39,6 +40,7 @@ BEGIN
             users.active as "active", 
             users.deleted as "deleted", 
             users.role_id as "role_id", 
+            users.profile_image as "profile_image",
             reviewers.nif as "nif", 
             reviewers.phone as "phone", 
             reviewers.address as "address", 
@@ -62,6 +64,7 @@ BEGIN
         users.active as "active", 
         users.deleted as "deleted", 
         users.role_id as "role_id", 
+        users.profile_image as "profile_image",
         authors.nif as "nif", 
         authors.phone as "phone", 
         authors.address as "address", 
@@ -124,7 +127,7 @@ DROP PROCEDURE IF EXISTS `PA_TP`.`login` ;
 DELIMITER $$
 CREATE PROCEDURE login(IN a_username VARCHAR(128), IN a_password VARCHAR(256)) 
 BEGIN
-    SELECT id, name, username, password, email, active, deleted, role_id
+    SELECT id, name, username, password, email, active, deleted, role_id, profile_image
 	FROM users
 	WHERE username = a_username and password = MD5(a_password) and deleted = 0;
 END $$
@@ -139,7 +142,7 @@ BEGIN
     SET page_start = (page-1)*10;
 	SET page_end = page*10;
     
-	SELECT id, name, username, password, email, active, deleted, role_id
+	SELECT id, name, username, password, email, active, deleted, role_id, profile_image
 	FROM users
 	ORDER BY
 		CASE WHEN sort_order = 'ASC' THEN name END ASC,
@@ -153,7 +156,7 @@ DROP PROCEDURE IF EXISTS `PA_TP`.`get_users_by_name` ;
 DELIMITER $$
 CREATE PROCEDURE get_users_by_name(IN a_name VARCHAR(128)) 
 BEGIN
-	SELECT id, name, username, password, email, active, deleted, role_id
+	SELECT id, name, username, password, email, active, deleted, role_id, profile_image
 	FROM users
 	WHERE name like CONCAT('%', a_name, '%');
 END $$
@@ -163,7 +166,7 @@ DROP PROCEDURE IF EXISTS `PA_TP`.`get_users_by_username` ;
 DELIMITER $$
 CREATE PROCEDURE get_users_by_username(IN a_username VARCHAR(128)) 
 BEGIN
-	SELECT id, name, username, password, email, active, deleted, role_id
+	SELECT id, name, username, password, email, active, deleted, role_id, profile_image
 	FROM users
 	WHERE username like CONCAT('%', a_username, '%');
 END $$
@@ -173,7 +176,7 @@ DROP PROCEDURE IF EXISTS `PA_TP`.`get_users_by_role` ;
 DELIMITER $$
 CREATE PROCEDURE get_users_by_role(IN a_role VARCHAR(128)) 
 BEGIN
-	SELECT users.id as "id", users.name as "name", users.username as "username", users.password as "password", users.email as "email", users.active as "active", users.deleted as "deleted", users.role_id as "role_id", roles.role as "role"
+	SELECT users.id as "id", users.name as "name", users.username as "username", users.password as "password", users.email as "email", users.active as "active", users.deleted as "deleted", users.role_id as "role_id", users.profile_image as "profile_image", roles.role as "role"
 	FROM users
     INNER JOIN roles
     ON roles.id = users.role_id

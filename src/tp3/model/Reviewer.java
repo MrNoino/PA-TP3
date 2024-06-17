@@ -1,5 +1,7 @@
 package tp3.model;
 
+import com.mysql.cj.jdbc.Blob;
+
 /**
  * A class that represents a Reviewer
  */
@@ -28,8 +30,8 @@ public class Reviewer extends User {
      * @param aGraduation graduation of the reviewer
      * @param aSpecialization specialization of the reviewer
      */
-    public Reviewer(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, String aNif, String aPhone, String aAddress, String aGraduation, String aSpecialization) {
-        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId);
+    public Reviewer(long aId, String aName, String aUsername, String aPassword, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte [] aProfileImage, String aNif, String aPhone, String aAddress, String aGraduation, String aSpecialization) {
+        super(aId, aName, aUsername, aPassword, aEmail, aActive, aDeleted, aRoleId, aProfileImage);
         this.nif = aNif;
         this.phone = aPhone;
         this.address = aAddress;
@@ -53,8 +55,8 @@ public class Reviewer extends User {
      * @param aGraduation graduation of the reviewer
      * @param aSpecialization specialization of the reviewer
      */
-    public Reviewer(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, String aNif, String aPhone, String aAddress, String aGraduation, String aSpecialization) {
-        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId, aNif, aPhone, aAddress, aGraduation, aSpecialization);
+    public Reviewer(long aId, String aName, String aUsername, String aEmail, boolean aActive, boolean aDeleted, int aRoleId, byte[] aProfileImage, String aNif, String aPhone, String aAddress, String aGraduation, String aSpecialization) {
+        this(aId, aName, aUsername, null, aEmail, aActive, aDeleted, aRoleId, aProfileImage, aNif, aPhone, aAddress, aGraduation, aSpecialization);
     }
 
     /**

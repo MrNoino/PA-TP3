@@ -2,7 +2,7 @@ USE `PA_TP` ;
 
 DROP VIEW IF EXISTS `PA_TP`.`get_users` ;
 CREATE VIEW get_users AS
-SELECT id, name, username, email, active, deleted, role_id
+SELECT id, name, username, email, active, deleted, role_id, profile_image
 FROM users;
 
 DROP VIEW IF EXISTS `PA_TP`.`get_managers` ;
@@ -13,7 +13,8 @@ SELECT users.id as "id",
         users.email as "email",
         users.active as "active", 
         users.deleted as "deleted", 
-        users.role_id as "role_id"
+        users.role_id as "role_id",
+        users.profile_image as "profile_image"
 FROM users
 INNER JOIN managers
 ON managers.user_id = users.id;
@@ -27,6 +28,7 @@ SELECT users.id as "id",
         users.active as "active", 
         users.deleted as "deleted", 
         users.role_id as "role_id", 
+        users.profile_image as "profile_image",
         reviewers.nif as "nif", 
         reviewers.phone as "phone", 
         reviewers.address as "address", 
@@ -45,6 +47,7 @@ SELECT users.id as "id",
         users.active as "active", 
         users.deleted as "deleted", 
         users.role_id as "role_id", 
+        users.profile_image as "profile_image",
         authors.nif as "nif", 
         authors.phone as "phone", 
         authors.address as "address", 

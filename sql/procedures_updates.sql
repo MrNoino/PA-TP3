@@ -2,7 +2,7 @@ USE `PA_TP` ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`update_user` ;
 DELIMITER $$
-CREATE PROCEDURE update_user(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT)
+CREATE PROCEDURE update_user(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB)
 BEGIN
 	UPDATE users 
     SET 
@@ -10,16 +10,17 @@ BEGIN
     username = a_username,
     password = IFNULL(MD5(a_password), password), 
     email = a_email,
-    role_id = a_role_id
+    role_id = a_role_id,
+    profile_image = a_profile_image
     WHERE id = a_id;
 END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`update_reviewer` ;
 DELIMITER $$
-CREATE PROCEDURE update_reviewer(IN a_id BIGINT,  IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN a_graduation VARCHAR(128), IN  a_specialization VARCHAR(128))
+CREATE PROCEDURE update_reviewer(IN a_id BIGINT,  IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN a_graduation VARCHAR(128), IN  a_specialization VARCHAR(128))
 BEGIN
-    CALL update_user(a_id, a_name, a_username, a_password, a_email, a_role_id);
+    CALL update_user(a_id, a_name, a_username, a_password, a_email, a_role_id, a_profile_image);
     
     UPDATE reviewers
     SET nif= a_nif,
@@ -33,9 +34,9 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `PA_TP`.`update_author` ;
 DELIMITER $$
-CREATE PROCEDURE update_author(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN  a_literary_style_id INT)
+CREATE PROCEDURE update_author(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT, IN a_profile_image LONGBLOB, IN a_nif VARCHAR(9), IN a_phone VARCHAR(9), IN a_address VARCHAR(256), IN  a_literary_style_id INT)
 BEGIN
-    CALL update_user(a_id, a_name, a_username, a_password, a_email, a_role_id);
+    CALL update_user(a_id, a_name, a_username, a_password, a_email, a_role_id, a_profile_image);
     
 	UPDATE authors
     SET nif= a_nif,

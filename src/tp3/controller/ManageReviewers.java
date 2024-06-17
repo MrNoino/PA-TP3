@@ -47,6 +47,7 @@ public class ManageReviewers {
                     resultSet.getBoolean("active"),
                     resultSet.getBoolean("deleted"),
                     resultSet.getInt("role_id"),
+                    resultSet.getBytes("profile_image"),
                     resultSet.getString("nif"),
                     resultSet.getString("phone"),
                     resultSet.getString("address"),
@@ -67,11 +68,12 @@ public class ManageReviewers {
      */
     public boolean insertReviewer(Reviewer reviewer) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean inserted = dbWrapper.manipulate("CALL insert_reviewer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{reviewer.getName(),
+        boolean inserted = dbWrapper.manipulate("CALL insert_reviewer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{reviewer.getName(),
             reviewer.getUsername(),
             reviewer.getPassword(),
             reviewer.getEmail(),
             reviewer.getRoleId(),
+            reviewer.getProfileImage(),
             reviewer.getNif(),
             reviewer.getPhone(),
             reviewer.getAddress(),
@@ -93,12 +95,13 @@ public class ManageReviewers {
      */
     public boolean updateReviewer(Reviewer reviewer) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean updated = dbWrapper.manipulate("CALL update_reviewer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{reviewer.getId(),
+        boolean updated = dbWrapper.manipulate("CALL update_reviewer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{reviewer.getId(),
             reviewer.getName(),
             reviewer.getUsername(),
             reviewer.getPassword(),
             reviewer.getEmail(),
             reviewer.getRoleId(),
+            reviewer.getProfileImage(),
             reviewer.getNif(),
             reviewer.getPhone(),
             reviewer.getAddress(),

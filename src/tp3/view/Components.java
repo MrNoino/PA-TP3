@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -226,6 +227,6 @@ public final class Components {
     }
     
     public static ImageIcon getLogoIcon(){
-        return new ImageIcon("src/tp3/assets/editora.jpeg");
+        return new ImageIcon(Toolkit.getDefaultToolkit().getImage(Components.class.getResource("../assets/editora.jpeg")));
     }
 }

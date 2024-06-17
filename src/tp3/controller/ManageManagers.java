@@ -51,6 +51,7 @@ public class ManageManagers {
 
     /**
      * Gets the manager from the database with the given id
+     *
      * @param id The manager id
      * @return Manager
      */
@@ -64,18 +65,19 @@ public class ManageManagers {
             }
 
             if (Main.getLoggedUser() != null) {
-                new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(), 
-                        new SimpleDateFormat("yyyy-mm-dd").format(new Date()), 
+                new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
+                        new SimpleDateFormat("yyyy-mm-dd").format(new Date()),
                         "Pesquisou Gestor (ID: " + id + ")"));
             }
-            
+
             return new Manager(resultSet.getLong("id"),
                     resultSet.getString("name"),
                     resultSet.getString("username"),
                     resultSet.getString("email"),
                     resultSet.getBoolean("active"),
                     resultSet.getBoolean("deleted"),
-                    resultSet.getInt("role_id"));
+                    resultSet.getInt("role_id"),
+                    resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
             System.out.println("\nErro ao obter o gestor\n");
@@ -91,11 +93,12 @@ public class ManageManagers {
      */
     public boolean insertManager(Manager manager) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean inserted = dbWrapper.manipulate("CALL insert_manager(?, ?, ?, ?, ?);", new Object[]{manager.getName(),
+        boolean inserted = dbWrapper.manipulate("CALL insert_manager(?, ?, ?, ?, ?, ?);", new Object[]{manager.getName(),
             manager.getUsername(),
             manager.getPassword(),
             manager.getEmail(),
-            manager.getRoleId()}) > 0;
+            manager.getRoleId(),
+            manager.getProfileImage()}) > 0;
 
         if (inserted && Main.getLoggedUser() != null) {
             new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
@@ -114,16 +117,17 @@ public class ManageManagers {
      */
     public boolean updateManager(Manager manager) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean updated = dbWrapper.manipulate("CALL update_user(?, ?, ?, ?, ?, ?);", new Object[]{manager.getId(),
+        boolean updated = dbWrapper.manipulate("CALL update_user(?, ?, ?, ?, ?, ?, ?);", new Object[]{manager.getId(),
             manager.getName(),
             manager.getUsername(),
             manager.getPassword(),
             manager.getEmail(),
-            manager.getRoleId()}) > 0;
+            manager.getRoleId(),
+            manager.getProfileImage()}) > 0;
 
         if (updated && Main.getLoggedUser() != null) {
-            new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(), 
-                    new SimpleDateFormat("yyyy-mm-dd").format(new Date()), 
+            new ManageLogs().insertLog(new Log(Main.getLoggedUser().getId(),
+                    new SimpleDateFormat("yyyy-mm-dd").format(new Date()),
                     "Atualizou Gestor (ID: " + manager.getId() + ")"));
         }
         return updated;

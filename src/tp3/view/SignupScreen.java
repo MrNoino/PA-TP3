@@ -6,14 +6,25 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +33,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import tp3.controller.ManageAuthors;
 import tp3.controller.ManageLiteraryStyles;
 import tp3.controller.ManageReviewers;
@@ -52,6 +65,8 @@ public class SignupScreen extends JFrame implements ActionListener {
     JButton authorSignupButton;
     JLabel literacyStyleLabel;
     JComboBox literacyStylesComboBox;
+    JLabel authorProfileImageLabel;
+    JButton authorProfileImageButton;
 
     JLabel reviewerNameLabel;
     JTextField reviewerNameField;
@@ -72,6 +87,10 @@ public class SignupScreen extends JFrame implements ActionListener {
     JLabel specializationLabel;
     JTextField specializationField;
     JButton reviewerSignupButton;
+    JLabel reviewerProfileImageLabel;
+    JButton reviewerProfileImageButton;
+
+    File authorProfileImage = null, reviewerProfileImage = null;
 
     public SignupScreen() {
         this.frame = this;
@@ -96,6 +115,11 @@ public class SignupScreen extends JFrame implements ActionListener {
         JPanel authorPanel = new JPanel(new GridBagLayout());
         authorPanel.setBackground(Components.BACKGROUND_COLOR);
 
+        authorProfileImageLabel = Components.getLabel("Foto de Perfil:");
+        authorProfileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
+        authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        authorProfileImageButton.setBorder(BorderFactory.createEmptyBorder());
+        authorProfileImageButton.addActionListener(this);
         authorNameLabel = Components.getLabel("Nome:");
         authorNameField = Components.getTextField("Insira o nome");
         authorUsernameLabel = Components.getLabel("Nome de utilizador:");
@@ -121,6 +145,11 @@ public class SignupScreen extends JFrame implements ActionListener {
         JPanel reviewerPanel = new JPanel(new GridBagLayout());
         reviewerPanel.setBackground(Components.BACKGROUND_COLOR);
 
+        reviewerProfileImageLabel = Components.getLabel("Foto de Perfil:");
+        reviewerProfileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
+        reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        reviewerProfileImageButton.setBorder(BorderFactory.createEmptyBorder());
+        reviewerProfileImageButton.addActionListener(this);
         reviewerNameLabel = Components.getLabel("Nome");
         reviewerNameField = Components.getTextField("Insira o nome");
         reviewerUsernameLabel = Components.getLabel("Nome de utilizador");
@@ -141,7 +170,6 @@ public class SignupScreen extends JFrame implements ActionListener {
         specializationField = Components.getTextField("Insira a especialização");
         reviewerSignupButton = Components.getPrimaryButton("Registar", "Registar o Revisor");
         reviewerSignupButton.addActionListener(this);
-        
         JScrollPane reviewerScrollPane = new JScrollPane(reviewerPanel);
 
         JLabel alreadyHaveAccountLabel1 = Components.getLabel("Já tens conta?"),
@@ -149,7 +177,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         loginLabel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame signupFrame = new LoginScreen();
+                new LoginScreen();
                 frame.dispose();
             }
         });
@@ -160,7 +188,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         loginLabel2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame signupFrame = new LoginScreen();
+                new LoginScreen();
                 frame.dispose();
             }
         });
@@ -182,87 +210,99 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         constraints.gridy = 1;
         constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = Components.getTopInsets(Components.Spacing.MEDIUM);
+        authorPanel.add(authorProfileImageLabel, constraints);
+        reviewerPanel.add(reviewerProfileImageLabel, constraints);
+        
+        constraints.gridy = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.insets = Components.getEmptyInsets();
+        authorPanel.add(authorProfileImageButton, constraints);
+        reviewerPanel.add(reviewerProfileImageButton, constraints);
+
+        constraints.gridy = 3;
+        constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorNameLabel, constraints);
         reviewerPanel.add(reviewerNameLabel, constraints);
 
-        constraints.gridy = 2;
+        constraints.gridy = 4;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorNameField, constraints);
         reviewerPanel.add(reviewerNameField, constraints);
 
-        constraints.gridy = 3;
+        constraints.gridy = 5;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorUsernameLabel, constraints);
         reviewerPanel.add(reviewerUsernameLabel, constraints);
 
-        constraints.gridy = 4;
+        constraints.gridy = 6;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorUsernameField, constraints);
         reviewerPanel.add(reviewerUsernameField, constraints);
 
-        constraints.gridy = 5;
+        constraints.gridy = 7;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorEmailLabel, constraints);
         reviewerPanel.add(reviewerEmailLabel, constraints);
 
-        constraints.gridy = 6;
+        constraints.gridy = 8;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorEmailField, constraints);
         reviewerPanel.add(reviewerEmailField, constraints);
 
-        constraints.gridy = 7;
+        constraints.gridy = 9;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorPasswordLabel, constraints);
         reviewerPanel.add(reviewerPasswordLabel, constraints);
 
-        constraints.gridy = 8;
+        constraints.gridy = 10;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorPasswordField, constraints);
         reviewerPanel.add(reviewerPasswordField, constraints);
 
-        constraints.gridy = 9;
+        constraints.gridy = 11;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorNifLabel, constraints);
         reviewerPanel.add(reviewerNifLabel, constraints);
 
-        constraints.gridy = 10;
+        constraints.gridy = 12;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorNifField, constraints);
         reviewerPanel.add(reviewerNifField, constraints);
 
-        constraints.gridy = 11;
+        constraints.gridy = 13;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorPhoneLabel, constraints);
         reviewerPanel.add(reviewerPhoneLabel, constraints);
 
-        constraints.gridy = 12;
+        constraints.gridy = 14;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorPhoneField, constraints);
         reviewerPanel.add(reviewerPhoneField, constraints);
 
-        constraints.gridy = 13;
+        constraints.gridy = 15;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(authorAddressLabel, constraints);
         reviewerPanel.add(reviewerAddressLabel, constraints);
 
-        constraints.gridy = 14;
+        constraints.gridy = 16;
         constraints.anchor = GridBagConstraints.CENTER;
         authorPanel.add(authorAddressField, constraints);
         reviewerPanel.add(reviewerAddressField, constraints);
 
-        constraints.gridy = 15;
+        constraints.gridy = 17;
         constraints.anchor = GridBagConstraints.WEST;
         authorPanel.add(literacyStyleLabel, constraints);
         reviewerPanel.add(formationLabel, constraints);
 
-        constraints.gridy = 16;
+        constraints.gridy = 18;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         authorPanel.add(literacyStylesComboBox, constraints);
         constraints.fill = GridBagConstraints.NONE;
         reviewerPanel.add(formationField, constraints);
 
-        constraints.gridy = 17;
+        constraints.gridy = 19;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         authorPanel.add(authorSignupButton, constraints);
@@ -270,7 +310,7 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.anchor = GridBagConstraints.WEST;
         reviewerPanel.add(specializationLabel, constraints);
 
-        constraints.gridy = 18;
+        constraints.gridy = 20;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         authorPanel.add(loginPanel1, constraints);
@@ -278,12 +318,12 @@ public class SignupScreen extends JFrame implements ActionListener {
         constraints.insets = Components.getEmptyInsets();
         reviewerPanel.add(specializationField, constraints);
 
-        constraints.gridy = 19;
+        constraints.gridy = 21;
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = Components.getTopInsets(Components.Spacing.LARGE);
         reviewerPanel.add(reviewerSignupButton, constraints);
 
-        constraints.gridy = 20;
+        constraints.gridy = 22;
         reviewerPanel.add(loginPanel2, constraints);
 
         tabbedPanel.add("Autor", authorScrollPane);
@@ -313,17 +353,17 @@ public class SignupScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(container, "Prencha todos os campos", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            
+
             if (manageUsers.existsUsername(username)) {
                 JOptionPane.showMessageDialog(container, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
-            if (!email.matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
+            if (!email.matches("[\\w._-]{3,}@[\\w_.]{3,}.\\w{2,5}")) {
                 JOptionPane.showMessageDialog(container, "Email inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            
+
             if (manageUsers.existsEmail(email)) {
                 JOptionPane.showMessageDialog(container, "Email já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
@@ -345,33 +385,36 @@ public class SignupScreen extends JFrame implements ActionListener {
             }
 
             ManageAuthors manageAuthors = new ManageAuthors();
-            if (manageAuthors.insertAuthor(new Author(-1,
-                    name,
-                    username,
-                    password,
-                    email,
-                    false,
-                    false,
-                    3,
-                    nif,
-                    phone,
-                    address,
-                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-                    styleId))) {
-
-                JOptionPane.showMessageDialog(container, "Registado com sucesso");
-                
-                new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
-
-                new LoginScreen();
-                this.frame.dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            try {
+                if (manageAuthors.insertAuthor(new Author(-1,
+                        name,
+                        username,
+                        password,
+                        email,
+                        false,
+                        false,
+                        3,
+                        (this.authorProfileImage != null)? Files.readAllBytes(this.authorProfileImage.toPath()): null,
+                        nif,
+                        phone,
+                        address,
+                        new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+                        styleId))) {
+                    
+                    JOptionPane.showMessageDialog(container, "Registado com sucesso");
+                    
+                    new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
+                    
+                    new LoginScreen();
+                    this.frame.dispose();
+                    
+                } else {
+                    JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SignupScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-        if (e.getSource().equals(reviewerSignupButton)) {
+        } else if (e.getSource().equals(reviewerSignupButton)) {
             String name = reviewerNameField.getText();
             String username = reviewerUsernameField.getText();
             String email = reviewerEmailField.getText();
@@ -386,18 +429,18 @@ public class SignupScreen extends JFrame implements ActionListener {
             if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || nif.isEmpty() || phone.isEmpty() || address.isEmpty() || formation.isEmpty() || specialization.isEmpty()) {
                 JOptionPane.showMessageDialog(container, "Prencha todos os campos", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
-            }
-            
+            } 
+
             if (manageUsers.existsUsername(username)) {
                 JOptionPane.showMessageDialog(container, "Nome de utilizador já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
-            if (!email.matches("[\\w._-]{3,}@[\\w_]{3,}.\\w{2,5}")) {
+            if (!email.matches("[\\w._-]{3,}@[\\w_.]{3,}.\\w{2,5}")) {
                 JOptionPane.showMessageDialog(container, "Email inválido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-            
+
             if (manageUsers.existsEmail(email)) {
                 JOptionPane.showMessageDialog(container, "Email já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
@@ -419,29 +462,65 @@ public class SignupScreen extends JFrame implements ActionListener {
             }
 
             ManageReviewers manageReviewers = new ManageReviewers();
-            if (manageReviewers.insertReviewer(new Reviewer(-1,
-                    name,
-                    username,
-                    password,
-                    email,
-                    false,
-                    false,
-                    2,
-                    nif,
-                    phone,
-                    address,
-                    formation,
-                    specialization))) {
-
-                JOptionPane.showMessageDialog(container, "Registado com sucesso");
-                
-                new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
-
-                new LoginScreen();
-                this.frame.dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            try {
+                if (manageReviewers.insertReviewer(new Reviewer(-1,
+                        name,
+                        username,
+                        password,
+                        email,
+                        false,
+                        false,
+                        2,
+                        (this.reviewerProfileImage != null) ? Files.readAllBytes(this.reviewerProfileImage.toPath()): null,
+                        nif,
+                        phone,
+                        address,
+                        formation,
+                        specialization))) {
+                    
+                    JOptionPane.showMessageDialog(container, "Registado com sucesso");
+                    
+                    new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
+                    
+                    new LoginScreen();
+                    this.frame.dispose();
+                    
+                } else {
+                    JOptionPane.showMessageDialog(container, "Erro ao registar", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this.frame, "Erro a obter a foto de perfil", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            }
+        } else if (e.getSource() == this.authorProfileImageButton) {
+            this.getImageFromUser("Author");
+        } else if (e.getSource() == this.reviewerProfileImageButton) {
+            this.getImageFromUser("Reviewer");
+        }
+    }
+    
+    private void getImageFromUser(String userType) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecionar foto de perfil");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        //fileChooser.setAcceptAllFileFilterUsed(false);
+        FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        fileChooser.setFileFilter(imageFilter);
+        int fileChooserResult = fileChooser.showOpenDialog(this);
+        if (fileChooserResult == JFileChooser.APPROVE_OPTION) {
+            if(userType.equals("Author")){
+                this.authorProfileImage = fileChooser.getSelectedFile();
+                this.authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.authorProfileImage.getAbsolutePath()).getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+            }else{
+                this.reviewerProfileImage = fileChooser.getSelectedFile();
+               this.reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.reviewerProfileImage.getAbsolutePath()).getScaledInstance(150, 150, Image.SCALE_SMOOTH))); 
+            }
+        }else if(fileChooserResult == JFileChooser.CANCEL_OPTION){
+            if(userType.equals("Author")){
+                this.authorProfileImage = null;
+                this.authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+            }else{
+                this.reviewerProfileImage = null;
+               this.reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT))); 
             }
         }
     }
