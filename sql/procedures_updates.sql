@@ -98,22 +98,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `PA_TP`.`update_user`;
-DELIMITER $$
-CREATE PROCEDURE `update_user`(IN a_id BIGINT, IN a_name VARCHAR(128), IN a_username VARCHAR(100), IN a_password VARCHAR(256), IN a_email VARCHAR(256), IN a_role_id INT)
-BEGIN
-	UPDATE users 
-    SET 
-    name = a_name,
-    username = a_username,
-    password = IFNULL(MD5(a_password), password), 
-    email = a_email,
-    role_id = a_role_id
-    WHERE id = a_id;
-END$$
-DELIMITER ;
-
-
 DROP PROCEDURE IF EXISTS `PA_TP`.`update_review`;
 DELIMITER $$
 CREATE PROCEDURE `update_review`(IN a_review_id bigint, IN a_observations varchar(512), IN a_cost float, IN a_status varchar(128))
