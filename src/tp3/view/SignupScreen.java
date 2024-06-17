@@ -43,6 +43,9 @@ import tp3.model.Author;
 import tp3.model.EmailWrapper;
 import tp3.model.Reviewer;
 
+/**
+ * A class that represents a signup screen
+ */
 public class SignupScreen extends JFrame implements ActionListener {
 
     private Container container;
@@ -92,6 +95,9 @@ public class SignupScreen extends JFrame implements ActionListener {
 
     File authorProfileImage = null, reviewerProfileImage = null;
 
+    /**
+     * Class constructor that builds the UI
+     */
     public SignupScreen() {
         this.frame = this;
         this.container = getContentPane();
@@ -336,6 +342,11 @@ public class SignupScreen extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(authorSignupButton)) {

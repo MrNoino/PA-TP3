@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
+/**
+ * A class that represents a email properties screen
+ */
 public class EmailPropertiesScreen extends JFrame implements ActionListener {
 
     private Container container;
@@ -27,6 +30,9 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
     private JTextField emailField;
     private JPasswordField passwordField;
 
+    /**
+     * Class constructor that builds the UI
+     */
     public EmailPropertiesScreen() {
         this.frame = this;
         File file = new File("email.cfg.dat");
@@ -88,6 +94,11 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.saveButton)) {
@@ -113,6 +124,9 @@ public class EmailPropertiesScreen extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Opens the No Manager screen
+     */
     private void openNoManagerFrame() {
         JFrame noManagerFrame = new NoManagerScreen();
         this.dispose();

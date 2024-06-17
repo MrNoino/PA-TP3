@@ -307,6 +307,11 @@ public class Review {
         this.status = status;
     }
 
+    /**
+     * Gets the review as a reviewer review array
+     *
+     * @return the review as an array
+     */
     public Object[] toReviewerReviewsArray() {
         return new Object[]{
             this.id,
@@ -324,8 +329,13 @@ public class Review {
             this.status
         };
     }
-    
-     public Object[] toArray() {
+
+    /**
+     * Gets the review as an array
+     *
+     * @return the review as an array
+     */
+    public Object[] toArray() {
         return new Object[]{
             this.id,
             this.randomCode,

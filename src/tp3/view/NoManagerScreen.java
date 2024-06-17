@@ -16,6 +16,9 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import tp3.controller.ManageManagers;
 import tp3.model.Manager;
 
+/**
+ * A class that represents the no manager screen
+ */
 public class NoManagerScreen extends JFrame implements ActionListener {
 
     private Container container;
@@ -24,6 +27,9 @@ public class NoManagerScreen extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JButton signupButton;
 
+    /**
+     * A constructor class that builds the UI
+     */
     public NoManagerScreen() {
         this.frame = this;
         ManageManagers manageManagers = new ManageManagers();
@@ -101,6 +107,11 @@ public class NoManagerScreen extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.signupButton)) {
@@ -136,6 +147,9 @@ public class NoManagerScreen extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Opens the login screen
+     */
     private void openLoginFrame() {
         JFrame loginFrame = new LoginScreen();
         this.dispose();

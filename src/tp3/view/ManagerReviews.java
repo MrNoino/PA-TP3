@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -21,6 +20,9 @@ import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageReviews;
 import tp3.model.Review;
 
+/**
+ * A class that represents the manager review screen
+ */
 public class ManagerReviews extends JFrame implements ActionListener, ListSelectionListener {
 
     private JFrame frame;
@@ -57,6 +59,11 @@ public class ManagerReviews extends JFrame implements ActionListener, ListSelect
     ArrayList<Review> reviews = new ArrayList();
     ArrayList<Review> tableReviews = new ArrayList();
 
+    /**
+     * Class constructor that builds the UI
+     * @param frame the main frame from the parent screen
+     * @param mainPanel the main panel from the parent screen
+     */
     public ManagerReviews(JFrame frame, JTabbedPane mainPanel) {
         this.frame = frame;
         this.mainPanel = mainPanel;
@@ -65,6 +72,9 @@ public class ManagerReviews extends JFrame implements ActionListener, ListSelect
         setupAssignReviewTab();
     }
 
+    /**
+     * Builds the list reviews tab UI
+     */
     private void setupListReviewsTab() {
         listReviewsPanel = new JPanel(new BorderLayout());
 
@@ -91,6 +101,9 @@ public class ManagerReviews extends JFrame implements ActionListener, ListSelect
         mainPanel.add("Listar Revisões", listReviewsPanel);
     }
 
+    /**
+     * Builds the assign review tab UI
+     */
     private void setupAssignReviewTab() {
         assignReviewPanel = new JPanel(new BorderLayout());
 
@@ -131,6 +144,11 @@ public class ManagerReviews extends JFrame implements ActionListener, ListSelect
         reviewsTableModel.setDataVector(newTableObjects, reviewsTableFields);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(searchButton)) {
@@ -138,6 +156,12 @@ public class ManagerReviews extends JFrame implements ActionListener, ListSelect
         }
     }
 
+
+    /**
+     * Handles the table listening events
+     *
+     * @param e the event
+     */    
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && this.reviewsTable.getSelectedRowCount() > 0) {

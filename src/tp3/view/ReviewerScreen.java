@@ -27,6 +27,9 @@ import javax.swing.table.DefaultTableModel;
 import tp3.controller.ManageReviews;
 import tp3.model.Review;
 
+/**
+ * A class that represents a reviewer screen
+ */
 public class ReviewerScreen extends JFrame implements ActionListener, ListSelectionListener {
 
     private Container container;
@@ -74,6 +77,9 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
     // =============== Profile Tab
     private JPanel profilePanel;
 
+    /**
+     * Class constructor that builds the UI
+     */
     public ReviewerScreen() {
         this.frame = this;
         this.container = getContentPane();
@@ -103,6 +109,9 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         this.setVisible(true);
     }
 
+    /**
+     * Builds the reviews tab UI
+     */
     private void setupReviewsTab() {
         reviewsPanel = new JPanel(new BorderLayout());
 
@@ -131,6 +140,9 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         reviewsPanel.add(new JScrollPane(reviewsTable), BorderLayout.CENTER);
     }
 
+    /**
+     * Builds the review book tab UI
+     */
     private void setupReviewBookTab() {
         reviewBooksPanel = new JPanel(new GridBagLayout());
         reviewBooksPanel.setBackground(Components.BACKGROUND_COLOR);
@@ -170,11 +182,19 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         reviewBooksPanel.add(reviewSaveButton, constraints);
     }
 
+    /**
+     * Builds the profile screen UI
+     */
     private void setupProfileTab() {
         profilePanel = new JPanel(new BorderLayout());
         new ProfileScreen(this, profilePanel);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(searchButton)) {
@@ -213,6 +233,9 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         }
     }
 
+    /**
+     * Filters the table according to the search text
+     */
     private void search() {
         ArrayList<Review> filteredReviews = new ArrayList();
         String searchText = reviewsSearchField.getText().toLowerCase();
@@ -245,12 +268,20 @@ public class ReviewerScreen extends JFrame implements ActionListener, ListSelect
         reviewsTableModel.setDataVector(newTableObjects, reviewsTableFields);
     }
 
+    /**
+     * Gets the currently selected review on the table
+     * @return a review
+     */
     private Review getSelectedReview() {
         ManageReviews manageReviews = new ManageReviews();
         ArrayList<Review> reviews = manageReviews.getReviewerReviews(Main.getLoggedUser().getId());
         return reviews.get(reviewsTable.getSelectedRow());
     }
 
+    /**
+     * Handles the selection change on the table
+     * @param e the event
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && this.reviewsTable.getSelectedRowCount() > 0) {

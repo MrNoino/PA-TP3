@@ -16,7 +16,7 @@ public class Notification {
      * 
      * @param aId id of the notification
      * @param aUserId target user id of the notification
-     * @param aRead if hte notification was read
+     * @param aRead if the notification was read
      * @param aContent content of the notification
      * @param aDatetime datetime of the notification
      */

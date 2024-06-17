@@ -38,6 +38,9 @@ import tp3.model.Manager;
 import tp3.model.Reviewer;
 import tp3.model.User;
 
+/**
+ * A class that represents a manager user screen
+ */
 public class ManagerUserScreen extends JFrame implements ActionListener, ItemListener, ListSelectionListener {
 
     private JFrame frame;
@@ -54,6 +57,11 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
     private String[] columnNames;
     private DefaultTableModel tableModel;
 
+    /**
+     * A class that builds the UI
+     * @param frame the main frame from the parent screen
+     * @param usersTabbedPanel the users tab from the parent screen
+     */
     public ManagerUserScreen(JFrame frame, JTabbedPane usersTabbedPanel) {
         this.frame = frame;
         this.usersTabbedPanel = usersTabbedPanel;
@@ -133,6 +141,11 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.usersTabbedPanel.add("Atualizar", updateUserScrollPanel);
     }
 
+    /**
+     * Handles the click events
+     *
+     * @param e the event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         ManageUsers manageUsers = new ManageUsers();
@@ -379,6 +392,10 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         }
     }
 
+    /**
+     * Listens to the radio buttons event
+     * @param e the event
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -392,6 +409,10 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         }
     }
 
+    /**
+     * Redesigns the add user form
+     * @param userRole 
+     */
     private void redesignAddUserPanel(String userRole) {
         this.addButton = Components.getPrimaryButton("Inserir", "Inserir o " + userRole);
         this.addButton.addActionListener(this);
@@ -515,6 +536,9 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.addPanel.repaint();
     }
 
+    /**
+     * Redesigns the update user form
+     */
     private void redesignUpdateUserPanel() {
         String userRole;
         int roleId = (int) this.table.getValueAt(this.table.getSelectedRow(), 6);
@@ -688,6 +712,11 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         this.updatePanel.repaint();
     }
 
+    /**
+     * Handles the table selection events
+     *
+     * @param e the event
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && this.table.getSelectedRowCount() > 0) {
@@ -695,6 +724,9 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
         }
     }
 
+    /**
+     * Clears the add user form
+     */
     private void clearAddForm() {
         this.addNameField.setText("");
         this.addUsernameField.setText("");

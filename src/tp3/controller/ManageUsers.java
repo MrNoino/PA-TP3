@@ -10,6 +10,9 @@ import java.util.Date;
 import tp3.model.Log;
 import tp3.view.Main;
 
+/**
+ * A class to manage the users in the database and locally
+ */
 public class ManageUsers {
 
     private ArrayList<User> users;
