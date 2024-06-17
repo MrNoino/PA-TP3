@@ -369,6 +369,6 @@ public final class Components {
      * @return the app logo
      */
     public static ImageIcon getLogoIcon(){
-        return new ImageIcon(Toolkit.getDefaultToolkit().getImage(Components.class.getResource("../assets/editora.jpeg")));
+        return new ImageIcon(Toolkit.getDefaultToolkit().getImage(Components.class.getClassLoader().getResource("tp3/assets/editora.jpeg")));
     }
 }

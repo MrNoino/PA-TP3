@@ -123,7 +123,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         authorProfileImageLabel = Components.getLabel("Foto de Perfil:");
         authorProfileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
-        authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         authorProfileImageButton.setBorder(BorderFactory.createEmptyBorder());
         authorProfileImageButton.addActionListener(this);
         authorNameLabel = Components.getLabel("Nome:");
@@ -153,7 +153,7 @@ public class SignupScreen extends JFrame implements ActionListener {
 
         reviewerProfileImageLabel = Components.getLabel("Foto de Perfil:");
         reviewerProfileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
-        reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         reviewerProfileImageButton.setBorder(BorderFactory.createEmptyBorder());
         reviewerProfileImageButton.addActionListener(this);
         reviewerNameLabel = Components.getLabel("Nome");
@@ -539,10 +539,10 @@ public class SignupScreen extends JFrame implements ActionListener {
         }else if(fileChooserResult == JFileChooser.CANCEL_OPTION){
             if(userType.equals("Author")){
                 this.authorProfileImage = null;
-                this.authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                this.authorProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
             }else{
                 this.reviewerProfileImage = null;
-               this.reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT))); 
+               this.reviewerProfileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT))); 
             }
         }
     }

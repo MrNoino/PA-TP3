@@ -76,7 +76,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
         logoutPanel.add(logoutButton, BorderLayout.SOUTH);
 
         this.profileImageButton = Components.getSecondaryButton(null, new Dimension(150, 150), "Escolha a sua foto de perfil");
-        this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+        this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         this.profileImageButton.setBorder(BorderFactory.createEmptyBorder());
         this.profileImageButton.addActionListener(this);
         this.nameField = Components.getTextField("Atualize o seu nome");
@@ -430,7 +430,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
             }
         } else if (fileChooserResult == JFileChooser.CANCEL_OPTION) {
             this.profileImage = null;
-            this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+            this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("tp3/assets/no_profile_image.png")).getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
             this.profileImage = null;
         }
     }
