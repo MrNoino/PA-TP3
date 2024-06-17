@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import tp3.controller.ManageManagers;
+import tp3.model.EmailWrapper;
 import tp3.model.Manager;
 
 /**
@@ -142,6 +143,9 @@ public class NoManagerScreen extends JFrame implements ActionListener {
                 return;
             }
             JOptionPane.showMessageDialog(this.frame, "Inserido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE, null);
+            
+            new EmailWrapper().sendMail(email, "Registo Na Editora", "Caro utilizador " + name + ". É com alegria que o recebemos na nossa plataforma");
+            
             this.openLoginFrame();
         }
 
