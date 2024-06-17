@@ -68,7 +68,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -112,7 +111,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -159,7 +157,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -206,7 +203,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -253,7 +249,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -298,7 +293,6 @@ public class ManageReviews {
             }
             return this.reviews;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as revisões\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -329,7 +323,6 @@ public class ManageReviews {
             }
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter o id mais alto\n");
             dbWrapper.disconnect();
             return false;
         }

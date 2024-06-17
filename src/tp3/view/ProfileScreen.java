@@ -412,7 +412,14 @@ public class ProfileScreen extends JFrame implements ActionListener {
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
-        int fileChooserResult = fileChooser.showOpenDialog(this);
+        int fileChooserResult;
+        try {
+            fileChooserResult = fileChooser.showOpenDialog(this);
+        } catch (Exception e) {
+            fileChooser.cancelSelection();
+            JOptionPane.showMessageDialog(this.frame, "Não foi possível aceder ao diretório", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
         if (fileChooserResult == JFileChooser.APPROVE_OPTION) {
             File profileImageFile = fileChooser.getSelectedFile();
             this.profileImageButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(profileImageFile.getAbsolutePath()).getScaledInstance(150, 150, Image.SCALE_SMOOTH)));

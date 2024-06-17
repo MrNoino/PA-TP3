@@ -58,7 +58,6 @@ public class ManageBooks {
                     resultSet.getInt("author_id"));
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter o livro\n");
         }
         return null;
     }
@@ -99,7 +98,6 @@ public class ManageBooks {
             return this.books;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as obras\n");
         }
         return null;
     }
@@ -140,7 +138,6 @@ public class ManageBooks {
             return this.books;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as obras");
         }
         return null;
     }
@@ -181,7 +178,6 @@ public class ManageBooks {
             return this.books;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as obras\n");
         }
         return null;
     }
@@ -218,7 +214,6 @@ public class ManageBooks {
             }
             return this.books;
         }catch(SQLException e){
-            System.out.println("\nErro ao obter as obras\n");
         }
         
         return null;
@@ -239,11 +234,9 @@ public class ManageBooks {
             }
 
             if (resultSet.getBoolean("exists")) {
-                System.out.println("\nTítulo já em uso\n");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("\nErro ao verificar o título\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -265,11 +258,9 @@ public class ManageBooks {
             }
 
             if (resultSet.getBoolean("exists")) {
-                System.out.println("\nISBN já em uso\n");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("\nErro ao verificar o ISBN\n");
         } finally {
             dbWrapper.disconnect();
         }

@@ -517,10 +517,17 @@ public class SignupScreen extends JFrame implements ActionListener {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Selecionar foto de perfil");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        //fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setAcceptAllFileFilterUsed(false);
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         fileChooser.setFileFilter(imageFilter);
-        int fileChooserResult = fileChooser.showOpenDialog(this);
+        int fileChooserResult;
+        try {
+            fileChooserResult = fileChooser.showOpenDialog(this);
+        } catch (Exception e) {
+            fileChooser.cancelSelection();
+            JOptionPane.showMessageDialog(this.frame, "Não foi possível aceder ao diretório", "Aviso", JOptionPane.ERROR_MESSAGE, null);
+            return;
+        }
         if (fileChooserResult == JFileChooser.APPROVE_OPTION) {
             if(userType.equals("Author")){
                 this.authorProfileImage = fileChooser.getSelectedFile();

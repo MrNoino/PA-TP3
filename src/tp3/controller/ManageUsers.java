@@ -39,7 +39,6 @@ public class ManageUsers {
 
         try {
             if (resultSet == null || !resultSet.next()) {
-                System.out.println("\nCredênciais inválidas\n");
                 return null;
             }
             return new User(resultSet.getLong("id"),
@@ -52,7 +51,6 @@ public class ManageUsers {
                     resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao iniciar sessão\n");
             return null;
         } finally {
             dbWrapper.disconnect();
@@ -75,11 +73,9 @@ public class ManageUsers {
             }
 
             if (resultSet.getBoolean("exists")) {
-                System.out.println("\nNome de utilizador já em uso.\n");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("\nErro ao verificar o nome de utilizador\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -102,11 +98,9 @@ public class ManageUsers {
             }
 
             if (resultSet.getBoolean("exists")) {
-                System.out.println("\nEmail já em uso.\n");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("\nErro ao verificar o email\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -129,11 +123,9 @@ public class ManageUsers {
             }
 
             if (resultSet.getBoolean("exists")) {
-                System.out.println("\nNIF já em uso.\n");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("\nErro ao verificar o NIF\n");
         } finally {
             dbWrapper.disconnect();
         }
@@ -169,7 +161,6 @@ public class ManageUsers {
                     resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter o utilizador\n");
         }
         return null;
     }
@@ -223,7 +214,6 @@ public class ManageUsers {
             return this.users;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os utilizadores\n");
         }
         return null;
     }
@@ -260,7 +250,6 @@ public class ManageUsers {
             return this.users;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os utilizadores\n");
         }
         return null;
     }
@@ -297,7 +286,6 @@ public class ManageUsers {
             return this.users;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os utilizadores\n");
         }
         return null;
     }
@@ -334,7 +322,6 @@ public class ManageUsers {
             return this.users;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os utilizadores\n");
         }
         return null;
     }

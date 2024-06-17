@@ -42,7 +42,6 @@ public class ManageManagers {
 
             return resultSet.getInt("total_managers");
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter o número total de gestores\n");
             return -1;
         } finally {
             dbWrapper.disconnect();
@@ -80,7 +79,6 @@ public class ManageManagers {
                     resultSet.getBytes("profile_image"));
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter o gestor\n");
         }
         return null;
     }

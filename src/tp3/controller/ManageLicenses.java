@@ -50,7 +50,6 @@ public class ManageLicenses {
             return this.licenses;
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter as licensas");
         }
         return null;
     }
@@ -79,7 +78,6 @@ public class ManageLicenses {
                         resultSet.getInt("quantity"));
 
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter a licença");
         }
         return null;
     }

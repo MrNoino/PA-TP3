@@ -36,7 +36,6 @@ public class DbWrapper {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("\nErro ao carregar o driver MySQL\n");
         }
     }
     
@@ -48,7 +47,6 @@ public class DbWrapper {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("\nErro ao carregar o driver MySQL\n");
         }
         if(!this.loadProperties(fileName))
             this.setProperties("localhost", "3306", "pa_tp", "root", "root");
@@ -61,7 +59,6 @@ public class DbWrapper {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("\nErro ao carregar o driver MySQL\n");
         }
         if(!this.loadProperties())
             this.setProperties("localhost", "3306", "pa_tp", "root", "root");
@@ -82,7 +79,6 @@ public class DbWrapper {
         try {
             reader = new FileReader(file);
         } catch (FileNotFoundException e) {
-            System.out.println("\nFicheiro das propriedades da base de dados não encontrado\n");
             return false;
         }
         
@@ -94,14 +90,12 @@ public class DbWrapper {
             this.user = input.readLine();
             this.password = input.readLine();
         } catch (IOException e) {
-            System.out.println("\nErro ler as propriedades da base de dados do ficheiro\n");
             return false;
         } finally{
             try {
                 input.close();
                 reader.close();
             } catch (IOException e) {
-                System.out.println("\nErro fechar a stream de entrada\n");
             }
         }
         return true;
@@ -141,21 +135,18 @@ public class DbWrapper {
         try {
             writer = new FileWriter( file );
         } catch (IOException e) {
-            System.out.println("\nErro ao criar a stream de saída\n");
             return false;
         }
         BufferedWriter output = new BufferedWriter( writer );
         try {
             output.write(this.host + "\n" + this.port + "\n" + this.database + "\n" + this.user + "\n" + this.password);
         } catch (IOException e) {
-            System.out.println("\nErro ao gravar o ficheiro de propriedades da base de dados\n");
             return false;
         } finally{
             try {
                 output.close();
                 writer.close();
             } catch (IOException e) {
-                System.out.println("\nErro fechar a stream de saída\n");
             }
         }
             
@@ -179,7 +170,6 @@ public class DbWrapper {
             this.connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.user, this.password);
             return true;
         } catch (SQLException e) {
-            System.out.println("\nErro ao conectar à base de dados\n");
         }
         
         return false;
@@ -196,7 +186,6 @@ public class DbWrapper {
             this.connection = null;
             return true;
         } catch (SQLException e) {
-            System.out.println("\nErro ao desconectar da base de dados\n");
         }
         return false;
     }
@@ -215,8 +204,6 @@ public class DbWrapper {
             statement = this.connection.createStatement();
             return statement.executeQuery(sqlQuery);
         } catch (SQLException e) {
-            System.out.println("\nErro ao fazer a consulta à base de dados\n");
-            System.out.println(e);
             return null;
         }
     }
@@ -239,8 +226,6 @@ public class DbWrapper {
             }
             return preparedStatement.executeQuery();
         } catch (SQLException e) {
-            System.out.println("\nErro ao fazer a consulta à base de dados\n");
-            System.out.println(e);
             return null;
         }
     }
@@ -264,15 +249,12 @@ public class DbWrapper {
             }
             rowCount = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("\nErro ao manipular a base de dados\n");
-            System.out.println(e);
             rowCount = 0;
         }finally{
             if(preparedStatement != null)
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    System.out.println("\nErro fechar o prepared statement\n");
                 }
             this.disconnect();
         }

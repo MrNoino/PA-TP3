@@ -42,7 +42,6 @@ public class ManageLogs {
             }
             return this.logs;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os logs\n");
         }
 
         return null;
@@ -72,7 +71,6 @@ public class ManageLogs {
             }
             return this.logs;
         } catch (SQLException e) {
-            System.out.println("\nErro ao obter os logs\n");
         }
 
         return null;
