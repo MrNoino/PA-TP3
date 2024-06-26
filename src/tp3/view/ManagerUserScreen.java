@@ -257,7 +257,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                 JOptionPane.showMessageDialog(this.frame, "Não inserido", "Aviso", JOptionPane.ERROR_MESSAGE, null);
             }
         } else if (e.getSource() == this.updateButton) {
-            User user = manageUsers.getUser(Main.getLoggedUser().getId());
+            User user = manageUsers.getUser((long) this.table.getValueAt(this.table.getSelectedRow(), 0));
             if (this.table.getSelectedRowCount() != 1) {
                 JOptionPane.showMessageDialog(this.frame, "Deve ter um registo selecionado na tabela de visualização", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                 return;
@@ -306,11 +306,11 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                     return;
                 }
                 if (roleId == 2) {
-                    if (this.addGraduationField.getText().isEmpty() || this.addSpecializationField.getText().isEmpty()) {
+                    if (this.updateGraduationField.getText().isEmpty() || this.updateSpecializationField.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this.frame, "Campos vazios", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                         return;
                     }
-                    Reviewer reviewer = new ManageReviewers().getReviewer(Main.getLoggedUser().getId());
+                    Reviewer reviewer = new ManageReviewers().getReviewer(user.getId());
                     if (!this.updateNifField.getText().equals(reviewer.getNif()) && manageUsers.existsNIF(this.updateNifField.getText())) {
                         JOptionPane.showMessageDialog(this.frame, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                         return;
@@ -331,7 +331,7 @@ public class ManagerUserScreen extends JFrame implements ActionListener, ItemLis
                             this.updateGraduationField.getText(),
                             this.updateSpecializationField.getText()));
                 } else {
-                    Author author = new ManageAuthors().getAuthor(Main.getLoggedUser().getId());
+                    Author author = new ManageAuthors().getAuthor(user.getId());
                     if (!this.updateNifField.getText().equals(author.getNif()) && manageUsers.existsNIF(this.updateNifField.getText())) {
                         JOptionPane.showMessageDialog(this.frame, "NIF já em uso", "Aviso", JOptionPane.ERROR_MESSAGE, null);
                         return;

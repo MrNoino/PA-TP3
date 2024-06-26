@@ -93,12 +93,13 @@ public class ManageAuthors {
      */
     public boolean updateAuthor(Author author) {
         DbWrapper dbWrapper = new DbWrapper();
-        boolean updated = dbWrapper.manipulate("CALL update_author(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{author.getId(),
+        boolean updated = dbWrapper.manipulate("CALL update_author(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{author.getId(),
             author.getName(),
             author.getUsername(),
             author.getPassword(),
             author.getEmail(),
             author.getRoleId(),
+            author.getProfileImage(),
             author.getNif(),
             author.getPhone(),
             author.getAddress(),
