@@ -1,4 +1,6 @@
-# PA - PW 3 (EN)
+# PA - PW 3 - Publisher Plataform (EN)
+
+This is the pratical work nº3 at the subject Applied Programming. The theme for this project in general is to develop a Desktop Platform for a Publisher. In this case at the TW 3 the main goal is to create an Graphical Interface with Java Swing. 
 
 ## Prerequisites
 
@@ -13,7 +15,9 @@
 
 -----
 
-# PA - TP 3 (PT)
+# PA - TP 3 - Plataforma Editora (PT)
+
+Este é o trabalho prático nº3 na cadeira de Programação Aplicada. O tema do projeto em geral é desenvolver uma Plataforma Desktop para uma Editora. No caso do TP 3 o objetivo é criar uma Interface Gráfica com Java Swing.
 
 ## Pré Requisitos
 
